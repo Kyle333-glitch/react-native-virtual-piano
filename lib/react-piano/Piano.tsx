@@ -1,82 +1,52 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 import ControlledPiano from './ControlledPiano';
 
-type PianoProps = {
+type NoteContext = { prevActiveNotes: ReadonlyArray<number> };
+
+type PianoProps = Omit<
+  React.ComponentProps<typeof ControlledPiano>,
+  'activeNotes' | 'onPlayNoteInput' | 'onStopNoteInput'
+> & {
   activeNotes?: ReadonlyArray<number>;
-  onPlayNoteInput?: (midi: number, ctx: { prevActiveNotes: number[] }) => void;
-  onStopNoteInput?: (midi: number, ctx: { prevActiveNotes: number[] }) => void;
-  // add other props want to support:
+  onNoteOn?: (midi: number, ctx: NoteContext) => void;
+  onNoteOff?: (midi: number, ctx: NoteContext) => void;
+  style?: StyleProp<ViewStyle>;
+  // TO-DO: add other props want to support:
   // noteRange: { first: number; last: number };
   // playNote: (midi: number) => void;
   // stopNote: (midi: number) => void;
-  // style?: StyleProp<ViewStyle>;
 };
 
-type PianoState = {
-  activeNotes: number[];
+const Piano = ({
+  activeNotes,
+  onNoteOn,
+  onNoteOff,
+  ...otherProps
+}: PianoProps) => {
+
+  const handlePlayNoteInput = useCallback((midiNumber: number) => {
+    onNoteOn?.(midiNumber, { prevActiveNotes: activeNotes?.slice() ?? [] })
+  }, [onNoteOn, activeNotes]
+  );
+
+  const handleStopNoteInput = useCallback((midiNumber: number) => {
+    onNoteOff?.(midiNumber, { prevActiveNotes: activeNotes?.slice() ?? [] })
+    }, [onNoteOff, activeNotes]
+  );
+
+  return (
+    <ControlledPiano
+      activeNotes={activeNotes ?? []}
+      onPlayNoteInput={handlePlayNoteInput}
+      onStopNoteInput={handleStopNoteInput}
+      {...otherProps}
+    />
+  );
 };
 
-class Piano extends React.Component<PianoProps, PianoState> {
+export default React.memo(Piano);
 
-  state: PianoState = {
-    activeNotes: [...(this.props.activeNotes ?? [])],
-  };
-
-  componentDidUpdate(prevProps: PianoProps) {
-    // Make activeNotes "controllable" by using internal
-    // state by default, but allowing prop overrides.
-    if (
-      prevProps.activeNotes !== this.props.activeNotes &&
-      this.state.activeNotes !== this.props.activeNotes
-    ) {
-      this.setState({
-        activeNotes: [...(this.props.activeNotes ?? [])],
-      });
-    }
-  }
-
-  handlePlayNoteInput = (midiNumber: number) => {
-    this.setState((prevState) => {
-      // Need to be handled inside setState in order to set prevActiveNotes without
-      // race conditions.
-      if (this.props.onPlayNoteInput) {
-        this.props.onPlayNoteInput(midiNumber, { prevActiveNotes: prevState.activeNotes });
-      }
-
-      // Don't append note to activeNotes if it's already present
-      if (prevState.activeNotes.includes(midiNumber)) {
-        return null;
-      }
-      return {
-        activeNotes: prevState.activeNotes.concat(midiNumber),
-      };
-    });
-  };
-
-  handleStopNoteInput = (midiNumber: number) => {
-    this.setState((prevState) => {
-      // Need to be handled inside setState in order to set prevActiveNotes without
-      // race conditions.
-      if (this.props.onStopNoteInput) {
-        this.props.onStopNoteInput(midiNumber, { prevActiveNotes: prevState.activeNotes });
-      }
-      return {
-        activeNotes: prevState.activeNotes.filter((note) => midiNumber !== note),
-      };
-    });
-  };
-
-  render() {
-    const { activeNotes, onPlayNoteInput, onStopNoteInput, ...otherProps } = this.props;
-    return (
-      <ControlledPiano
-        activeNotes={this.state.activeNotes}
-        onPlayNoteInput={this.handlePlayNoteInput}
-        onStopNoteInput={this.handleStopNoteInput}
-        {...otherProps}
-      />
-    );
-  }
-}
-
-export default Piano;
+//TODO: JSDoc focused on intent, usage, and edge cases
+//keep in mind: to optimize memoization: Memoize derived values with useMemo, encourage stable props in parents
+//keep in mind: rename PlayNoteInput and StopNoteInput things to onNoteOn/ onNoteOff completely when controlled piano is ready to accept that
