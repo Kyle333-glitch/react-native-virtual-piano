@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
   noteLabelNaturalActive: {
     color: '#f8e8d5',
   },
-})
+});
