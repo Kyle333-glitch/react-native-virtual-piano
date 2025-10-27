@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { View, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import Keyboard from './Keyboard';
 
 type ControlledPianoProps = {
@@ -54,7 +54,7 @@ export default function ControlledPiano({
 
   return (
     <View
-      style={[{ flex: 1 }, style]}
+      style={[styles.flex, style]}
       onTouchStart={() => { setUseTouchEvents(true); setIsTouchDown(true); }}
       onTouchEnd={() => setIsTouchDown(false)}
     >
@@ -73,3 +73,7 @@ export default function ControlledPiano({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  flex: { flex: 1 },
+});
