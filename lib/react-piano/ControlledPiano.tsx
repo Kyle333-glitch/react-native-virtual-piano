@@ -4,11 +4,11 @@ import Keyboard from './Keyboard';
 
 type ControlledPianoProps = {
   noteRange: { first: number; last: number };
-  activeNotes: number[];
+  activeNotes: ReadonlyArray<number>;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
-  onPlayNoteInput: (midiNumber: number, prevActiveNotes: number[]) => void;
-  onStopNoteInput: (midiNumber: number, prevActiveNotes: number[]) => void;
+  onPlayNoteInput: (midiNumber: number, prevActiveNotes: ReadonlyArray<number>) => void;
+  onStopNoteInput: (midiNumber: number, prevActiveNotes: ReadonlyArray<number>) => void;
   renderNoteLabel?: (args: {
     midiNumber: number;
     isActive: boolean;
