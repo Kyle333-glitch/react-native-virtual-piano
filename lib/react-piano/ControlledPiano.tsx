@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, GestureResponderEvent, StyleProp, ViewStyle } from 'react-native';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { View, StyleProp, ViewStyle } from 'react-native';
 import Keyboard from './Keyboard';
 
 type ControlledPianoProps = {
@@ -20,100 +20,56 @@ type ControlledPianoProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-type ControlledPianoState = {
-  isTouchDown: boolean;
-  useTouchEvents: boolean;
-};
+export default function ControlledPiano({
+  noteRange, activeNotes, playNote, stopNote, onPlayNoteInput, onStopNoteInput,
+  renderNoteLabel = () => null, disabled, width, keyWidthToHeight, style,
+}: ControlledPianoProps) {
 
-class ControlledPiano extends React.Component <ControlledPianoProps, ControlledPianoState>{
+  const prevActiveNotesRef = useRef(activeNotes);
+  useEffect(() => {
+    if (disabled) return;
+    const prev = prevActiveNotesRef.current;
+    const next = activeNotes;
+    next.filter(n => !prev.includes(n)).forEach(playNote);
+    prev.filter(n => !next.includes(n)).forEach(stopNote);
+    prevActiveNotesRef.current = next;
+  }, [activeNotes, disabled, playNote, stopNote]);
 
-  static defaultProps = {
-    renderNoteLabel: () => null,
-  };
+  const handlePlayNoteInput = useCallback ((midiNumber: number) => {
+    if (disabled) return;
+    onPlayNoteInput(midiNumber, activeNotes);
+  }, [disabled, onPlayNoteInput, activeNotes]
+  );
 
-  componentDidUpdate(prevProps: ControlledPianoProps) {
-    if (this.props.activeNotes !== prevProps.activeNotes) {
-      this.handleNoteChanges({
-        prevActiveNotes: prevProps.activeNotes || [],
-        nextActiveNotes: this.props.activeNotes || [],
-      });
-    }
-  }
+  const handleStopNoteInput = useCallback ((midiNumber: number) => {
+    if (disabled) return;
+    onStopNoteInput(midiNumber, activeNotes);
+  }, [disabled, onStopNoteInput, activeNotes]
+  );
 
-  handleNoteChanges = ({ prevActiveNotes, nextActiveNotes }: { prevActiveNotes: number[]; nextActiveNotes: number[]}): void => {
-    if (this.props.disabled) {
-      return;
-    }
-    const notesStopped = prevActiveNotes.filter(n => !nextActiveNotes.includes(n));
-    const notesStarted = nextActiveNotes.filter(n => !prevActiveNotes.includes(n));
-    notesStarted.forEach((midiNumber: number) => {
-      this.props.playNote(midiNumber);
-    });
-    notesStopped.forEach((midiNumber: number) => {
-      this.props.stopNote(midiNumber);
-    });
-  };
+  const [isTouchDown, setIsTouchDown] = useState(false);
+  const [useTouchEvents, setUseTouchEvents] = useState(false);
 
-  onPlayNoteInput = (midiNumber: number) => {
-    if (this.props.disabled) {
-      return;
-    }
-    // Pass in previous activeNotes for recording functionality
-    this.props.onPlayNoteInput(midiNumber, this.props.activeNotes);
-  };
+  const renderLabel = useCallback(renderNoteLabel, [renderNoteLabel]);
 
-  onStopNoteInput = (midiNumber: number) => {
-    if (this.props.disabled) {
-      return;
-    }
-    // Pass in previous activeNotes for recording functionality
-    this.props.onStopNoteInput(midiNumber, this.props.activeNotes);
-  };
-
-  onTouchStart = (_e: GestureResponderEvent) => {
-    this.setState({
-      useTouchEvents: true,
-      isTouchDown: true,
-    });
-  };
-
-  onTouchEnd = (_e: GestureResponderEvent) => {
-    this.setState({ isTouchDown: false });
-  };
-
-  renderNoteLabel = ({ midiNumber, isActive, isAccidental }: { midiNumber: number; isActive: boolean; isAccidental: boolean }):
-  React.ReactNode => {
-    return this.props.renderNoteLabel?.({ midiNumber, isActive, isAccidental });
-  };
-
-  render() {
-    return (
-      <View
-        style={[styles.container, this.props.style]}
-        onTouchStart={this.onTouchStart}
-        onTouchEnd={this.onTouchEnd}
-      >
-        <Keyboard
-          noteRange={this.props.noteRange}
-          onPlayNoteInput={this.onPlayNoteInput}
-          onStopNoteInput={this.onStopNoteInput}
-          activeNotes={this.props.activeNotes}
-          disabled={this.props.disabled}
-          width={this.props.width}
-          keyWidthToHeight={this.props.keyWidthToHeight}
-          gliss={this.state.isTouchDown}
-          useTouchEvents={this.state.useTouchEvents}
-          renderNoteLabel={this.renderNoteLabel}
-        />
-      </View>
-    );
-  }
+  return (
+    <View
+      style={[{ flex: 1 }, style]}
+      onTouchStart={() => { setUseTouchEvents(true); setIsTouchDown(true); }}
+      onTouchEnd={() => setIsTouchDown(false)}
+    >
+      <Keyboard
+        noteRange={noteRange}
+        onPlayNoteInput={handlePlayNoteInput}
+        onStopNoteInput={handleStopNoteInput}
+        activeNotes={activeNotes}
+        disabled={disabled}
+        width={width}
+        keyWidthToHeight={keyWidthToHeight}
+        gliss={isTouchDown}
+        useTouchEvents={useTouchEvents}
+        renderNoteLabel={renderLabel}
+      />
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-});
-
-export default ControlledPiano;
-
-//TODO: make more idiomatic
