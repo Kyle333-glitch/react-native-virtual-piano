@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { View, Pressable, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 
 import MidiNumbers from './MidiNumbers';
@@ -26,7 +26,7 @@ const DEFAULT_PITCH_POSITIONS: PitchPositions = {
   C: 0, Db: 0.55, D: 1, Eb: 1.8, E: 2, F: 3, Gb: 3.5, G: 4, Ab: 4.7, A: 5, Bb: 5.85, B: 6,
 };
 
-export default function Key({
+function Key({
   midiNumber, naturalKeyWidth, gliss, useTouchEvents, accidental, active, disabled,
   onPlayNoteInput, onStopNoteInput, accidentalWidthRatio = 0.65, 
   pitchPositions = DEFAULT_PITCH_POSITIONS, noteRange, children, style,
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
+export default React.memo(Key);
