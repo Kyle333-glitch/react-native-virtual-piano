@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import Keyboard from './Keyboard';
 
 type ControlledPianoProps = {
@@ -7,8 +7,8 @@ type ControlledPianoProps = {
   activeNotes: ReadonlyArray<number>;
   playNote: (midiNumber: number) => void;
   stopNote: (midiNumber: number) => void;
-  onPlayNoteInput: (midiNumber: number, prevActiveNotes: ReadonlyArray<number>) => void;
-  onStopNoteInput: (midiNumber: number, prevActiveNotes: ReadonlyArray<number>) => void;
+  onNoteOn: (midiNumber: number, prevActiveNotes: ReadonlyArray<number>) => void;
+  onNoteOff: (midiNumber: number, prevActiveNotes: ReadonlyArray<number>) => void;
   renderNoteLabel?: (args: {
     midiNumber: number;
     isActive: boolean;
@@ -21,7 +21,7 @@ type ControlledPianoProps = {
 };
 
 function ControlledPiano({
-  noteRange, activeNotes, playNote, stopNote, onPlayNoteInput, onStopNoteInput,
+  noteRange, activeNotes, playNote, stopNote, onNoteOn, onNoteOff,
   renderNoteLabel = () => null, disabled, width, keyWidthToHeight, style,
 }: ControlledPianoProps) {
 
@@ -35,16 +35,16 @@ function ControlledPiano({
     prevActiveNotesRef.current = next;
   }, [activeNotes, disabled, playNote, stopNote]);
 
-  const handlePlayNoteInput = useCallback ((midiNumber: number) => {
+  const handleNoteOn = useCallback ((midiNumber: number) => {
     if (disabled) return;
-    onPlayNoteInput(midiNumber, activeNotes);
-  }, [disabled, onPlayNoteInput, activeNotes]
+    onNoteOn(midiNumber, activeNotes);
+  }, [disabled, onNoteOn, activeNotes]
   );
 
-  const handleStopNoteInput = useCallback ((midiNumber: number) => {
+  const handleNoteOff = useCallback ((midiNumber: number) => {
     if (disabled) return;
-    onStopNoteInput(midiNumber, activeNotes);
-  }, [disabled, onStopNoteInput, activeNotes]
+    onNoteOff(midiNumber, activeNotes);
+  }, [disabled, onNoteOff, activeNotes]
   );
 
   const [isTouchDown, setIsTouchDown] = useState(false);
@@ -53,8 +53,8 @@ function ControlledPiano({
   const keyboardProps = useMemo(
   () => ({
     noteRange,
-    onPlayNoteInput: handlePlayNoteInput,
-    onStopNoteInput: handleStopNoteInput,
+    onNoteOn: handleNoteOn,
+    onNoteOff: handleNoteOff,
     activeNotes,
     disabled,
     width,
@@ -65,8 +65,8 @@ function ControlledPiano({
   }),
   [
     noteRange,
-    handlePlayNoteInput,
-    handleStopNoteInput,
+    handleNoteOn,
+    handleNoteOff,
     activeNotes,
     disabled,
     width,

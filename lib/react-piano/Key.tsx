@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo } from 'react';
-import { View, Pressable, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import React, { useCallback } from 'react';
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import MidiNumbers from './MidiNumbers';
 
@@ -13,8 +13,8 @@ type KeyProps = {
   accidental: boolean;
   active: boolean;
   disabled: boolean;
-  onPlayNoteInput: (midiNumber: number) => void;
-  onStopNoteInput: (midiNumber: number) => void;
+  onNoteOn: (midiNumber: number) => void;
+  onNoteOff: (midiNumber: number) => void;
   accidentalWidthRatio?: number;
   pitchPositions?: PitchPositions;
   noteRange: { first: number; last: number };
@@ -28,17 +28,17 @@ const DEFAULT_PITCH_POSITIONS: PitchPositions = {
 
 function Key({
   midiNumber, naturalKeyWidth, gliss, useTouchEvents, accidental, active, disabled,
-  onPlayNoteInput, onStopNoteInput, accidentalWidthRatio = 0.65, 
+  onNoteOn, onNoteOff, accidentalWidthRatio = 0.65, 
   pitchPositions = DEFAULT_PITCH_POSITIONS, noteRange, children, style,
 }: KeyProps) {
 
-  const handlePlayNoteInput = useCallback(() => {
-    if (!disabled) onPlayNoteInput(midiNumber);
-  }, [onPlayNoteInput, midiNumber, disabled]);
+  const handleNoteOn = useCallback(() => {
+    if (!disabled) onNoteOn(midiNumber);
+  }, [onNoteOn, midiNumber, disabled]);
 
-  const handleStopNoteInput = useCallback(() => {
-    if (!disabled) onStopNoteInput(midiNumber);
-  }, [onStopNoteInput, midiNumber, disabled]);
+  const handleNoteOff = useCallback(() => {
+    if (!disabled) onNoteOff(midiNumber);
+  }, [onNoteOff, midiNumber, disabled]);
 
   const getAbsoluteKeyPosition = (midiNumber: number) => {
     const OCTAVE_WIDTH = 7;
@@ -63,8 +63,8 @@ function Key({
         disabled && styles.disabled, { left, width },
         style,
       ]}
-      onPressIn={handlePlayNoteInput}
-      onPressOut={handleStopNoteInput}
+      onPressIn={handleNoteOn}
+      onPressOut={handleNoteOff}
       disabled={disabled}
     >
       <View style={styles.labelContainer}> {children} </View>  

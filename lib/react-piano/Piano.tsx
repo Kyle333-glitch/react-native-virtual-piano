@@ -6,7 +6,7 @@ type NoteContext = { prevActiveNotes: ReadonlyArray<number> };
 
 type PianoProps = Omit<
   React.ComponentProps<typeof ControlledPiano>,
-  'activeNotes' | 'onPlayNoteInput' | 'onStopNoteInput'
+  'activeNotes' | 'onNoteOn' | 'onNoteOff'
 > & {
   activeNotes?: ReadonlyArray<number>;
   onNoteOn?: (midi: number, ctx: NoteContext) => void;
@@ -25,12 +25,12 @@ const Piano = ({
   ...otherProps
 }: PianoProps) => {
 
-  const handlePlayNoteInput = useCallback((midiNumber: number) => {
+  const handleNoteOn = useCallback((midiNumber: number) => {
     onNoteOn?.(midiNumber, { prevActiveNotes: activeNotes?.slice() ?? [] })
   }, [onNoteOn, activeNotes]
   );
 
-  const handleStopNoteInput = useCallback((midiNumber: number) => {
+  const handleNoteOff = useCallback((midiNumber: number) => {
     onNoteOff?.(midiNumber, { prevActiveNotes: activeNotes?.slice() ?? [] })
     }, [onNoteOff, activeNotes]
   );
@@ -38,8 +38,8 @@ const Piano = ({
   return (
     <ControlledPiano
       activeNotes={activeNotes ?? []}
-      onPlayNoteInput={handlePlayNoteInput}
-      onStopNoteInput={handleStopNoteInput}
+      onNoteOn={handleNoteOn}
+      onNoteOff={handleNoteOff}
       {...otherProps}
     />
   );
