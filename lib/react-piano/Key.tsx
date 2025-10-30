@@ -29,7 +29,7 @@ const DEFAULT_PITCH_POSITIONS: PitchPositions = {
 export default function Key({
   midiNumber, naturalKeyWidth, gliss, useTouchEvents, accidental, active, disabled,
   onPlayNoteInput, onStopNoteInput, accidentalWidthRatio = 0.65, 
-  pitchPositions = DEFAULT_PITCH_POSITIONS, noteRange, children
+  pitchPositions = DEFAULT_PITCH_POSITIONS, noteRange, children, style,
 }: KeyProps) {
 
   const handlePlayNoteInput = useCallback(() => {
@@ -63,7 +63,8 @@ export default function Key({
         styles.key,
         accidental ? styles.accidental : styles.natural,
         (active ?? pressed) && styles.active, 
-        disabled && styles.disabled,{left, width},
+        disabled && styles.disabled, { left, width },
+        style,
       ]}
       onPressIn={handlePlayNoteInput}
       onPressOut={handleStopNoteInput}
