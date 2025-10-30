@@ -40,22 +40,19 @@ function Key({
     if (!disabled) onStopNoteInput(midiNumber);
   }, [onStopNoteInput, midiNumber, disabled]);
 
-  const getAbsoluteKeyPosition = useCallback((midiNumber: number) => {
+  const getAbsoluteKeyPosition = (midiNumber: number) => {
     const OCTAVE_WIDTH = 7;
     const { octave, pitchName } = MidiNumbers.getAttributes(midiNumber);
     const pitchPosition = pitchPositions[pitchName];
     const octavePosition = OCTAVE_WIDTH * octave;
     return pitchPosition + octavePosition;
-    }, [pitchPositions],
-  );
+  };
 
-  const getRelativeKeyPosition = useCallback((midiNumber: number) => 
-    getAbsoluteKeyPosition(midiNumber) - getAbsoluteKeyPosition(noteRange.first)
-    , [getAbsoluteKeyPosition, noteRange.first]
-  );
-
-  const left = getRelativeKeyPosition(midiNumber) * naturalKeyWidth
-  const width = (accidental ? accidentalWidthRatio : 1) * naturalKeyWidth
+  const getRelativeKeyPosition = (midiNumber: number) => 
+    getAbsoluteKeyPosition(midiNumber) - getAbsoluteKeyPosition(noteRange.first);
+    
+  const left = getRelativeKeyPosition(midiNumber) * naturalKeyWidth;
+  const width = (accidental ? accidentalWidthRatio : 1) * naturalKeyWidth;
 
   return (
     <Pressable
