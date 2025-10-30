@@ -27,7 +27,7 @@ type KeyboardProps = {
 const range = (start: number, end: number): number[] =>
     Array.from({ length: end - start + 1}, (_, i) => start + i);
 
-export default function Keyboard({
+function Keyboard({
   noteRange, activeNotes, onPlayNoteInput, onStopNoteInput, renderNoteLabel = () => null,
   keyWidthToHeight = 0.33, disabled = false, gliss = false, useTouchEvents = false, width, style
 }: KeyboardProps) {
@@ -66,4 +66,5 @@ export default function Keyboard({
 const styles = StyleSheet.create({
   row: { flexDirection: 'row' },
 });
-//TODO rename on play ntoe input
+
+export default React.memo(Keyboard);
