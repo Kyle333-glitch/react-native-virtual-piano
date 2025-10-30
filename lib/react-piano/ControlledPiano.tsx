@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import Keyboard from './Keyboard';
 
@@ -20,7 +20,7 @@ type ControlledPianoProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-export default function ControlledPiano({
+function ControlledPiano({
   noteRange, activeNotes, playNote, stopNote, onPlayNoteInput, onStopNoteInput,
   renderNoteLabel = () => null, disabled, width, keyWidthToHeight, style,
 }: ControlledPianoProps) {
@@ -50,7 +50,32 @@ export default function ControlledPiano({
   const [isTouchDown, setIsTouchDown] = useState(false);
   const [useTouchEvents, setUseTouchEvents] = useState(false);
 
-  const renderLabel = useCallback(renderNoteLabel, [renderNoteLabel]);
+  const keyboardProps = useMemo(
+  () => ({
+    noteRange,
+    onPlayNoteInput: handlePlayNoteInput,
+    onStopNoteInput: handleStopNoteInput,
+    activeNotes,
+    disabled,
+    width,
+    keyWidthToHeight,
+    gliss: isTouchDown,
+    useTouchEvents,
+    renderNoteLabel,
+  }),
+  [
+    noteRange,
+    handlePlayNoteInput,
+    handleStopNoteInput,
+    activeNotes,
+    disabled,
+    width,
+    keyWidthToHeight,
+    isTouchDown,
+    useTouchEvents,
+    renderNoteLabel,
+  ]
+  );
 
   return (
     <View
@@ -58,18 +83,7 @@ export default function ControlledPiano({
       onTouchStart={() => { setUseTouchEvents(true); setIsTouchDown(true); }}
       onTouchEnd={() => setIsTouchDown(false)}
     >
-      <Keyboard
-        noteRange={noteRange}
-        onPlayNoteInput={handlePlayNoteInput}
-        onStopNoteInput={handleStopNoteInput}
-        activeNotes={activeNotes}
-        disabled={disabled}
-        width={width}
-        keyWidthToHeight={keyWidthToHeight}
-        gliss={isTouchDown}
-        useTouchEvents={useTouchEvents}
-        renderNoteLabel={renderLabel}
-      />
+      <Keyboard {...keyboardProps} />
     </View>
   );
 }
@@ -77,3 +91,5 @@ export default function ControlledPiano({
 const styles = StyleSheet.create({
   flex: { flex: 1 },
 });
+
+export default React.memo(ControlledPiano);
