@@ -77,7 +77,7 @@ function ControlledPiano({
   return (
     <View
       style={[styles.flex, style]}
-      onTouchStart={() => { setIsTouchDown(true); }}
+      onTouchStart={() => setIsTouchDown(true)}
       onTouchEnd={() => setIsTouchDown(false)}
     >
       <Keyboard {...keyboardProps} />
