@@ -3,8 +3,10 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { playNote as defaultPlayNote, stopNote as defaultStopNote } from './DefaultSoundEngine';
 
 import ControlledPiano from './ControlledPiano';
+import MidiNumbers from './MidiNumbers';
 
 type NoteContext = { prevActiveNotes: ReadonlyArray<number> };
+type NoteRange = { first: number; last: number } | [number, number] | { first: string; last: string } | [string, string];
 
 type PianoProps = Omit<
   React.ComponentProps<typeof ControlledPiano>,
@@ -14,7 +16,7 @@ type PianoProps = Omit<
   onNoteOn?: (midi: number, ctx: NoteContext) => void;
   onNoteOff?: (midi: number, ctx: NoteContext) => void;
   style?: StyleProp<ViewStyle>;
-  noteRange: { first: number; last: number };
+  noteRange: NoteRange;
   playNote?: (midi: number) => void;
   stopNote?: (midi: number) => void;
 };
@@ -27,6 +29,18 @@ const Piano = ({
   stopNote = defaultStopNote,
   noteRange,
 }: PianoProps) => {
+
+  const normalizedNoteRange = (() => {
+    if (Array.isArray(noteRange)) {
+      return typeof noteRange[0] === 'string'
+        ? { first: MidiNumbers.fromNote(noteRange[0]), last: MidiNumbers.fromNote(noteRange[1]) }
+        : { first: noteRange[0], last: noteRange[1] };
+    } else {
+      return typeof noteRange.first === 'string'
+        ? { first: MidiNumbers.fromNote(noteRange.first), last: MidiNumbers.fromNote(noteRange.last) }
+        : noteRange;
+    }
+  })();
 
   const [internalActiveNotes, setInternalActiveNotes] = useState<ReadonlyArray<number>>(controlledActiveNotes ?? []);
 
@@ -67,8 +81,8 @@ const Piano = ({
     onNoteOff: handleNoteOff,
     playNote,
     stopNote,
-    noteRange,
-  }), [internalActiveNotes, handleNoteOn, handleNoteOff, playNote, stopNote, noteRange]
+    noteRange: normalizedNoteRange,
+  }), [internalActiveNotes, handleNoteOn, handleNoteOff, playNote, stopNote, normalizedNoteRange]
   );
 
   return (
