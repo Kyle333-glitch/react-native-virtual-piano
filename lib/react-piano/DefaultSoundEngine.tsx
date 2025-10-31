@@ -13,7 +13,7 @@ function midiToAsset(midi: number): any {
     }
 }
 
-export async function playNote(midiNumber: number) {
+export async function playNote(midiNumber: number, volume: number = 1.0) {
     try {
         if (soundCache[midiNumber]) {
             await soundCache[midiNumber].replayAsync();
@@ -28,7 +28,7 @@ export async function playNote(midiNumber: number) {
 
         const { sound } = await Audio.Sound.createAsync(asset, {
             shouldPlay: true,
-            volume: 1.0,
+            volume: volume,
         });
 
         soundCache[midiNumber] = sound;
