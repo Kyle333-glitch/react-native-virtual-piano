@@ -8,7 +8,7 @@ type NoteContext = { prevActiveNotes: ReadonlyArray<number> };
 
 type PianoProps = Omit<
   React.ComponentProps<typeof ControlledPiano>,
-  'activeNotes' | 'onNoteOn' | 'onNoteOff'
+  'activeNotes' | 'onNoteOn' | 'onNoteOff' | 'playNote' | 'stopNote' | 'style'
 > & {
   activeNotes?: ReadonlyArray<number>;
   onNoteOn?: (midi: number, ctx: NoteContext) => void;
