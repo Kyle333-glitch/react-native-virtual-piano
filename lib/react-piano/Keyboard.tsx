@@ -19,7 +19,6 @@ type KeyboardProps = {
   keyWidthToHeight?: number;
   disabled?: boolean;
   gliss?: boolean;
-  useTouchEvents?: boolean;
   width?: number;
   style?: StyleProp<ViewStyle>;
 }
@@ -29,7 +28,7 @@ const range = (start: number, end: number): number[] =>
 
 function Keyboard({
   noteRange, activeNotes, onNoteOn, onNoteOff, renderNoteLabel = () => null,
-  keyWidthToHeight = 0.33, disabled = false, gliss = false, useTouchEvents = false, width, style
+  keyWidthToHeight = 0.33, disabled = false, gliss = false, width, style
 }: KeyboardProps) {
   const midiNumbers: number[] = useMemo(() => range(noteRange.first, noteRange.last), [noteRange]);
   const naturalKeyCount = midiNumbers.filter((n) => !MidiNumbers.getAttributes(n).isAccidental).length;
@@ -53,7 +52,7 @@ function Keyboard({
             naturalKeyWidth={naturalKeyWidth}  
             active={isActive} accidental={isAccidental} disabled={disabled} 
             onNoteOn={onNoteOn} onNoteOff={onNoteOff} 
-            gliss={gliss} useTouchEvents={useTouchEvents}
+            gliss={gliss}
           >
             {!disabled && renderNoteLabel({ isActive, isAccidental, midiNumber })}
           </Key>

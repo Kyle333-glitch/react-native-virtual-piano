@@ -48,7 +48,6 @@ function ControlledPiano({
   );
 
   const [isTouchDown, setIsTouchDown] = useState(false);
-  const [useTouchEvents, setUseTouchEvents] = useState(false);
 
   const keyboardProps = useMemo(
   () => ({
@@ -60,7 +59,6 @@ function ControlledPiano({
     width,
     keyWidthToHeight,
     gliss: isTouchDown,
-    useTouchEvents,
     renderNoteLabel,
   }),
   [
@@ -72,7 +70,6 @@ function ControlledPiano({
     width,
     keyWidthToHeight,
     isTouchDown,
-    useTouchEvents,
     renderNoteLabel,
   ]
   );
@@ -80,7 +77,7 @@ function ControlledPiano({
   return (
     <View
       style={[styles.flex, style]}
-      onTouchStart={() => { setUseTouchEvents(true); setIsTouchDown(true); }}
+      onTouchStart={() => { setIsTouchDown(true); }}
       onTouchEnd={() => setIsTouchDown(false)}
     >
       <Keyboard {...keyboardProps} />

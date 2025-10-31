@@ -9,7 +9,6 @@ type KeyProps = {
   midiNumber: number;
   naturalKeyWidth: number;
   gliss: boolean;
-  useTouchEvents: boolean;
   accidental: boolean;
   active: boolean;
   disabled: boolean;
@@ -27,7 +26,7 @@ const DEFAULT_PITCH_POSITIONS: PitchPositions = {
 };
 
 function Key({
-  midiNumber, naturalKeyWidth, gliss, useTouchEvents, accidental, active, disabled,
+  midiNumber, naturalKeyWidth, gliss, accidental, active, disabled,
   onNoteOn, onNoteOff, accidentalWidthRatio = 0.65, 
   pitchPositions = DEFAULT_PITCH_POSITIONS, noteRange, children, style,
 }: KeyProps) {
