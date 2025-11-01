@@ -35,7 +35,8 @@ const PITCH_INDEXES: Record<string, number> = {
 const MIDI_NUMBER_C0 = 12;
 export const MIN_MIDI_NUMBER = MIDI_NUMBER_C0;
 export const MAX_MIDI_NUMBER = 127;
-const NOTE_REGEX = /([a-g])([#b]?)(\d+)/;
+// Accept notes case-insensitively, trim surrounding whitespace, and require full-string match.
+const NOTE_REGEX = /^([a-g])([#b]?)(\d+)$/i;
 const NOTES_IN_OCTAVE = 12;
 
 export type MidiNumberAttributes = {
@@ -55,14 +56,16 @@ function range(start: number, end: number, step = 1): number[] {
 }
 
 export function fromNote(note: string): number {
-    if (!note) {
-        throw new Error("Invalid note argument: empty");
+    if (!note || typeof note !== 'string' || note.trim() === '') {
+        throw new Error('Invalid note argument: empty');
     }
-    const match = NOTE_REGEX.exec(note.toLowerCase());
+    const trimmed = note.trim();
+    const match = NOTE_REGEX.exec(trimmed);
     if (!match) {
         throw new Error(`Invalid note argument: ${note}`);
     }
     const [, letter, accidental, octave] = match;
+    // Normalize to match the keys in PITCH_INDEXES (e.g. "Db", "C#", "E")
     const pitchName = `${letter.toUpperCase()}${accidental}`;
     const pitchIndex = PITCH_INDEXES[pitchName];
     if (pitchIndex == null) {
