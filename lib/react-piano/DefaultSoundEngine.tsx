@@ -3,6 +3,8 @@ import { InteractionManager } from "react-native";
 
 const soundCache: Record<number, Audio.Sound | undefined> = {};
 const loadingPromises: Record<number, Promise<Audio.Sound> | undefined> = {};
+// Track which MIDI numbers we've already warned about to avoid spamming the log.
+const warnedMissingAsset: Record<number, boolean> = {};
 
 function midiToAsset(midi: number): any | null {
     // Map MIDI numbers to bundled assets here. Keep function small and explicit.
@@ -28,9 +30,13 @@ export async function playNote(midiNumber: number, volume: number = 1.0) {
         if (!loadingPromises[midiNumber]) {
             const asset = midiToAsset(midiNumber);
             if (!asset) {
-                console.warn(
-                    `[DefaultSoundEngine] No sound asset for MIDI ${midiNumber}`
-                );
+                if (!warnedMissingAsset[midiNumber]) {
+                    // eslint-disable-next-line no-console
+                    console.warn(
+                        `[DefaultSoundEngine] No sound asset for MIDI ${midiNumber}`
+                    );
+                    warnedMissingAsset[midiNumber] = true;
+                }
                 return;
             }
             loadingPromises[midiNumber] = (async () => {
@@ -132,9 +138,13 @@ export function preloadNotes(midiNumbers: number[]) {
                     if (!loadingPromises[midi]) {
                         const asset = midiToAsset(midi);
                         if (!asset) {
-                            console.warn(
-                                `[DefaultSoundEngine] preloadNotes: no asset for MIDI ${midi}`
-                            );
+                            if (!warnedMissingAsset[midi]) {
+                                // eslint-disable-next-line no-console
+                                console.warn(
+                                    `[DefaultSoundEngine] preloadNotes: no asset for MIDI ${midi}`
+                                );
+                                warnedMissingAsset[midi] = true;
+                            }
                             continue;
                         }
                         loadingPromises[midi] = (async () => {

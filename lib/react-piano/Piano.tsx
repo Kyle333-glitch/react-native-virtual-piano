@@ -13,7 +13,13 @@ type NoteContext = { prevActiveNotes: ReadonlyArray<number> };
 
 type PianoProps = Omit<
     React.ComponentProps<typeof ControlledPiano>,
-    "activeNotes" | "onNoteOn" | "onNoteOff" | "playNote" | "stopNote" | "style"
+    | "activeNotes"
+    | "onNoteOn"
+    | "onNoteOff"
+    | "playNote"
+    | "stopNote"
+    | "style"
+    | "noteRange"
 > & {
     activeNotes?: ReadonlyArray<number>;
     onNoteOn?: (midi: number, ctx: NoteContext) => void;
@@ -39,7 +45,19 @@ const Piano = ({
     noteRange,
     autoUnloadOnUnmount = false,
 }: PianoProps) => {
-    const normalizedNoteRange = normalizeNoteRange(noteRange);
+    let normalizedNoteRange;
+    try {
+        normalizedNoteRange = normalizeNoteRange(noteRange);
+    } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error &&
+            console.error(
+                "[Piano] normalizeNoteRange failed for",
+                noteRange,
+                err
+            ); // debug
+        throw err;
+    }
 
     const [internalActiveNotes, setInternalActiveNotes] = useState<
         ReadonlyArray<number>
