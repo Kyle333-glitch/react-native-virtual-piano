@@ -13,7 +13,7 @@ export default function Index() {
       }}
     >
       <Piano
-        noteRange={{ first: 60, last: 70 }}
+        noteRange={["c4", "c5"]}
         onNoteOn={(midi, ctx) => console.log('Note on:', midi, ctx)}
         onNoteOff={(midi, ctx) => console.log('Note off:', midi, ctx)}
       />

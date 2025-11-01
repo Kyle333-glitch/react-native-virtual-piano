@@ -13,7 +13,10 @@ const styles = StyleSheet.create({
     keyAccidental: {
         backgroundColor: "#555",
         borderWidth: 1,
-        borderColor: "#fff",
+        // Use a dark border color for accidentals so their edges blend with
+        // the black key color instead of showing a white seam against the
+        // keyboard wrapper's rounded background when clipped.
+        borderColor: "#444",
         borderTopWidth: 0, // transparent border-top
         borderBottomLeftRadius: 4,
         borderBottomRightRadius: 4,
@@ -25,12 +28,18 @@ const styles = StyleSheet.create({
 
     keyNatural: {
         backgroundColor: "#f6f5f3",
-        borderWidth: 1,
+        // Use a full 1px border for natural keys, but slightly overlap
+        // adjacent keys (negative margin) so seams visually remain 1px
+        // instead of looking doubled.
+        borderLeftWidth: 1,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
         borderColor: "#888",
         borderBottomLeftRadius: 6,
         borderBottomRightRadius: 6,
         flex: 1,
-        marginRight: 1,
+        // Overlap neighbors by 1px to avoid double-thick seams.
+        marginRight: -1,
         zIndex: 0,
     },
 
@@ -88,6 +97,27 @@ const styles = StyleSheet.create({
 
     noteLabelNaturalActive: {
         color: "#f8e8d5",
+    },
+    // ControlledPiano container: stretch to fill parent horizontally but
+    // don't force centering here so the keyboard wrapper can control centering.
+    controlledPiano: {
+        flex: 1,
+        alignItems: "stretch",
+        justifyContent: "center",
+        alignSelf: "stretch",
+    },
+
+    // Wrapper applied to Keyboard. Make it greedy by default so the
+    // keyboard fills available horizontal space. Consumers can override
+    // with a custom style prop if they want a narrower layout.
+    keyboardWrapper: {
+        alignSelf: "stretch",
+        width: "100%",
+        // Rounded corners and clip any accidental keys that overflow so the
+        // keyboard has a clean outer edge.
+        borderRadius: 8,
+        overflow: "hidden",
+        backgroundColor: "#f6f5f3",
     },
 });
 

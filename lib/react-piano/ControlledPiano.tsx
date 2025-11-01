@@ -5,8 +5,9 @@ import React, {
     useRef,
     useState,
 } from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import Keyboard from "./Keyboard";
+import styles from "./styles";
 
 type ControlledPianoProps = {
     noteRange: { first: number; last: number };
@@ -146,7 +147,7 @@ function ControlledPiano({
 
     return (
         <View
-            style={[styles.flex, style]}
+            style={[styles.controlledPiano, style]}
             onTouchStart={() => setIsTouchDown(true)}
             onTouchEnd={() => setIsTouchDown(false)}
             onTouchCancel={() => {
@@ -167,13 +168,8 @@ function ControlledPiano({
                 }
             }}
         >
-            <Keyboard {...keyboardProps} />
+            <Keyboard {...keyboardProps} style={styles.keyboardWrapper} />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    flex: { flex: 1 },
-});
-
 export default React.memo(ControlledPiano);

@@ -3,6 +3,7 @@ import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import Key from "./Key";
 import MidiNumbers from "./MidiNumbers";
+import styles from "./styles";
 
 type NoteRange = { first: number; last: number };
 
@@ -64,8 +65,7 @@ function Keyboard({
     return (
         <View
             style={[
-                styles.row,
-                style,
+                styles.keyboard,
                 {
                     width:
                         typeof measuredWidth === "number"
@@ -73,6 +73,7 @@ function Keyboard({
                             : "100%",
                     height: containerHeight,
                 },
+                style,
             ]}
             onLayout={(e) => {
                 // If width prop provided (pixels), measuredWidth initialized to it; otherwise measure.
@@ -108,9 +109,5 @@ function Keyboard({
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    row: { flexDirection: "row" },
-});
 
 export default React.memo(Keyboard);
