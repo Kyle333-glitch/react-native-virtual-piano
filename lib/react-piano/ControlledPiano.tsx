@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import Keyboard from "./Keyboard";
-import styles from "./styles";
+import getStyles, { DEFAULTS } from "./styles";
 
 type ControlledPianoProps = {
     noteRange: { first: number; last: number };
@@ -31,6 +31,11 @@ type ControlledPianoProps = {
     width?: number;
     keyWidthToHeight?: number;
     style?: StyleProp<ViewStyle>;
+    whiteKeyColor?: string;
+    blackKeyColor?: string;
+    borderWidth?: number;
+    borderColor?: string;
+    pressedColor?: string;
 };
 
 function ControlledPiano({
@@ -45,7 +50,23 @@ function ControlledPiano({
     width,
     keyWidthToHeight,
     style,
+    whiteKeyColor,
+    blackKeyColor,
+    borderWidth,
+    borderColor,
+    pressedColor,
 }: ControlledPianoProps) {
+    const styles = useMemo(
+        () =>
+            getStyles({
+                whiteKeyColor: whiteKeyColor ?? DEFAULTS.WHITE_KEY_COLOR,
+                blackKeyColor: blackKeyColor ?? DEFAULTS.BLACK_KEY_COLOR,
+                borderWidth: borderWidth ?? DEFAULTS.BORDER_WIDTH,
+                borderColor: borderColor ?? DEFAULTS.BORDER_COLOR,
+                pressedColor: pressedColor ?? DEFAULTS.PRESSED_COLOR,
+            }),
+        [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
+    );
     const prevActiveNotesRef = useRef(activeNotes);
     useEffect(() => {
         if (disabled) return;
@@ -131,6 +152,11 @@ function ControlledPiano({
             keyWidthToHeight,
             gliss: isTouchDown,
             renderNoteLabel: stableRenderNoteLabel,
+            whiteKeyColor,
+            blackKeyColor,
+            borderWidth,
+            borderColor,
+            pressedColor,
         }),
         [
             noteRange,
@@ -142,6 +168,11 @@ function ControlledPiano({
             keyWidthToHeight,
             isTouchDown,
             stableRenderNoteLabel,
+            whiteKeyColor,
+            blackKeyColor,
+            borderWidth,
+            borderColor,
+            pressedColor,
         ]
     );
 

@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 
 import MidiNumbers from "./MidiNumbers";
-import styles, { DEFAULTS, keyBase, keyLayout, labelContainer } from "./styles";
+import getStyles, { DEFAULTS, keyBase, keyLayout, labelContainer } from "./styles";
 
 type PitchPositions = Record<string, number>;
 
@@ -28,6 +28,11 @@ type KeyProps = {
         isAccidental: boolean;
     }) => React.ReactNode;
     style?: StyleProp<ViewStyle>;
+    whiteKeyColor?: string;
+    blackKeyColor?: string;
+    borderWidth?: number;
+    borderColor?: string;
+    pressedColor?: string;
 };
 
 const DEFAULT_PITCH_POSITIONS: PitchPositions = {
@@ -60,7 +65,24 @@ function Key({
     noteRange,
     renderNoteLabel,
     style,
+    whiteKeyColor = DEFAULTS.WHITE_KEY_COLOR,
+    blackKeyColor = DEFAULTS.BLACK_KEY_COLOR,
+    borderWidth = DEFAULTS.BORDER_WIDTH,
+    borderColor = DEFAULTS.BORDER_COLOR,
+    pressedColor = DEFAULTS.PRESSED_COLOR,
 }: KeyProps) {
+    const styles = useMemo(
+        () =>
+            getStyles({
+                whiteKeyColor,
+                blackKeyColor,
+                borderWidth,
+                borderColor,
+                pressedColor,
+            }),
+        [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
+    )
+
     const handleNoteOn = useCallback(() => {
         if (!disabled) onNoteOn(midiNumber);
     }, [onNoteOn, midiNumber, disabled]);

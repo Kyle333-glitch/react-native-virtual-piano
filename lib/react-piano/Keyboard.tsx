@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import Key from "./Key";
 import MidiNumbers from "./MidiNumbers";
-import styles from "./styles";
+import getStyles, { DEFAULTS } from "./styles";
 
 type NoteRange = { first: number; last: number };
 
@@ -22,6 +22,11 @@ type KeyboardProps = {
     gliss?: boolean;
     width?: number;
     style?: StyleProp<ViewStyle>;
+    whiteKeyColor?: string;
+    blackKeyColor?: string;
+    borderWidth?: number;
+    borderColor?: string;
+    pressedColor?: string;
 };
 
 const range = (start: number, end: number): number[] =>
@@ -38,7 +43,24 @@ function Keyboard({
     gliss = false,
     width,
     style,
+    whiteKeyColor,
+    blackKeyColor,
+    borderWidth,
+    borderColor,
+    pressedColor,
 }: KeyboardProps) {
+    const styles = useMemo(
+        () =>
+            getStyles({
+                whiteKeyColor: whiteKeyColor ?? DEFAULTS.WHITE_KEY_COLOR,
+                blackKeyColor: blackKeyColor ?? DEFAULTS.BLACK_KEY_COLOR,
+                borderWidth: borderWidth ?? DEFAULTS.BORDER_WIDTH,
+                borderColor: borderColor ?? DEFAULTS.BORDER_COLOR,
+                pressedColor: pressedColor ?? DEFAULTS.PRESSED_COLOR,
+            }),
+        [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
+    );
+
     const midiNumbers: number[] = useMemo(
         () => range(noteRange.first, noteRange.last),
         [noteRange]
@@ -48,7 +70,7 @@ function Keyboard({
     ).length;
     const naturalKeyWidth = 1 / naturalKeyCount;
     // Measure container width on mobile for pixel-perfect key positioning.
-    const [measuredWidth, setMeasuredWidth] = React.useState<
+    const [measuredWidth, setMeasuredWidth] = useState<
         number | undefined
     >(typeof width === "number" ? width : undefined);
 
@@ -103,6 +125,11 @@ function Keyboard({
                         onNoteOff={onNoteOff}
                         gliss={gliss}
                         renderNoteLabel={renderNoteLabel}
+                        whiteKeyColor={whiteKeyColor}
+                        blackKeyColor={blackKeyColor}
+                        borderWidth={borderWidth}
+                        borderColor={borderColor}
+                        pressedColor={pressedColor}
                     />
                 );
             })}

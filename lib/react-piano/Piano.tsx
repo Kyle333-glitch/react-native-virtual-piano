@@ -8,6 +8,7 @@ import {
 import ControlledPiano from "./ControlledPiano";
 import { unloadRange } from "./DefaultSoundEngine";
 import normalizeNoteRange, { NoteRange } from "./NormalizeNoteRange";
+import { DEFAULTS } from "./styles";
 
 type NoteContext = { prevActiveNotes: ReadonlyArray<number> };
 
@@ -34,6 +35,11 @@ type PianoProps = Omit<
      * Default: false
      */
     autoUnloadOnUnmount?: boolean;
+    whiteKeyColor?: string;
+    blackKeyColor?: string;
+    borderWidth?: number;
+    borderColor?: string;
+    pressedColor?: string;
 };
 
 const Piano = ({
@@ -44,6 +50,11 @@ const Piano = ({
     stopNote = defaultStopNote,
     noteRange,
     autoUnloadOnUnmount = false,
+    whiteKeyColor = DEFAULTS.WHITE_KEY_COLOR,
+    blackKeyColor = DEFAULTS.BLACK_KEY_COLOR,
+    borderWidth = DEFAULTS.BORDER_WIDTH,
+    borderColor = DEFAULTS.BORDER_COLOR,
+    pressedColor = DEFAULTS.PRESSED_COLOR,
 }: PianoProps) => {
     let normalizedNoteRange;
     try {
@@ -135,6 +146,11 @@ const Piano = ({
             noteRange: normalizedNoteRange,
             // pass-through for ControlledPiano if desired (not used internally)
             autoUnloadOnUnmount,
+            whiteKeyColor,
+            blackKeyColor,
+            borderWidth,
+            borderColor,
+            pressedColor,
         }),
         [
             internalActiveNotes,
@@ -143,6 +159,11 @@ const Piano = ({
             playNote,
             stopNote,
             normalizedNoteRange,
+            whiteKeyColor,
+            blackKeyColor,
+            borderWidth,
+            borderColor,
+            pressedColor,
         ]
     );
 

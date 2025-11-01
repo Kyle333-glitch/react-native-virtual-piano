@@ -1,6 +1,21 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, ViewStyle } from "react-native";
 
-const styles = StyleSheet.create({
+type PianoStyleProps = {
+    whiteKeyColor: string;
+    blackKeyColor: string;
+    borderWidth: number;
+    borderColor: string;
+    pressedColor: string;
+};
+
+export default function getStyles({
+    whiteKeyColor,
+    blackKeyColor,
+    borderWidth,
+    borderColor,
+    pressedColor,
+}: PianoStyleProps) {
+    return StyleSheet.create({
     keyboard: {
         position: "relative",
         flexDirection: "row",
@@ -11,12 +26,9 @@ const styles = StyleSheet.create({
     },
 
     keyAccidental: {
-        backgroundColor: "#555",
-        borderWidth: 1,
-        // Use a dark border color for accidentals so their edges blend with
-        // the black key color instead of showing a white seam against the
-        // keyboard wrapper's rounded background when clipped.
-        borderColor: "#444",
+        backgroundColor: blackKeyColor,
+        borderWidth: borderWidth,
+        borderColor: borderColor,
         borderTopWidth: 0, // transparent border-top
         borderBottomLeftRadius: 4,
         borderBottomRightRadius: 4,
@@ -27,14 +39,14 @@ const styles = StyleSheet.create({
     },
 
     keyNatural: {
-        backgroundColor: "#f6f5f3",
+        backgroundColor: whiteKeyColor,
         // Use a full 1px border for natural keys, but slightly overlap
         // adjacent keys (negative margin) so seams visually remain 1px
         // instead of looking doubled.
-        borderLeftWidth: 1,
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderColor: "#888",
+        borderLeftWidth: borderWidth,
+        borderTopWidth: borderWidth,
+        borderBottomWidth: borderWidth,
+        borderColor: borderColor,
         borderBottomLeftRadius: 6,
         borderBottomRightRadius: 6,
         flex: 1,
@@ -44,32 +56,32 @@ const styles = StyleSheet.create({
     },
 
     keyActive: {
-        backgroundColor: "#3ac8da",
+        backgroundColor: pressedColor,
     },
 
     keyActiveAccidental: {
-        borderWidth: 1,
-        borderColor: "#fff",
-        borderTopWidth: 1,
-        borderTopColor: "#3ac8da",
+        borderWidth: borderWidth,
+        borderColor: pressedColor,
+        borderTopWidth: borderWidth,
+        borderTopColor: pressedColor,
         height: "65%",
     },
 
     keyActiveNatural: {
-        borderWidth: 1,
-        borderColor: "#3ac8da",
+        borderWidth: borderWidth,
+        borderColor: pressedColor,
         height: "98%",
     },
 
     keyDisabledAccidental: {
         backgroundColor: "#ddd",
-        borderWidth: 1,
+        borderWidth: borderWidth,
         borderColor: "#999",
     },
 
     keyDisabledNatural: {
         backgroundColor: "#eee",
-        borderWidth: 1,
+        borderWidth: borderWidth,
         borderColor: "#aaa",
     },
 
@@ -117,31 +129,31 @@ const styles = StyleSheet.create({
         // keyboard has a clean outer edge.
         borderRadius: 8,
         overflow: "hidden",
-        backgroundColor: "#f6f5f3",
+        backgroundColor: whiteKeyColor,
     },
 });
+}
 
-// Exported constants and helpers for layout and defaults. Dynamic per-key
-// layout values still need to be provided at render time, but this helper
-// centralizes the shape and intent in one file.
 export const DEFAULTS = {
     ACCIDENTAL_WIDTH_RATIO: 0.65,
+    WHITE_KEY_COLOR: "#f6f5f3",
+    BLACK_KEY_COLOR: "#555",
+    BORDER_WIDTH: 1,
+    BORDER_COLOR: "#888",
+    PRESSED_COLOR: "#3ac8da",
 };
 
 export function keyLayout(left: number | string, width: number | string) {
-    // Return a style object. Using `any` here avoids strict type mismatch in
-    // callers where width/left may be expressed as percent strings.
     return { left, width } as any;
 }
 
-// Base key positioning used by individual key components.
 export const keyBase = {
     position: "absolute" as const,
     top: 0,
     bottom: 0,
 };
 
-// For backward compatibility with previous local styles
-export const labelContainer = styles.noteLabelContainer;
-
-export default styles;
+export const labelContainer: ViewStyle = {
+    flex: 1,
+    alignSelf: "flex-end",
+};
