@@ -87,19 +87,19 @@ export default function Settings() {
             onValueChange={setKeyLiftOn}
         />
 
-        <Text>Press Haptics</Text>
+        <Text style={headerStyles.smallSectionHeader}>Press Haptics</Text>
         <Switch
             value={pressHapticOn}
             onValueChange={setPressHapticOn}
         />
 
-        <Text>Release Haptics</Text>
+        <Text style={headerStyles.smallSectionHeader}>Release Haptics</Text>
         <Switch
             value={releaseHapticOn}
             onValueChange={setReleaseHapticOn}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>Press Haptic Strength</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Press Haptic Strength</Text>
         <SegmentedControl
             values={hapticsStrengthOptions}
             selectedIndex={hapticsStrengthOptions.indexOf(hapticsStrength)}
@@ -109,7 +109,7 @@ export default function Settings() {
             }}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>Key Border Radius</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Key Border Radius</Text>
         <NumericInput
             value={borderRadius}
             onChange={setBorderRadius}
@@ -120,7 +120,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>Key Border Width</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Key Border Width</Text>
         <NumericInput
             value={borderWidth}
             onChange={setBorderWidth}
@@ -131,7 +131,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>Disabled Key Border Width</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Disabled Key Border Width</Text>
         <NumericInput
             value={disabledBorderWidth}
             onChange={setDisabledBorderWidth}
@@ -142,42 +142,42 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>White Key Color</Text>
+        <Text style={headerStyles.mediumSectionHeader}>White Key Color</Text>
         <ColorPicker value={whiteKeyColor} onComplete={({ hex }) => setWhiteKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text style={headerStyles.smallSectionHeader}>Black Key Color</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Black Key Color</Text>
         <ColorPicker value={blackKeyColor} onComplete={({ hex }) => setBlackKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text style={headerStyles.smallSectionHeader}>Pressed Color</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Pressed Color</Text>
         <ColorPicker value={pressedColor} onComplete={({ hex }) => setPressedColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text style={headerStyles.smallSectionHeader}>Disabled Key Color</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Disabled Key Color</Text>
         <ColorPicker value={disabledKeyColor} onComplete={({ hex }) => setDisabledKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text style={headerStyles.smallSectionHeader}>Border Color</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Border Color</Text>
         <ColorPicker value={borderColor} onComplete={({ hex }) => setBorderColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text style={headerStyles.smallSectionHeader}>Key Shrink: {keyShrinkPercent}%</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Key Shrink: {keyShrinkPercent}%</Text>
         <NumericInput
             value={keyShrinkPercent}
             onChange={setKeyShrinkPercent}
@@ -187,7 +187,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>Black Key Height: {blackKeyHeight}%</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Black Key Height: {blackKeyHeight}%</Text>
         <NumericInput
             value={blackKeyHeight}
             onChange={setBlackKeyHeight}
@@ -197,7 +197,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>White Key Height: {whiteKeyHeight}%</Text>
+        <Text style={headerStyles.mediumSectionHeader}>White Key Height: {whiteKeyHeight}%</Text>
         <NumericInput
             value={whiteKeyHeight}
             onChange={setWhiteKeyHeight}
@@ -207,7 +207,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>Key Label Mode: { special != "Unset"
+        <Text style={headerStyles.sectionHeader}>Key Label Mode: { special != "Unset"
             ? `${special}`
             : `For ${keyColorSubset.toLowerCase()} color keys, show ${onlyC ? "only C's" : "all notes"}
             ${withOctaveNumbers ? " with octave numbers" : " without octave numbers"}`
@@ -236,7 +236,7 @@ export default function Settings() {
             onValueChange={setWithOctaveNumbers}
         />
 
-        <Text style={headerStyles.smallSectionHeader}>Special Options (overrides other settings)</Text>
+        <Text style={headerStyles.mediumSectionHeader}>Special Options (overrides other settings)</Text>
         <SegmentedControl
             values={specialOptions.map((o) => o.label)}
             selectedIndex={specialOptions.findIndex((o) => o.value === special)}
