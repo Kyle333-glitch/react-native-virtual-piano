@@ -2,7 +2,7 @@ import { Text, View, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Link } from "expo-router";
 
-import { Piano, MidiNumbers } from "../lib/react-piano";
+import { Piano } from "../lib/react-piano";
 
 import NativeIcon from "../components/NativeIcons";
 
