@@ -4,31 +4,31 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import NumericInput from "react-native-numeric-input";
 import { ColorPicker } from "react-native-color-picker";
+import { DEFAULTS } from "@/lib/react-piano/styles";
 
 export default function Settings() {
-    const [placeholderSetting, setPlaceholderSetting] = useState(false);
-    const [glissandoOn, setGlissandoOn] = useState(false);
-    const [keyLiftOn, setKeyLiftOn] = useState(true);
-    const [pressHapticOn, setPressHapticOn] = useState(true);
-    const [releaseHapticOn, setReleaseHapticOn] = useState(true);
-    const [hapticsStrength, setHapticsStrength] = useState("Medium");
+    const [glissandoOn, setGlissandoOn] = useState(DEFAULTS.GLISSANDO_ON);
+    const [keyLiftOn, setKeyLiftOn] = useState(DEFAULTS.KEY_LIFT_ON);
+    const [pressHapticOn, setPressHapticOn] = useState(DEFAULTS.PRESS_HAPTIC_ON);
+    const [releaseHapticOn, setReleaseHapticOn] = useState(DEFAULTS.RELEASE_HAPTIC_ON);
+    const [hapticsStrength, setHapticsStrength] = useState(DEFAULTS.HAPTICS_STRENGTH);
     const hapticsStrengthOptions = ["Light", "Medium", "Heavy"];
-    const [borderRadius, setBorderRadius] = useState(4); //FIXME: Find a better default value
-    const [borderWidth, setBorderWidth] = useState(1);
-    const [disabledBorderWidth, setDisabledBorderWidth] = useState(1);
-    const [whiteKeyColor, setWhiteKeyColor] = useState("#FFFFFF"); //FIXME: Find a better default value
-    const [blackKeyColor, setBlackKeyColor] = useState("#000000"); //FIXME: Find a better default value
-    const [pressedColor, setPressedColor] = useState("#FF0000"); //FIXME: Find a better default value
-    const [disabledKeyColor, setDisabledKeyColor] = useState("#808080"); //FIXME: Find a better default value
-    const [borderColor, setBorderColor] = useState("#000000"); //FIXME: Find a better default value
-    const [keyLabelMode, setKeyLabelMode] = useState("All");
-    const [keyShrinkPercent, setKeyShrinkPercent] = useState(95);
-    const [blackKeyHeight, setBlackKeyHeight] = useState(60); //FIXME DEFAULT
-    const [whiteKeyHeight, setWhiteKeyHeight] = useState(100); //FIXME DEFAULT
-    const [keyColorSubset, setKeyColorSubset] = useState("All");
-    const [onlyC, setOnlyC] = useState(false);
-    const [withOctaveNumbers, setWithOctaveNumbers] = useState(false);
-    const [special, setSpecial] = useState("Unset");
+    const [borderRadius, setBorderRadius] = useState(DEFAULTS.BORDER_RADIUS);
+    const [borderWidth, setBorderWidth] = useState(DEFAULTS.BORDER_WIDTH);
+    const [disabledBorderWidth, setDisabledBorderWidth] = useState(DEFAULTS.DISABLED_BORDER_WIDTH);
+    const [whiteKeyColor, setWhiteKeyColor] = useState(DEFAULTS.WHITE_KEY_COLOR);
+    const [blackKeyColor, setBlackKeyColor] = useState(DEFAULTS.BLACK_KEY_COLOR);
+    const [pressedColor, setPressedColor] = useState(DEFAULTS.PRESSED_COLOR);
+    const [disabledKeyColor, setDisabledKeyColor] = useState(DEFAULTS.DISABLED_KEY_COLOR);
+    const [borderColor, setBorderColor] = useState(DEFAULTS.BORDER_COLOR);
+    const [keyLabelMode, setKeyLabelMode] = useState(DEFAULTS.KEY_LABEL_MODE);
+    const [keyShrinkPercent, setKeyShrinkPercent] = useState(DEFAULTS.KEY_SHRINK_PERCENT);
+    const [blackKeyHeight, setBlackKeyHeight] = useState(DEFAULTS.BLACK_KEY_HEIGHT);
+    const [whiteKeyHeight, setWhiteKeyHeight] = useState(DEFAULTS.WHITE_KEY_HEIGHT);
+    const [keyColorSubset, setKeyColorSubset] = useState(DEFAULTS.KEY_COLOR_SUBSET);
+    const [onlyC, setOnlyC] = useState(DEFAULTS.ONLY_C);
+    const [withOctaveNumbers, setWithOctaveNumbers] = useState(DEFAULTS.WITH_OCTAVE_NUMBERS);
+    const [special, setSpecial] = useState(DEFAULTS.SPECIAL);
 
     const specialOptions = [
         { label: "None", value: "None" },
@@ -67,12 +67,6 @@ export default function Settings() {
             alignItems: "center",
         }}
         >
-        <Text>Placeholder setting</Text>
-        <Switch
-            value={placeholderSetting}
-            onValueChange={setPlaceholderSetting}
-        />
-
         <Text>Glissando</Text>
         <Switch
             value={glissandoOn}
