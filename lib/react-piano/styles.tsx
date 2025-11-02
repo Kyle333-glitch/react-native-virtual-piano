@@ -163,6 +163,22 @@ export const DEFAULTS = {
     BORDER_WIDTH: 1,
     BORDER_COLOR: "#888",
     PRESSED_COLOR: "#3ac8da",
+    GLISSANDO_ON: false,
+    KEY_LIFT_ON: true,
+    PRESS_HAPTIC_ON: true,
+    RELEASE_HAPTIC_ON: true,
+    HAPTICS_STRENGTH: "Medium",
+    BORDER_RADIUS: 4,
+    DISABLED_BORDER_WIDTH: 1,
+    DISABLED_KEY_COLOR: "#808080",
+    KEY_LABEL_MODE: "All",
+    KEY_SHRINK_PERCENT: 95,
+    BLACK_KEY_HEIGHT: 60,
+    WHITE_KEY_HEIGHT: 100,
+    KEY_COLOR_SUBSET: "All",
+    ONLY_C: false,
+    WITH_OCTAVE_NUMBERS: false,
+    SPECIAL: "Unset"
 };
 
 export function keyLayout(left: number | string, width: number | string) {
