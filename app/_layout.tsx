@@ -14,7 +14,7 @@ export default function RootLayout() {
         drawerType: "front",
         drawerActiveTintColor: "white",
         drawerInactiveTintColor: "#ccc",
-        headerStyle: { backgroundColor: "#fff"},
+        headerStyle: { backgroundColor: "blue"},
         headerTintColor: "black",
       }}
     >
@@ -28,6 +28,18 @@ export default function RootLayout() {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="appearance"
+        options={{
+          drawerLabel: "Appearance",
+          title: "Appearance Preferences",
+          drawerIcon: ({ color, size }) => (
+            <NativeIcon name="palette" color={color} size={size}/>
+          ),
+        }}
+      />
+
       <Drawer.Screen
         name="settings"
         options={{
@@ -38,13 +50,25 @@ export default function RootLayout() {
           ),
         }}
       />
+
       <Drawer.Screen
-        name="appearance"
+        name="faqs"
         options={{
-          drawerLabel: "Appearance",
-          title: "Appearance",
+          drawerLabel: "FAQs",
+          title: "FAQs",
           drawerIcon: ({ color, size }) => (
-            <NativeIcon name="palette" color={color} size={size}/>
+            <NativeIcon name="help" color={color} size={size}/>
+          ),
+        }}
+      />
+
+      <Drawer.Screen
+        name="about"
+        options={{
+          drawerLabel: "About",
+          title: "About",
+          drawerIcon: ({ color, size }) => (
+            <NativeIcon name="info" color={color} size={size}/>
           ),
         }}
       />
