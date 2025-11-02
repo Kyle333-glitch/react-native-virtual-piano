@@ -69,7 +69,7 @@ export default function Settings() {
         <SafeAreaView
             style={{
             flex: 1,
-            alignItems: "center",
+            padding: 16,
         }}
         >
         <ScrollView>
