@@ -206,7 +206,7 @@ export default function Settings() {
         />
 
         <Text>Key Label Mode: { special != "Unset"
-            ? `Special options: ${special}`
+            ? `${special}`
             : `For ${keyColorSubset.toLowerCase()} color keys, show ${onlyC ? "only C's" : "all notes"}
             ${withOctaveNumbers ? " with octave numbers" : " without octave numbers"}`
         }
