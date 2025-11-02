@@ -137,7 +137,10 @@ export default function getStyles({
         fontWeight: "bold",
         marginVertical: 12,
     },
+});
+}
 
+export const headerStyles = StyleSheet.create({
     sectionHeader: {
         fontSize: 18,
         fontWeight: "600",
@@ -159,7 +162,6 @@ export default function getStyles({
         marginBottom: 8,
     },
 });
-}
 
 export const DEFAULTS = {
     ACCIDENTAL_WIDTH_RATIO: 0.65,
