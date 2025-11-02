@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Text, View, Switch, Platform, ScrollView, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
@@ -9,31 +9,81 @@ import ColorPicker, {
   OpacitySlider,
   Preview,
 } from "reanimated-color-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { DEFAULTS, headerStyles } from "@/lib/react-piano/styles";
 
+const savePreference = async (key: string, value: any) => {
+    try {
+        await AsyncStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+        console.error("Error saving preference: ", e);
+    }
+};
+
+const loadPreference = async (key: string, defaultValue: any) => {
+    try {
+        const value = await AsyncStorage.getItem(key);
+        return value !== null ? JSON.parse(value) : defaultValue
+    } catch (e) {
+        console.error("Error loading preference: ", e);
+        return defaultValue;
+    }
+};
+
+function usePersistentState<T>(key: string, defaultValue: T): [T, (val: T) => void] {
+    const [state, setState] = useState<T>(defaultValue);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const stored = await AsyncStorage.getItem(key);
+                if (stored !== null) {
+                    setState(JSON.parse(stored));
+                }
+            } catch (e) {
+                console.error("Failed to load", e)
+            }
+        })();
+    }, [key]);
+
+    const setAndStore = (val: T) => {
+        setState(val);
+        AsyncStorage.setItem(key, JSON.stringify(val)).catch(e =>
+            console.error("Failed to save", key, e)
+        );
+    };
+
+    return [state, setAndStore];
+}
+
 export default function Settings() {
-    const [glissandoOn, setGlissandoOn] = useState(DEFAULTS.GLISSANDO_ON);
-    const [keyLiftOn, setKeyLiftOn] = useState(DEFAULTS.KEY_LIFT_ON);
-    const [pressHapticOn, setPressHapticOn] = useState(DEFAULTS.PRESS_HAPTIC_ON);
-    const [releaseHapticOn, setReleaseHapticOn] = useState(DEFAULTS.RELEASE_HAPTIC_ON);
-    const [hapticsStrength, setHapticsStrength] = useState(DEFAULTS.HAPTICS_STRENGTH);
-    const hapticsStrengthOptions = ["Light", "Medium", "Heavy"];
-    const [borderRadius, setBorderRadius] = useState(DEFAULTS.BORDER_RADIUS);
-    const [borderWidth, setBorderWidth] = useState(DEFAULTS.BORDER_WIDTH);
-    const [disabledBorderWidth, setDisabledBorderWidth] = useState(DEFAULTS.DISABLED_BORDER_WIDTH);
-    const [whiteKeyColor, setWhiteKeyColor] = useState(DEFAULTS.WHITE_KEY_COLOR);
-    const [blackKeyColor, setBlackKeyColor] = useState(DEFAULTS.BLACK_KEY_COLOR);
-    const [pressedColor, setPressedColor] = useState(DEFAULTS.PRESSED_COLOR);
-    const [disabledKeyColor, setDisabledKeyColor] = useState(DEFAULTS.DISABLED_KEY_COLOR);
-    const [borderColor, setBorderColor] = useState(DEFAULTS.BORDER_COLOR);
-    const [keyLabelMode, setKeyLabelMode] = useState(DEFAULTS.KEY_LABEL_MODE);
-    const [keyShrinkPercent, setKeyShrinkPercent] = useState(DEFAULTS.KEY_SHRINK_PERCENT);
-    const [blackKeyHeight, setBlackKeyHeight] = useState(DEFAULTS.BLACK_KEY_HEIGHT);
-    const [whiteKeyHeight, setWhiteKeyHeight] = useState(DEFAULTS.WHITE_KEY_HEIGHT);
-    const [keyColorSubset, setKeyColorSubset] = useState(DEFAULTS.KEY_COLOR_SUBSET);
-    const [onlyC, setOnlyC] = useState(DEFAULTS.ONLY_C);
-    const [withOctaveNumbers, setWithOctaveNumbers] = useState(DEFAULTS.WITH_OCTAVE_NUMBERS);
-    const [special, setSpecial] = useState(DEFAULTS.SPECIAL);
+const [glissandoOn, setGlissandoOn] = usePersistentState("glissandoOn", DEFAULTS.GLISSANDO_ON);
+const [keyLiftOn, setKeyLiftOn] = usePersistentState("keyLiftOn", DEFAULTS.KEY_LIFT_ON);
+const [pressHapticOn, setPressHapticOn] = usePersistentState("pressHapticOn", DEFAULTS.PRESS_HAPTIC_ON);
+const [releaseHapticOn, setReleaseHapticOn] = usePersistentState("releaseHapticOn", DEFAULTS.RELEASE_HAPTIC_ON);
+
+const hapticsStrengthOptions = ["Light", "Medium", "Heavy"];
+const [hapticsStrength, setHapticsStrength] = usePersistentState("hapticsStrength", DEFAULTS.HAPTICS_STRENGTH);
+
+const [borderRadius, setBorderRadius] = usePersistentState("borderRadius", DEFAULTS.BORDER_RADIUS);
+const [borderWidth, setBorderWidth] = usePersistentState("borderWidth", DEFAULTS.BORDER_WIDTH);
+const [disabledBorderWidth, setDisabledBorderWidth] = usePersistentState("disabledBorderWidth", DEFAULTS.DISABLED_BORDER_WIDTH);
+
+const [whiteKeyColor, setWhiteKeyColor] = usePersistentState("whiteKeyColor", DEFAULTS.WHITE_KEY_COLOR);
+const [blackKeyColor, setBlackKeyColor] = usePersistentState("blackKeyColor", DEFAULTS.BLACK_KEY_COLOR);
+const [pressedColor, setPressedColor] = usePersistentState("pressedColor", DEFAULTS.PRESSED_COLOR);
+const [disabledKeyColor, setDisabledKeyColor] = usePersistentState("disabledKeyColor", DEFAULTS.DISABLED_KEY_COLOR);
+const [borderColor, setBorderColor] = usePersistentState("borderColor", DEFAULTS.BORDER_COLOR);
+
+const [keyLabelMode, setKeyLabelMode] = usePersistentState("keyLabelMode", DEFAULTS.KEY_LABEL_MODE);
+const [keyShrinkPercent, setKeyShrinkPercent] = usePersistentState("keyShrinkPercent", DEFAULTS.KEY_SHRINK_PERCENT);
+const [blackKeyHeight, setBlackKeyHeight] = usePersistentState("blackKeyHeight", DEFAULTS.BLACK_KEY_HEIGHT);
+const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight", DEFAULTS.WHITE_KEY_HEIGHT);
+
+const [keyColorSubset, setKeyColorSubset] = usePersistentState("keyColorSubset", DEFAULTS.KEY_COLOR_SUBSET);
+const [onlyC, setOnlyC] = usePersistentState("onlyC", DEFAULTS.ONLY_C);
+const [withOctaveNumbers, setWithOctaveNumbers] = usePersistentState("withOctaveNumbers", DEFAULTS.WITH_OCTAVE_NUMBERS);
+const [special, setSpecial] = usePersistentState("special", DEFAULTS.SPECIAL);
 
     const { width, height } = Dimensions.get("window");
 
