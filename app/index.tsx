@@ -22,7 +22,7 @@ export default function Index() {
       />
       <Link href="/settings" asChild>
         <Pressable style={{ position: "absolute", top: 16, right: 16 }}>
-          <NativeIcon name="settings"/>
+          <NativeIcon name="settings" size={48}/>
         </Pressable>
       </Link>
     </SafeAreaView>
