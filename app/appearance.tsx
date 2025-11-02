@@ -1,4 +1,4 @@
-import { Text, Platform, ScrollView, Dimensions } from "react-native";
+import { Text, Platform, View, ScrollView, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NumericInput from "react-native-numeric-input";
 import ColorPicker, {
@@ -7,6 +7,7 @@ import ColorPicker, {
   Preview,
 } from "reanimated-color-picker";
 import { DEFAULTS, headerStyles } from "@/lib/react-piano/styles";
+import Piano from "@/lib/react-piano/Piano";
 import usePersistentState from "./usePersistentState";
 
 export default function Appearance() {
@@ -32,7 +33,7 @@ const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight",
             padding: 16,
         }}
         >
-            <ScrollView>
+            <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 120  }}>
                 <Text style={headerStyles.mediumSectionHeader}>Key Border Radius</Text>
                 <NumericInput
                     value={borderRadius}
@@ -121,6 +122,23 @@ const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight",
                     rounded={Platform.OS !== "android"}
                 />
             </ScrollView>
+
+            <View style={{ borderTopWidth: 1, borderColor: "#ccc" }}>
+                <Piano
+                    noteRange={["c4", "c5"]}
+
+                    //borderRadius={borderRadius}
+                    borderWidth={borderWidth}
+                    //disabledBorderWidth={disabledBorderWidth}
+                    whiteKeyColor={whiteKeyColor}
+                    blackKeyColor={blackKeyColor}
+                    pressedColor={pressedColor}
+                    //disabledKeyColor={disabledKeyColor}
+                    borderColor={borderColor}
+                    //blackKeyHeight={blackKeyHeight}
+                    //whiteKeyHeight={whiteKeyHeight}
+                />
+            </View>
         </SafeAreaView>
     );
 }
