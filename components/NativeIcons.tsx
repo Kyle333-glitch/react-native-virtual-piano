@@ -58,6 +58,7 @@ const iosMap: Record<string, SFSymbol> = {
   queue_music: "music.note.list",
   library_music: "music.quarternote.3",
   equalizer: "slider.horizontal.3",
+  palette: "paintpalette",
 };
 
 export default function NativeIcon({ name, size = 24, color = "black", outline = false }: NativeIconProps) {
