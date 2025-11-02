@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import NumericInput from "react-native-numeric-input";
 import { ColorPicker } from "react-native-color-picker";
+import Slider from "@react-native-community/slider";
 import { DEFAULTS } from "@/lib/react-piano/styles";
 
 export default function Settings() {
@@ -138,30 +139,35 @@ export default function Settings() {
         <ColorPicker
             defaultColor={whiteKeyColor}
             onColorSelected={setWhiteKeyColor}
+            sliderComponent={Slider as any}
         />
 
         <Text>Black Key Color</Text>
         <ColorPicker
             defaultColor={blackKeyColor}
             onColorSelected={setBlackKeyColor}
+            sliderComponent={Slider as any}
         />
 
         <Text>Pressed Color</Text>
         <ColorPicker
             defaultColor={pressedColor}
             onColorSelected={setPressedColor}
+            sliderComponent={Slider as any}
         />
 
         <Text>Disabled Key Color</Text>
         <ColorPicker
             defaultColor={disabledKeyColor}
             onColorSelected={setDisabledKeyColor}
+            sliderComponent={Slider as any}
         />
 
         <Text>Border Color</Text>
         <ColorPicker
             defaultColor={borderColor}
             onColorSelected={setBorderColor}
+            sliderComponent={Slider as any}
         />
 
         <Text>Key Shrink: {keyShrinkPercent}%</Text>
