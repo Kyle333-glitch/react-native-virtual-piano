@@ -1,6 +1,5 @@
 import { Platform } from "react-native";
 import { SymbolView, SFSymbol } from "expo-symbols";
-// @ts-ignore
 import { MaterialIcons } from '@expo/vector-icons';
 
 type NativeIconProps = {
