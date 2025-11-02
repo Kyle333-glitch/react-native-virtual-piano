@@ -9,7 +9,7 @@ import ColorPicker, {
   OpacitySlider,
   Preview,
 } from "reanimated-color-picker";
-import { DEFAULTS } from "@/lib/react-piano/styles";
+import { DEFAULTS, headerStyles } from "@/lib/react-piano/styles";
 
 export default function Settings() {
     const [glissandoOn, setGlissandoOn] = useState(DEFAULTS.GLISSANDO_ON);
@@ -75,13 +75,13 @@ export default function Settings() {
         }}
         >
         <ScrollView>
-        <Text>Glissando</Text>
+        <Text style={headerStyles.smallSectionHeader}>Glissando</Text>
         <Switch
             value={glissandoOn}
             onValueChange={setGlissandoOn}
         />
 
-        <Text>Key Lift Effect</Text>
+        <Text style={headerStyles.smallSectionHeader}>Key Lift Effect</Text>
         <Switch
             value={keyLiftOn}
             onValueChange={setKeyLiftOn}
@@ -99,7 +99,7 @@ export default function Settings() {
             onValueChange={setReleaseHapticOn}
         />
 
-        <Text>Press Haptic Strength</Text>
+        <Text style={headerStyles.smallSectionHeader}>Press Haptic Strength</Text>
         <SegmentedControl
             values={hapticsStrengthOptions}
             selectedIndex={hapticsStrengthOptions.indexOf(hapticsStrength)}
@@ -109,7 +109,7 @@ export default function Settings() {
             }}
         />
 
-        <Text>Key Border Radius</Text>
+        <Text style={headerStyles.smallSectionHeader}>Key Border Radius</Text>
         <NumericInput
             value={borderRadius}
             onChange={setBorderRadius}
@@ -120,7 +120,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text>Key Border Width</Text>
+        <Text style={headerStyles.smallSectionHeader}>Key Border Width</Text>
         <NumericInput
             value={borderWidth}
             onChange={setBorderWidth}
@@ -131,7 +131,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text>Disabled Key Border Width</Text>
+        <Text style={headerStyles.smallSectionHeader}>Disabled Key Border Width</Text>
         <NumericInput
             value={disabledBorderWidth}
             onChange={setDisabledBorderWidth}
@@ -142,42 +142,42 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text>White Key Color</Text>
+        <Text style={headerStyles.smallSectionHeader}>White Key Color</Text>
         <ColorPicker value={whiteKeyColor} onComplete={({ hex }) => setWhiteKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text>Black Key Color</Text>
+        <Text style={headerStyles.smallSectionHeader}>Black Key Color</Text>
         <ColorPicker value={blackKeyColor} onComplete={({ hex }) => setBlackKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text>Pressed Color</Text>
+        <Text style={headerStyles.smallSectionHeader}>Pressed Color</Text>
         <ColorPicker value={pressedColor} onComplete={({ hex }) => setPressedColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text>Disabled Key Color</Text>
+        <Text style={headerStyles.smallSectionHeader}>Disabled Key Color</Text>
         <ColorPicker value={disabledKeyColor} onComplete={({ hex }) => setDisabledKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text>Border Color</Text>
+        <Text style={headerStyles.smallSectionHeader}>Border Color</Text>
         <ColorPicker value={borderColor} onComplete={({ hex }) => setBorderColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
-        <Text>Key Shrink: {keyShrinkPercent}%</Text>
+        <Text style={headerStyles.smallSectionHeader}>Key Shrink: {keyShrinkPercent}%</Text>
         <NumericInput
             value={keyShrinkPercent}
             onChange={setKeyShrinkPercent}
@@ -187,7 +187,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text>Black Key Height: {blackKeyHeight}%</Text>
+        <Text style={headerStyles.smallSectionHeader}>Black Key Height: {blackKeyHeight}%</Text>
         <NumericInput
             value={blackKeyHeight}
             onChange={setBlackKeyHeight}
@@ -197,7 +197,7 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text>White Key Height: {whiteKeyHeight}%</Text>
+        <Text style={headerStyles.smallSectionHeader}>White Key Height: {whiteKeyHeight}%</Text>
         <NumericInput
             value={whiteKeyHeight}
             onChange={setWhiteKeyHeight}
@@ -207,14 +207,14 @@ export default function Settings() {
             rounded={Platform.OS !== "android"}
         />
 
-        <Text>Key Label Mode: { special != "Unset"
+        <Text style={headerStyles.smallSectionHeader}>Key Label Mode: { special != "Unset"
             ? `${special}`
             : `For ${keyColorSubset.toLowerCase()} color keys, show ${onlyC ? "only C's" : "all notes"}
             ${withOctaveNumbers ? " with octave numbers" : " without octave numbers"}`
         }
 
         </Text>
-        <Text>Applies to: {keyColorSubset.toLowerCase()} color keys</Text>
+        <Text style={headerStyles.smallSectionHeader}>Applies to: {keyColorSubset.toLowerCase()} color keys</Text>
         <SegmentedControl
             values={["All", "White", "Black"]}
             selectedIndex={["All", "White", "Black"].indexOf(keyColorSubset)}
@@ -224,19 +224,19 @@ export default function Settings() {
             }}
         />
 
-        <Text>{onlyC ? "Applies only to C's" : "Applies to all notes"}</Text>
+        <Text style={headerStyles.smallSectionHeader}>{onlyC ? "Applies only to C's" : "Applies to all notes"}</Text>
         <Switch
             value={onlyC}
             onValueChange={setOnlyC}
         />
         
-        <Text>{withOctaveNumbers ? "Shows octave numbers" : "Doesn't show octave numbers"}</Text>
+        <Text style={headerStyles.smallSectionHeader}>{withOctaveNumbers ? "Shows octave numbers" : "Doesn't show octave numbers"}</Text>
         <Switch
             value={withOctaveNumbers}
             onValueChange={setWithOctaveNumbers}
         />
 
-        <Text>Special Options (overrides other settings)</Text>
+        <Text style={headerStyles.smallSectionHeader}>Special Options (overrides other settings)</Text>
         <SegmentedControl
             values={specialOptions.map((o) => o.label)}
             selectedIndex={specialOptions.findIndex((o) => o.value === special)}
