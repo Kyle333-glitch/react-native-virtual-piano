@@ -1,7 +1,6 @@
 import { Text, View, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Link } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 
 import { Piano, MidiNumbers } from "../lib/react-piano";
 
