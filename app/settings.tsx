@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, Switch, Platform, ScrollView } from "react-native";
+import { Text, View, Switch, Platform, ScrollView, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import NumericInput from "react-native-numeric-input";
@@ -34,6 +34,8 @@ export default function Settings() {
     const [onlyC, setOnlyC] = useState(DEFAULTS.ONLY_C);
     const [withOctaveNumbers, setWithOctaveNumbers] = useState(DEFAULTS.WITH_OCTAVE_NUMBERS);
     const [special, setSpecial] = useState(DEFAULTS.SPECIAL);
+
+    const { width, height } = Dimensions.get("window");
 
     const specialOptions = [
         { label: "None", value: "None" },
@@ -141,35 +143,35 @@ export default function Settings() {
         />
 
         <Text>White Key Color</Text>
-        <ColorPicker value={whiteKeyColor} onComplete={({ hex }) => setWhiteKeyColor(hex)}>
+        <ColorPicker value={whiteKeyColor} onComplete={({ hex }) => setWhiteKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
         <Text>Black Key Color</Text>
-        <ColorPicker value={blackKeyColor} onComplete={({ hex }) => setBlackKeyColor(hex)}>
+        <ColorPicker value={blackKeyColor} onComplete={({ hex }) => setBlackKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
         <Text>Pressed Color</Text>
-        <ColorPicker value={pressedColor} onComplete={({ hex }) => setPressedColor(hex)}>
+        <ColorPicker value={pressedColor} onComplete={({ hex }) => setPressedColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
         <Text>Disabled Key Color</Text>
-        <ColorPicker value={disabledKeyColor} onComplete={({ hex }) => setDisabledKeyColor(hex)}>
+        <ColorPicker value={disabledKeyColor} onComplete={({ hex }) => setDisabledKeyColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
         </ColorPicker>
 
         <Text>Border Color</Text>
-        <ColorPicker value={borderColor} onComplete={({ hex }) => setBorderColor(hex)}>
+        <ColorPicker value={borderColor} onComplete={({ hex }) => setBorderColor(hex)} style={{ width: width / 6}}>
             <Preview/>
             <Panel1/>
             <HueSlider/>
