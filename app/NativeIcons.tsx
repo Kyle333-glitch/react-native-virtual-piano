@@ -22,7 +22,7 @@ export default function NativeIcon({ name, size = 24, color = "black", outline =
         const iosSymbolName = outline ? base : `${base}.fill`;
         return <SymbolView name={iosSymbolName as any} tintColor={color} style={{ width: size, height: size }}/>;
     }
-    else (Platform.OS === "android") {
-        return <MaterialSymbol name={name} size={size} color={color} fill={outline ? 0 : 1}/>
+    else {
+        return <MaterialSymbol name={name} size={size} color={color} fill={outline ? 0 : 1}/>;
     }
 }
