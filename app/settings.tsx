@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, Switch, Platform } from "react-native";
+import { Text, View, Switch, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import NumericInput from "react-native-numeric-input";
@@ -72,6 +72,7 @@ export default function Settings() {
             alignItems: "center",
         }}
         >
+        <ScrollView>
         <Text>Glissando</Text>
         <Switch
             value={glissandoOn}
@@ -242,6 +243,7 @@ export default function Settings() {
                 setSpecial(specialOptions[index].value);
             }}
         />
+        </ScrollView>
     </SafeAreaView>
 
     
