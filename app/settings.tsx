@@ -3,8 +3,12 @@ import { Text, View, Switch, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import NumericInput from "react-native-numeric-input";
-import { ColorPicker } from "react-native-color-picker";
-import Slider from "@react-native-community/slider";
+import ColorPicker, {
+  Panel1,
+  HueSlider,
+  OpacitySlider,
+  Preview,
+} from "reanimated-color-picker";
 import { DEFAULTS } from "@/lib/react-piano/styles";
 
 export default function Settings() {
@@ -136,39 +140,39 @@ export default function Settings() {
         />
 
         <Text>White Key Color</Text>
-        <ColorPicker
-            defaultColor={whiteKeyColor}
-            onColorSelected={setWhiteKeyColor}
-            sliderComponent={Slider as any}
-        />
+        <ColorPicker value={whiteKeyColor} onComplete={({ hex }) => setWhiteKeyColor(hex)}>
+            <Preview/>
+            <Panel1/>
+            <HueSlider/>
+        </ColorPicker>
 
         <Text>Black Key Color</Text>
-        <ColorPicker
-            defaultColor={blackKeyColor}
-            onColorSelected={setBlackKeyColor}
-            sliderComponent={Slider as any}
-        />
+        <ColorPicker value={blackKeyColor} onComplete={({ hex }) => setBlackKeyColor(hex)}>
+            <Preview/>
+            <Panel1/>
+            <HueSlider/>
+        </ColorPicker>
 
         <Text>Pressed Color</Text>
-        <ColorPicker
-            defaultColor={pressedColor}
-            onColorSelected={setPressedColor}
-            sliderComponent={Slider as any}
-        />
+        <ColorPicker value={pressedColor} onComplete={({ hex }) => setPressedColor(hex)}>
+            <Preview/>
+            <Panel1/>
+            <HueSlider/>
+        </ColorPicker>
 
         <Text>Disabled Key Color</Text>
-        <ColorPicker
-            defaultColor={disabledKeyColor}
-            onColorSelected={setDisabledKeyColor}
-            sliderComponent={Slider as any}
-        />
+        <ColorPicker value={disabledKeyColor} onComplete={({ hex }) => setDisabledKeyColor(hex)}>
+            <Preview/>
+            <Panel1/>
+            <HueSlider/>
+        </ColorPicker>
 
         <Text>Border Color</Text>
-        <ColorPicker
-            defaultColor={borderColor}
-            onColorSelected={setBorderColor}
-            sliderComponent={Slider as any}
-        />
+        <ColorPicker value={borderColor} onComplete={({ hex }) => setBorderColor(hex)}>
+            <Preview/>
+            <Panel1/>
+            <HueSlider/>
+        </ColorPicker>
 
         <Text>Key Shrink: {keyShrinkPercent}%</Text>
         <NumericInput
