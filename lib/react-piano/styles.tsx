@@ -131,6 +131,28 @@ export default function getStyles({
         overflow: "hidden",
         backgroundColor: whiteKeyColor,
     },
+
+    mainHeader: {
+        fontSize: 24,
+        fontWeight: "bold",
+        marginVertical: 12,
+    },
+
+    sectionHeader: {
+        fontSize: 18,
+        fontWeight: "600",
+        marginTop: 12,
+        marginBottom: 6,
+    },
+
+    underlineHeader: {
+        fontSize: 18,
+        fontWeight: "bold",
+        borderBottomWidth: 1,
+        borderBottomColor: "#ccc",
+        paddingBottom: 4,
+        marginBottom: 8,
+    },
 });
 }
 
