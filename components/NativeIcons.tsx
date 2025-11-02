@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 import { SymbolView, SFSymbol } from "expo-symbols";
 // @ts-ignore
-import MaterialSymbol from "react-native-material-symbols";
+import { Icon } from "react-native-material-symbols";
 
 type NativeIconProps = {
     name: string;
@@ -67,6 +67,6 @@ export default function NativeIcon({ name, size = 24, color = "black", outline =
         return <SymbolView name={iosSymbolName as any} tintColor={color} style={{ width: size, height: size }}/>;
     }
     else {
-        return <MaterialSymbol name={name} size={size} color={color} fill={outline ? 0 : 1}/>;
+        return <Icon name={name} size={size} color={color} fill={outline ? 0 : 1}/>;
     }
 }
