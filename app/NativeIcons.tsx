@@ -17,7 +17,7 @@ const iosMap: Record<string, SFSymbol> = {
 };
 
 export default function NativeIcon({ name, size = 24, color = "black", outline = false }: NativeIconProps) {
-    if (Platform.OS === "ios") {
+    if (["ios", "macos", "visionos"].includes(Platform.OS)) {
         const base = iosMap[name] ?? "exclamationmark.triangle";
         const iosSymbolName = outline ? base : `${base}.fill`;
         return <SymbolView name={iosSymbolName as any} tintColor={color} style={{ width: size, height: size }}/>;
