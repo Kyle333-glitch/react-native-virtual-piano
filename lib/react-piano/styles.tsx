@@ -153,6 +153,11 @@ export const headerStyles = StyleSheet.create({
         lineHeight: 24,
     },
 
+    mediumSectionHeader: {
+        fontSize: 16,
+        lineHeight: 32,
+    },
+
     underlineHeader: {
         fontSize: 18,
         fontWeight: "bold",
