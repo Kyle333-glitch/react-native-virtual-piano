@@ -145,6 +145,11 @@ export default function getStyles({
         marginBottom: 6,
     },
 
+    smallSectionHeader: {
+        fontSize: 16,
+        lineHeight: 24,
+    },
+
     underlineHeader: {
         fontSize: 18,
         fontWeight: "bold",
