@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
+import * as Haptics from "expo-haptics";
 
 import MidiNumbers from "./MidiNumbers";
 import getStyles, { DEFAULTS, keyBase, keyLayout, labelContainer } from "./styles";
@@ -83,12 +84,23 @@ function Key({
         [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
     )
 
+    //FIXME: Temporary placeholder haptic settings
+    const PRESS_HAPTIC = Haptics.ImpactFeedbackStyle.Light;
+    const PRESS_HAPTIC_ON = true;
+    const RELEASE_HAPTIC_ON = true;
+    //FIXME: Temporary placeholder haptic settings
     const handleNoteOn = useCallback(() => {
-        if (!disabled) onNoteOn(midiNumber);
+        if (!disabled) {
+            onNoteOn(midiNumber);
+            if (PRESS_HAPTIC_ON) Haptics.impactAsync(PRESS_HAPTIC);
+        }
     }, [onNoteOn, midiNumber, disabled]);
 
     const handleNoteOff = useCallback(() => {
-        if (!disabled) onNoteOff(midiNumber);
+        if (!disabled) {
+            onNoteOff(midiNumber);
+            if (RELEASE_HAPTIC_ON) Haptics.selectionAsync();
+        }
     }, [onNoteOff, midiNumber, disabled]);
 
     const getAbsoluteKeyPosition = (midiNumber: number) => {
