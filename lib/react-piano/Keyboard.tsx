@@ -154,11 +154,11 @@ function Keyboard({
                         onNoteOff={onNoteOff}
                         gliss={gliss}
                         renderNoteLabel={renderNoteLabel}
-                        whiteKeyColor={whiteKeyColor}
-                        blackKeyColor={blackKeyColor}
-                        borderWidth={borderWidth}
-                        borderColor={borderColor}
-                        pressedColor={pressedColor}
+                        whiteKeyColor={whiteKeyColor ?? DEFAULTS.WHITE_KEY_COLOR}
+                        blackKeyColor={blackKeyColor ?? DEFAULTS.BLACK_KEY_COLOR}
+                        borderWidth={borderWidth ?? DEFAULTS.BORDER_WIDTH}
+                        borderColor={borderColor ?? DEFAULTS.BORDER_COLOR}
+                        pressedColor={pressedColor ?? DEFAULTS.PRESSED_COLOR}
                         disabledBorderWidth={disabledBorderWidth}
                         disabledBorderColor={disabledBorderColor}
                         disabledKeyColor={disabledKeyColor}
