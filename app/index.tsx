@@ -17,6 +17,10 @@ export default function Index() {
         "borderWidth",
         DEFAULTS.BORDER_WIDTH
     );
+    const [disabledBorderColor] = usePersistentState(
+        "disabledBorderColor",
+        DEFAULTS.DISABLED_BORDER_COLOR
+    );
     const [disabledBorderWidth] = usePersistentState(
         "disabledBorderWidth",
         DEFAULTS.DISABLED_BORDER_WIDTH
@@ -86,7 +90,7 @@ export default function Index() {
     )
 
     const [pressDepth] = usePersistentState(
-        "whiteKeyHeight",
+        "pressDepth",
         DEFAULTS.PRESS_DEPTH
     );
 
@@ -120,6 +124,20 @@ export default function Index() {
                 pressedColor={pressedColor}
                 borderColor={borderColor}
                 borderWidth={borderWidth}
+                disabledBorderWidth={disabledBorderWidth}
+                disabledBorderColor={disabledBorderColor}
+                disabledKeyColor={disabledKeyColor}
+                blackKeyHeight={blackKeyHeight}
+                whiteKeyHeight={whiteKeyHeight}
+                keyShrinkPercent={keyShrinkPercent}
+                pressDepth={pressDepth}
+                noteLabelWhiteColor={whiteNoteLabelColor}
+                noteLabelBlackColor={blackNoteLabelColor}
+                glissandoOn={glissandoOn}
+                keyLiftOn={keyLiftOn}
+                pressHapticOn={pressHapticOn}
+                releaseHapticOn={releaseHapticOn}
+                hapticsStrength={hapticsStrength}
             />
             <Link href="/settings" asChild>
                 <Pressable style={{ position: "absolute", top: 16, right: 16 }}>
