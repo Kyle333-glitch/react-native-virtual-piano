@@ -123,7 +123,11 @@ const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight",
                 />
             </ScrollView>
 
-            <View style={{ borderTopWidth: 1, borderColor: "#ccc" }}>
+            <View style={{ position: "absolute", bottom: 24, right: 24,
+                borderTopWidth: 1, borderColor: "#ccc", width: width / 2, marginLeft: "auto"
+                }}>
+                <Text style={[headerStyles.sectionHeader, { textAlign: "center" }]}>Piano Preview</Text>
+                <Text style={{ textAlign: "center", paddingBottom: 8 }}>Tweak your appearance preferences and see the changes here.</Text>
                 <Piano
                     noteRange={["c4", "c5"]}
 
