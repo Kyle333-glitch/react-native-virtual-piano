@@ -4,6 +4,7 @@ import * as Haptics from "expo-haptics";
 
 import MidiNumbers from "./MidiNumbers";
 import getStyles, { DEFAULTS, keyBase, keyLayout, labelContainer } from "./styles";
+import { HapticsStrength } from "./Piano";
 
 type PitchPositions = Record<string, number>;
 
@@ -29,11 +30,25 @@ type KeyProps = {
         isAccidental: boolean;
     }) => React.ReactNode;
     style?: StyleProp<ViewStyle>;
-    whiteKeyColor?: string;
-    blackKeyColor?: string;
-    borderWidth?: number;
-    borderColor?: string;
-    pressedColor?: string;
+    whiteKeyColor: string; // Trust that Piano has passed down its defaults
+    blackKeyColor: string;
+    borderWidth: number;
+    borderColor: string;
+    pressedColor: string;
+    disabledBorderWidth?: number;
+    disabledBorderColor?: string;
+    disabledKeyColor?: string;
+    blackKeyHeight: number;
+    whiteKeyHeight: number;
+    keyShrinkPercent?: number;
+    pressDepth: number;
+    noteLabelWhiteColor?: string;
+    noteLabelBlackColor?: string;
+
+    keyLiftOn?: boolean;
+    pressHapticOn?: boolean;
+    releaseHapticOn?: boolean;
+    hapticsStrength?: HapticsStrength;
 };
 
 const DEFAULT_PITCH_POSITIONS: PitchPositions = {
@@ -66,11 +81,25 @@ function Key({
     noteRange,
     renderNoteLabel,
     style,
-    whiteKeyColor = DEFAULTS.WHITE_KEY_COLOR,
-    blackKeyColor = DEFAULTS.BLACK_KEY_COLOR,
-    borderWidth = DEFAULTS.BORDER_WIDTH,
-    borderColor = DEFAULTS.BORDER_COLOR,
-    pressedColor = DEFAULTS.PRESSED_COLOR,
+    whiteKeyColor,
+    blackKeyColor,
+    borderWidth,
+    borderColor,
+    pressedColor,
+    disabledBorderWidth,
+    disabledBorderColor,
+    disabledKeyColor,
+    blackKeyHeight,
+    whiteKeyHeight,
+    keyShrinkPercent,
+    pressDepth,
+    noteLabelWhiteColor,
+    noteLabelBlackColor,
+
+    keyLiftOn,
+    pressHapticOn,
+    releaseHapticOn,
+    hapticsStrength,
 }: KeyProps) {
     const styles = useMemo(
         () =>
@@ -84,24 +113,26 @@ function Key({
         [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
     )
 
-    //FIXME: Temporary placeholder haptic settings
-    const PRESS_HAPTIC = Haptics.ImpactFeedbackStyle.Light;
-    const PRESS_HAPTIC_ON = true;
-    const RELEASE_HAPTIC_ON = true;
-    //FIXME: Temporary placeholder haptic settings
     const handleNoteOn = useCallback(() => {
         if (!disabled) {
             onNoteOn(midiNumber);
-            if (PRESS_HAPTIC_ON) Haptics.impactAsync(PRESS_HAPTIC);
+            if (pressHapticOn) {
+                const hapticsStyle = hapticsStrength === "Heavy"
+                    ? Haptics.ImpactFeedbackStyle.Heavy
+                    : hapticsStrength === "Medium"
+                    ? Haptics.ImpactFeedbackStyle.Medium
+                    : Haptics.ImpactFeedbackStyle.Light;
+                Haptics.impactAsync(hapticsStyle);
+            }
         }
-    }, [onNoteOn, midiNumber, disabled]);
+    }, [onNoteOn, midiNumber, disabled, pressHapticOn, hapticsStrength]);
 
     const handleNoteOff = useCallback(() => {
         if (!disabled) {
             onNoteOff(midiNumber);
-            if (RELEASE_HAPTIC_ON) Haptics.selectionAsync();
+            if (releaseHapticOn) Haptics.selectionAsync();
         }
-    }, [onNoteOff, midiNumber, disabled]);
+    }, [onNoteOff, midiNumber, disabled, releaseHapticOn]);
 
     const getAbsoluteKeyPosition = (midiNumber: number) => {
         const OCTAVE_WIDTH = 7;
@@ -146,12 +177,19 @@ function Key({
                 accidental ? styles.keyAccidental : styles.keyNatural,
                 styles.key,
                 (active ?? pressed) && styles.keyActive,
-                accidental && active && styles.keyActiveAccidental,
-                !accidental && active && styles.keyActiveNatural,
-                disabled &&
-                    (accidental
-                        ? styles.keyDisabledAccidental
-                        : styles.keyDisabledNatural),
+                disabled && {
+                    backgroundColor: disabledKeyColor,
+                    borderColor: disabledBorderColor,
+                    borderWidth: disabledBorderWidth,
+                },
+                pressed && keyLiftOn && {
+                    transform: [
+                        { translateY: pressDepth },
+                        { scale: 1 - (keyShrinkPercent ?? 0) / 100 },
+                    ],
+                },
+                !accidental && { height: whiteKeyHeight },
+                accidental && { height: blackKeyHeight },
                 keyLayout(left, width),
                 style,
             ]}
