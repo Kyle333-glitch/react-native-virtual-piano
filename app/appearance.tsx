@@ -24,6 +24,11 @@ export default function Appearance() {
         DEFAULTS.DISABLED_BORDER_WIDTH
     );
 
+    const [disabledBorderColor, setDisabledBorderColor] = usePersistentState(
+        "disabledBorderColor",
+        DEFAULTS.DISABLED_BORDER_COLOR
+    );
+
     const [whiteKeyColor, setWhiteKeyColor] = usePersistentState(
         "whiteKeyColor",
         DEFAULTS.WHITE_KEY_COLOR
@@ -115,6 +120,19 @@ export default function Appearance() {
                     textColor="black"
                     rounded={Platform.OS !== "android"}
                 />
+
+                <Text style={headerStyles.mediumSectionHeader}>
+                    Disabled Border Color
+                </Text>
+                <ColorPicker
+                    value={disabledBorderColor}
+                    onComplete={({ hex }) => setDisabledBorderColor(hex)}
+                    style={{ width: width / 6 }}
+                >
+                    <Preview />
+                    <Panel1 />
+                    <HueSlider />
+                </ColorPicker>
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     White Key Color
