@@ -44,7 +44,14 @@ export default function Appearance() {
         "borderColor",
         DEFAULTS.BORDER_COLOR
     );
-
+    const [whiteNoteLabelColor, setWhiteNoteLabelColor] = usePersistentState(
+        "whiteNoteLabelColor",
+        DEFAULTS.NOTE_LABEL_WHITE_COLOR
+    )
+    const [blackNoteLabelColor, setBlackNoteLabelColor] = usePersistentState(
+        "blackNoteLabelColor",
+        DEFAULTS.NOTE_LABEL_BLACK_COLOR
+    )
     const [blackKeyHeight, setBlackKeyHeight] = usePersistentState(
         "blackKeyHeight",
         DEFAULTS.BLACK_KEY_HEIGHT
@@ -163,6 +170,32 @@ export default function Appearance() {
                 <ColorPicker
                     value={borderColor}
                     onComplete={({ hex }) => setBorderColor(hex)}
+                    style={{ width: width / 6 }}
+                >
+                    <Preview />
+                    <Panel1 />
+                    <HueSlider />
+                </ColorPicker>
+
+                 <Text style={headerStyles.mediumSectionHeader}>
+                    Black Key Note Label Color
+                </Text>
+                <ColorPicker
+                    value={blackNoteLabelColor}
+                    onComplete={({ hex }) => setBlackNoteLabelColor(hex)}
+                    style={{ width: width / 6 }}
+                >
+                    <Preview />
+                    <Panel1 />
+                    <HueSlider />
+                </ColorPicker>
+
+                 <Text style={headerStyles.mediumSectionHeader}>
+                    White Key Note Label Color
+                </Text>
+                <ColorPicker
+                    value={whiteNoteLabelColor}
+                    onComplete={({ hex }) => setWhiteNoteLabelColor(hex)}
                     style={{ width: width / 6 }}
                 >
                     <Preview />
