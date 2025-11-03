@@ -1,7 +1,7 @@
 import { Text, Switch, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
-import NumericInput from "react-native-numeric-input";
+import Stepper from "../components/Stepper";
 
 import { DEFAULTS, headerStyles } from "@/lib/react-piano/styles";
 import usePersistentState from "./usePersistentState";
@@ -74,7 +74,7 @@ export default function Settings() {
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>Key Shrink: {keyShrinkPercent}%</Text>
-                <NumericInput
+                <Stepper
                     value={keyShrinkPercent}
                     onChange={setKeyShrinkPercent}
                     minValue={50}
