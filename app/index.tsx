@@ -1,10 +1,8 @@
 import { Link } from "expo-router";
-import { Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Piano } from "../lib/react-piano";
 
-import NativeIcon from "../components/NativeIcons";
 import usePersistentState from "../hooks/usePersistentState";
 import { DEFAULTS } from "../lib/react-piano/styles";
 
@@ -140,9 +138,6 @@ export default function Index() {
                 hapticsStrength={hapticsStrength}
             />
             <Link href="/settings" asChild>
-                <Pressable style={{ position: "absolute", top: 16, right: 16 }}>
-                    <NativeIcon name="settings" size={48} />
-                </Pressable>
             </Link>
         </SafeAreaView>
     );
