@@ -76,6 +76,20 @@ export default function Index() {
         DEFAULTS.KEY_SHRINK_PERCENT
     );
 
+    const [whiteNoteLabelColor] = usePersistentState(
+        "whiteNoteLabelColor",
+        DEFAULTS.NOTE_LABEL_WHITE_COLOR
+    )
+    const [blackNoteLabelColor] = usePersistentState(
+        "blackNoteLabelColor",
+        DEFAULTS.NOTE_LABEL_BLACK_COLOR
+    )
+
+    const [pressDepth] = usePersistentState(
+        "whiteKeyHeight",
+        DEFAULTS.PRESS_DEPTH
+    );
+
     const [keyColorSubset] = usePersistentState(
         "keyColorSubset",
         DEFAULTS.KEY_COLOR_SUBSET
