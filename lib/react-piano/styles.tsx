@@ -1,5 +1,7 @@
 import { StyleSheet, ViewStyle } from "react-native";
 
+import { HapticsStrength } from "./Piano";
+
 type PianoStyleProps = {
     whiteKeyColor: string;
     blackKeyColor: string;
@@ -179,7 +181,7 @@ export const DEFAULTS = {
     KEY_LIFT_ON: true,
     PRESS_HAPTIC_ON: true,
     RELEASE_HAPTIC_ON: true,
-    HAPTICS_STRENGTH: "Medium",
+    HAPTICS_STRENGTH: "Medium" as HapticsStrength,
     BORDER_RADIUS: 4,
     DISABLED_BORDER_WIDTH: 1,
     DISABLED_BORDER_COLOR: "#aaa",
