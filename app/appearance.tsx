@@ -11,18 +11,18 @@ import Piano from "@/lib/react-piano/Piano";
 import usePersistentState from "./usePersistentState";
 
 export default function Appearance() {
-const [borderRadius, setBorderRadius] = usePersistentState("borderRadius", DEFAULTS.BORDER_RADIUS);
-const [borderWidth, setBorderWidth] = usePersistentState("borderWidth", DEFAULTS.BORDER_WIDTH);
-const [disabledBorderWidth, setDisabledBorderWidth] = usePersistentState("disabledBorderWidth", DEFAULTS.DISABLED_BORDER_WIDTH);
+    const [borderRadius, setBorderRadius] = usePersistentState("borderRadius", DEFAULTS.BORDER_RADIUS);
+    const [borderWidth, setBorderWidth] = usePersistentState("borderWidth", DEFAULTS.BORDER_WIDTH);
+    const [disabledBorderWidth, setDisabledBorderWidth] = usePersistentState("disabledBorderWidth", DEFAULTS.DISABLED_BORDER_WIDTH);
 
-const [whiteKeyColor, setWhiteKeyColor] = usePersistentState("whiteKeyColor", DEFAULTS.WHITE_KEY_COLOR);
-const [blackKeyColor, setBlackKeyColor] = usePersistentState("blackKeyColor", DEFAULTS.BLACK_KEY_COLOR);
-const [pressedColor, setPressedColor] = usePersistentState("pressedColor", DEFAULTS.PRESSED_COLOR);
-const [disabledKeyColor, setDisabledKeyColor] = usePersistentState("disabledKeyColor", DEFAULTS.DISABLED_KEY_COLOR);
-const [borderColor, setBorderColor] = usePersistentState("borderColor", DEFAULTS.BORDER_COLOR);
+    const [whiteKeyColor, setWhiteKeyColor] = usePersistentState("whiteKeyColor", DEFAULTS.WHITE_KEY_COLOR);
+    const [blackKeyColor, setBlackKeyColor] = usePersistentState("blackKeyColor", DEFAULTS.BLACK_KEY_COLOR);
+    const [pressedColor, setPressedColor] = usePersistentState("pressedColor", DEFAULTS.PRESSED_COLOR);
+    const [disabledKeyColor, setDisabledKeyColor] = usePersistentState("disabledKeyColor", DEFAULTS.DISABLED_KEY_COLOR);
+    const [borderColor, setBorderColor] = usePersistentState("borderColor", DEFAULTS.BORDER_COLOR);
 
-const [blackKeyHeight, setBlackKeyHeight] = usePersistentState("blackKeyHeight", DEFAULTS.BLACK_KEY_HEIGHT);
-const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight", DEFAULTS.WHITE_KEY_HEIGHT);
+    const [blackKeyHeight, setBlackKeyHeight] = usePersistentState("blackKeyHeight", DEFAULTS.BLACK_KEY_HEIGHT);
+    const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight", DEFAULTS.WHITE_KEY_HEIGHT);
 
     const { width } = Dimensions.get("window");
 
