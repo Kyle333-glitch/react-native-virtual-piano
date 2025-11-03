@@ -34,7 +34,6 @@ export default function getStyles({
         borderTopWidth: 0, // transparent border-top
         borderBottomLeftRadius: 4,
         borderBottomRightRadius: 4,
-        height: "66%",
         zIndex: 1,
         position: "absolute",
         top: 0,
