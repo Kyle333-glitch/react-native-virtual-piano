@@ -162,10 +162,10 @@ function Keyboard({
                         disabledBorderWidth={disabledBorderWidth}
                         disabledBorderColor={disabledBorderColor}
                         disabledKeyColor={disabledKeyColor}
-                        blackKeyHeight={blackKeyHeight}
-                        whiteKeyHeight={whiteKeyHeight}
+                        blackKeyHeight={blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT}
+                        whiteKeyHeight={whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT}
                         keyShrinkPercent={keyShrinkPercent}
-                        pressDepth={pressDepth}
+                        pressDepth={pressDepth ?? DEFAULTS.PRESS_DEPTH}
                         noteLabelWhiteColor={noteLabelWhiteColor}
                         noteLabelBlackColor={noteLabelBlackColor}
 
