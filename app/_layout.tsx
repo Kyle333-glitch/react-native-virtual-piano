@@ -43,7 +43,7 @@ export default function RootLayout() {
       <Drawer.Screen
         name="settings"
         options={{
-          drawerLabel: "Settings",
+          drawerLabel: "Behavior Settings",
           title: "Settings",
           drawerIcon: ({ color, size }) => (
             <NativeIcon name="settings" color={color} size={size}/>
