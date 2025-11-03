@@ -109,6 +109,8 @@ function Key({
                 borderWidth,
                 borderColor,
                 pressedColor,
+                noteLabelWhiteColor,
+                noteLabelBlackColor,
             }),
         [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
     )
@@ -181,6 +183,7 @@ function Key({
                     borderColor: disabledBorderColor,
                     borderWidth: disabledBorderWidth,
                 },
+                pressed && { backgroundColor: pressedColor },
                 pressed && keyLiftOn && {
                     transform: [
                         { translateY: pressDepth },

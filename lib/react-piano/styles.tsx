@@ -8,8 +8,8 @@ type PianoStyleProps = {
     borderWidth: number;
     borderColor: string;
     pressedColor: string;
-    noteLabelWhiteColor: string;
-    noteLabelBlackColor: string;
+    noteLabelWhiteColor: string | undefined;
+    noteLabelBlackColor: string | undefined;
 };
 
 export default function getStyles({
