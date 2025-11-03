@@ -29,6 +29,11 @@ export default function Appearance() {
         DEFAULTS.DISABLED_BORDER_COLOR
     );
 
+    const [keyShrinkPercent, setKeyShrinkPercent] = usePersistentState(
+        "keyShrinkPercent",
+        DEFAULTS.KEY_SHRINK_PERCENT
+    );
+
     const [whiteKeyColor, setWhiteKeyColor] = usePersistentState(
         "whiteKeyColor",
         DEFAULTS.WHITE_KEY_COLOR
@@ -260,6 +265,18 @@ export default function Appearance() {
                     step={5}
                     rounded={Platform.OS !== "android"}
                 />
+
+                <Text style={headerStyles.mediumSectionHeader}>
+                    Key Shrink Percent
+                </Text>
+                <Stepper
+                    value={keyShrinkPercent}
+                    onChange={setKeyShrinkPercent}
+                    minValue={0}
+                    maxValue={100}
+                    step={5}
+                    rounded={Platform.OS !== "android"}
+                />
             </ScrollView>
 
             <View
@@ -296,6 +313,15 @@ export default function Appearance() {
                     borderColor={borderColor}
                     //blackKeyHeight={blackKeyHeight}
                     //whiteKeyHeight={whiteKeyHeight}
+                    disabledBorderWidth={disabledBorderWidth}
+                    disabledBorderColor={disabledBorderColor}
+                    disabledKeyColor={disabledKeyColor}
+                    blackKeyHeight={blackKeyHeight}
+                    whiteKeyHeight={whiteKeyHeight}
+                    keyShrinkPercent={keyShrinkPercent}
+                    pressDepth={pressDepth}
+                    noteLabelWhiteColor={whiteNoteLabelColor}
+                    noteLabelBlackColor={blackNoteLabelColor}
                 />
             </View>
         </SafeAreaView>
