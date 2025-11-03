@@ -31,8 +31,8 @@ type KeyboardProps = {
     disabledBorderWidth?: number;
     disabledBorderColor?: string;
     disabledKeyColor?: string;
-    blackKeyHeight: number;
-    whiteKeyHeight: number;
+    blackKeyHeight?: number;
+    whiteKeyHeight?: number;
     keyShrinkPercent?: number;
     pressDepth: number;
     noteLabelWhiteColor?: string;
