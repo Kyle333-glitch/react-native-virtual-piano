@@ -41,7 +41,7 @@ type KeyProps = {
     blackKeyHeight?: number;
     whiteKeyHeight?: number;
     keyShrinkPercent?: number;
-    pressDepth: number;
+    pressDepth?: number;
     noteLabelWhiteColor?: string;
     noteLabelBlackColor?: string;
 
