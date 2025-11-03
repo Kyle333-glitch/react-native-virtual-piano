@@ -42,7 +42,7 @@ type ControlledPianoProps = {
     disabledBorderColor?: string;
     disabledKeyColor?: string;
     whiteKeyHeight?: number;
-    blackKeyHeight: number;
+    blackKeyHeight?: number;
     keyShrinkPercent?: number;
     pressDepth?: number;
     noteLabelWhiteColor?: string;
