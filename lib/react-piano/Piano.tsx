@@ -49,7 +49,7 @@ const Piano = ({
     playNote = defaultPlayNote,
     stopNote = defaultStopNote,
     noteRange,
-    autoUnloadOnUnmount = false,
+    autoUnloadOnUnmount = true,
     whiteKeyColor = DEFAULTS.WHITE_KEY_COLOR,
     blackKeyColor = DEFAULTS.BLACK_KEY_COLOR,
     borderWidth = DEFAULTS.BORDER_WIDTH,
