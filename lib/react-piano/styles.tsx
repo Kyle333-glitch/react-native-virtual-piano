@@ -8,6 +8,8 @@ type PianoStyleProps = {
     borderWidth: number;
     borderColor: string;
     pressedColor: string;
+    noteLabelWhiteColor: string;
+    noteLabelBlackColor: string;
 };
 
 export default function getStyles({
@@ -16,6 +18,8 @@ export default function getStyles({
     borderWidth,
     borderColor,
     pressedColor,
+    noteLabelWhiteColor,
+    noteLabelBlackColor,
 }: PianoStyleProps) {
     return StyleSheet.create({
     keyboard: {
@@ -96,12 +100,12 @@ export default function getStyles({
     },
 
     noteLabelAccidental: {
-        color: "#f8e8d5",
+        color: noteLabelBlackColor,
         marginBottom: 3,
     },
 
     noteLabelNatural: {
-        color: "#888",
+        color: noteLabelWhiteColor,
         marginBottom: 3,
     },
 
