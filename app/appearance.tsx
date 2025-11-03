@@ -1,6 +1,6 @@
 import { Text, Platform, View, ScrollView, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import NumericInput from "react-native-numeric-input";
+import Stepper from "../components/Stepper";
 import ColorPicker, {
   Panel1,
   HueSlider,
@@ -35,7 +35,7 @@ const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight",
         >
             <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 120  }}>
                 <Text style={headerStyles.mediumSectionHeader}>Key Border Radius</Text>
-                <NumericInput
+                <Stepper
                     value={borderRadius}
                     onChange={setBorderRadius}
                     minValue={0}
@@ -46,7 +46,7 @@ const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight",
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>Key Border Width</Text>
-                <NumericInput
+                <Stepper
                     value={borderWidth}
                     onChange={setBorderWidth}
                     minValue={0}
@@ -57,7 +57,7 @@ const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight",
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>Disabled Key Border Width</Text>
-                <NumericInput
+                <Stepper
                     value={disabledBorderWidth}
                     onChange={setDisabledBorderWidth}
                     minValue={0}
@@ -103,7 +103,7 @@ const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight",
                 </ColorPicker>
 
                 <Text style={headerStyles.mediumSectionHeader}>Black Key Height: {blackKeyHeight}%</Text>
-                <NumericInput
+                <Stepper
                     value={blackKeyHeight}
                     onChange={setBlackKeyHeight}
                     minValue={40}
@@ -113,7 +113,7 @@ const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState("whiteKeyHeight",
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>White Key Height: {whiteKeyHeight}%</Text>
-                <NumericInput
+                <Stepper
                     value={whiteKeyHeight}
                     onChange={setWhiteKeyHeight}
                     minValue={50}
