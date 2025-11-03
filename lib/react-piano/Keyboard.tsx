@@ -4,6 +4,7 @@ import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Key from "./Key";
 import MidiNumbers from "./MidiNumbers";
 import getStyles, { DEFAULTS } from "./styles";
+import { HapticsStrength } from "./Piano";
 
 type NoteRange = { first: number; last: number };
 
@@ -27,6 +28,20 @@ type KeyboardProps = {
     borderWidth?: number;
     borderColor?: string;
     pressedColor?: string;
+    disabledBorderWidth?: number;
+    disabledBorderColor?: string;
+    disabledKeyColor?: string;
+    blackKeyHeight: number;
+    whiteKeyHeight: number;
+    keyShrinkPercent?: number;
+    pressDepth: number;
+    noteLabelWhiteColor?: string;
+    noteLabelBlackColor?: string;
+
+    keyLiftOn?: boolean;
+    pressHapticOn?: boolean;
+    releaseHapticOn?: boolean;
+    hapticsStrength?: HapticsStrength;
 };
 
 const range = (start: number, end: number): number[] =>
@@ -48,6 +63,20 @@ function Keyboard({
     borderWidth,
     borderColor,
     pressedColor,
+    disabledBorderWidth,
+    disabledBorderColor,
+    disabledKeyColor,
+    blackKeyHeight,
+    whiteKeyHeight,
+    keyShrinkPercent,
+    pressDepth,
+    noteLabelWhiteColor,
+    noteLabelBlackColor,
+
+    keyLiftOn,
+    pressHapticOn,
+    releaseHapticOn,
+    hapticsStrength,
 }: KeyboardProps) {
     const styles = useMemo(
         () =>
@@ -130,6 +159,20 @@ function Keyboard({
                         borderWidth={borderWidth}
                         borderColor={borderColor}
                         pressedColor={pressedColor}
+                        disabledBorderWidth={disabledBorderWidth}
+                        disabledBorderColor={disabledBorderColor}
+                        disabledKeyColor={disabledKeyColor}
+                        blackKeyHeight={blackKeyHeight}
+                        whiteKeyHeight={whiteKeyHeight}
+                        keyShrinkPercent={keyShrinkPercent}
+                        pressDepth={pressDepth}
+                        noteLabelWhiteColor={noteLabelWhiteColor}
+                        noteLabelBlackColor={noteLabelBlackColor}
+
+                        keyLiftOn={keyLiftOn}
+                        pressHapticOn={pressHapticOn}
+                        releaseHapticOn={releaseHapticOn}
+                        hapticsStrength={hapticsStrength}
                     />
                 );
             })}
