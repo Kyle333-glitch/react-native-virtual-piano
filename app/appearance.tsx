@@ -60,6 +60,10 @@ export default function Appearance() {
         "whiteKeyHeight",
         DEFAULTS.WHITE_KEY_HEIGHT
     );
+    const [pressDepth, setPressDepth] = usePersistentState(
+        "whiteKeyHeight",
+        DEFAULTS.PRESS_DEPTH
+    );
 
     const { width } = Dimensions.get("window");
 
@@ -222,6 +226,18 @@ export default function Appearance() {
                     value={whiteKeyHeight}
                     onChange={setWhiteKeyHeight}
                     minValue={50}
+                    maxValue={100}
+                    step={5}
+                    rounded={Platform.OS !== "android"}
+                />
+
+                <Text style={headerStyles.mediumSectionHeader}>
+                    Press Key in Animation Depth
+                </Text>
+                <Stepper
+                    value={pressDepth}
+                    onChange={setPressDepth}
+                    minValue={75}
                     maxValue={100}
                     step={5}
                     rounded={Platform.OS !== "android"}
