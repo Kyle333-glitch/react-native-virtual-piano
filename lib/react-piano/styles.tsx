@@ -61,6 +61,7 @@ export default function getStyles({
         backgroundColor: pressedColor,
     },
 
+    /*
     keyActiveAccidental: {
         borderWidth: borderWidth,
         borderColor: pressedColor,
@@ -86,7 +87,7 @@ export default function getStyles({
         borderWidth: borderWidth,
         borderColor: "#aaa",
     },
-
+    */
     noteLabelContainer: {
         flex: 1,
         alignSelf: "flex-end",
