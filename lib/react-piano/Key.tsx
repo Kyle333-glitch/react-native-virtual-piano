@@ -38,8 +38,8 @@ type KeyProps = {
     disabledBorderWidth?: number;
     disabledBorderColor?: string;
     disabledKeyColor?: string;
-    blackKeyHeight: number;
-    whiteKeyHeight: number;
+    blackKeyHeight?: number;
+    whiteKeyHeight?: number;
     keyShrinkPercent?: number;
     pressDepth: number;
     noteLabelWhiteColor?: string;
@@ -188,8 +188,8 @@ function Key({
                         { scale: 1 - (keyShrinkPercent ?? 0) / 100 },
                     ],
                 },
-                !accidental && { height: whiteKeyHeight },
-                accidental && { height: blackKeyHeight },
+                !accidental && { height: whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT },
+                accidental && { height: blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT },
                 keyLayout(left, width),
                 style,
             ]}
