@@ -260,9 +260,9 @@ export default function Appearance() {
                 <Stepper
                     value={pressDepth}
                     onChange={setPressDepth}
-                    minValue={75}
-                    maxValue={100}
-                    step={5}
+                    minValue={0}
+                    maxValue={20}
+                    step={1}
                     rounded={Platform.OS !== "android"}
                 />
 
