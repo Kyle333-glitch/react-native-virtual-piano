@@ -182,6 +182,7 @@ export const DEFAULTS = {
     HAPTICS_STRENGTH: "Medium",
     BORDER_RADIUS: 4,
     DISABLED_BORDER_WIDTH: 1,
+    DISABLED_BORDER_COLOR: "#aaa",
     DISABLED_KEY_COLOR: "#808080",
     KEY_LABEL_MODE: "All",
     KEY_SHRINK_PERCENT: 95,
@@ -190,7 +191,10 @@ export const DEFAULTS = {
     KEY_COLOR_SUBSET: "All",
     ONLY_C: false,
     WITH_OCTAVE_NUMBERS: false,
-    SPECIAL: "Unset"
+    SPECIAL: "Unset",
+    NOTE_LABEL_WHITE_COLOR: "#000",
+    NOTE_LABEL_BLACK_COLOR: "#fff",
+    PRESS_DEPTH: 4, //FIXME: Does press depth do it in pixels / dp or %
 };
 
 export function keyLayout(left: number | string, width: number | string) {
