@@ -6,8 +6,10 @@ import React, {
     useState,
 } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
+
 import Keyboard from "./Keyboard";
 import getStyles, { DEFAULTS } from "./styles";
+import { HapticsStrength } from "./Piano";
 
 type ControlledPianoProps = {
     noteRange: { first: number; last: number };
@@ -36,6 +38,21 @@ type ControlledPianoProps = {
     borderWidth?: number;
     borderColor?: string;
     pressedColor?: string;
+    disabledBorderWidth?: number;
+    disabledBorderColor?: string;
+    disabledKeyColor?: string;
+    whiteKeyHeight?: number;
+    blackKeyHeight: number;
+    keyShrinkPercent?: number;
+    pressDepth?: number;
+    noteLabelWhiteColor?: string;
+    noteLabelBlackColor?: string;
+
+    glissandoOn?: boolean;
+    keyLiftOn?: boolean,
+    pressHapticOn?: boolean,
+    releaseHapticOn?: boolean,
+    hapticsStrength?: HapticsStrength,
 };
 
 function ControlledPiano({
@@ -55,6 +72,21 @@ function ControlledPiano({
     borderWidth,
     borderColor,
     pressedColor,
+    disabledBorderWidth,
+    disabledBorderColor,
+    disabledKeyColor,
+    whiteKeyHeight,
+    blackKeyHeight,
+    keyShrinkPercent,
+    pressDepth,
+    noteLabelWhiteColor,
+    noteLabelBlackColor,
+
+    glissandoOn,
+    keyLiftOn,
+    pressHapticOn,
+    releaseHapticOn,
+    hapticsStrength,
 }: ControlledPianoProps) {
     const styles = useMemo(
         () =>
@@ -157,6 +189,19 @@ function ControlledPiano({
             borderWidth,
             borderColor,
             pressedColor,
+            disabledBorderWidth,
+            disabledBorderColor,
+            disabledKeyColor,
+            blackKeyHeight,
+            whiteKeyHeight,
+            keyShrinkPercent,
+            pressDepth,
+            noteLabelWhiteColor,
+            noteLabelBlackColor,
+            keyLiftOn,
+            pressHapticOn,
+            releaseHapticOn,
+            hapticsStrength,
         }),
         [
             noteRange,
@@ -173,6 +218,19 @@ function ControlledPiano({
             borderWidth,
             borderColor,
             pressedColor,
+            disabledBorderWidth,
+            disabledBorderColor,
+            disabledKeyColor,
+            blackKeyHeight,
+            whiteKeyHeight,
+            keyShrinkPercent,
+            pressDepth,
+            noteLabelWhiteColor,
+            noteLabelBlackColor,
+            keyLiftOn,
+            pressHapticOn,
+            releaseHapticOn,
+            hapticsStrength,
         ]
     );
 
