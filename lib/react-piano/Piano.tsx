@@ -11,6 +11,7 @@ import normalizeNoteRange, { NoteRange } from "./NormalizeNoteRange";
 import { DEFAULTS } from "./styles";
 
 type NoteContext = { prevActiveNotes: ReadonlyArray<number> };
+export type HapticsStrength = "Light" | "Medium" | "Heavy";
 
 type PianoProps = Omit<
     React.ComponentProps<typeof ControlledPiano>,
@@ -32,7 +33,7 @@ type PianoProps = Omit<
     /**
      * When true, automatically unloads preloaded sounds for this piano's range on unmount.
      * This helps mobile apps free native resources when navigating away from a screen.
-     * Default: false
+     * Default: true
      */
     autoUnloadOnUnmount?: boolean;
     whiteKeyColor?: string;
@@ -40,6 +41,22 @@ type PianoProps = Omit<
     borderWidth?: number;
     borderColor?: string;
     pressedColor?: string;
+    disabledBorderWidth?: number;
+    disabledBorderColor?: string;
+    disabledKeyColor?: string;
+    blackKeyHeight?: number;
+    whiteKeyHeight?: number;
+    keyShrinKPercent?: number;
+    pressDepth?: number;
+    noteLabelWhiteColor?: string;
+    noteLabelBlackColor?: string;
+    keyShrinkPercent?: number;
+
+    glissandoOn?: boolean;
+    keyLiftOn?: boolean;
+    pressHapticOn?: boolean;
+    releaseHapticOn?: boolean;
+    hapticsStrength?: HapticsStrength;
 };
 
 const Piano = ({
@@ -55,6 +72,21 @@ const Piano = ({
     borderWidth = DEFAULTS.BORDER_WIDTH,
     borderColor = DEFAULTS.BORDER_COLOR,
     pressedColor = DEFAULTS.PRESSED_COLOR,
+    disabledBorderWidth = DEFAULTS.DISABLED_BORDER_WIDTH,
+    disabledBorderColor = DEFAULTS.DISABLED_BORDER_COLOR,
+    disabledKeyColor = DEFAULTS.DISABLED_KEY_COLOR,
+    blackKeyHeight = DEFAULTS.BLACK_KEY_HEIGHT,
+    whiteKeyHeight = DEFAULTS.WHITE_KEY_HEIGHT,
+    keyShrinkPercent = DEFAULTS.KEY_SHRINK_PERCENT,
+    pressDepth = DEFAULTS.PRESS_DEPTH,
+    noteLabelWhiteColor = DEFAULTS.NOTE_LABEL_WHITE_COLOR,
+    noteLabelBlackColor = DEFAULTS.NOTE_LABEL_BLACK_COLOR,
+
+    glissandoOn = DEFAULTS.GLISSANDO_ON,
+    keyLiftOn = DEFAULTS.KEY_LIFT_ON,
+    pressHapticOn = DEFAULTS.PRESS_HAPTIC_ON,
+    releaseHapticOn = DEFAULTS.RELEASE_HAPTIC_ON,
+    hapticsStrength = DEFAULTS.HAPTICS_STRENGTH,
 }: PianoProps) => {
     let normalizedNoteRange;
     try {
@@ -151,6 +183,21 @@ const Piano = ({
             borderWidth,
             borderColor,
             pressedColor,
+            disabledBorderWidth,
+            disabledBorderColor,
+            disabledKeyColor,
+            blackKeyHeight,
+            whiteKeyHeight,
+            keyShrinkPercent,
+            pressDepth,
+            noteLabelWhiteColor,
+            noteLabelBlackColor,
+
+            glissandoOn,
+            keyLiftOn,
+            pressHapticOn,
+            releaseHapticOn,
+            hapticsStrength,
         }),
         [
             internalActiveNotes,
@@ -164,6 +211,19 @@ const Piano = ({
             borderWidth,
             borderColor,
             pressedColor,
+            disabledKeyColor,
+            blackKeyHeight,
+            whiteKeyHeight,
+            keyShrinkPercent,
+            pressDepth,
+            noteLabelWhiteColor,
+            noteLabelBlackColor,
+
+            glissandoOn,
+            keyLiftOn,
+            pressHapticOn,
+            releaseHapticOn,
+            hapticsStrength,
         ]
     );
 
