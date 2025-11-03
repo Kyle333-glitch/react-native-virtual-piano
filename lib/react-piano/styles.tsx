@@ -32,8 +32,6 @@ export default function getStyles({
         borderWidth: borderWidth,
         borderColor: borderColor,
         borderTopWidth: 0, // transparent border-top
-        borderBottomLeftRadius: 4,
-        borderBottomRightRadius: 4,
         zIndex: 1,
         position: "absolute",
         top: 0,
@@ -48,8 +46,6 @@ export default function getStyles({
         borderTopWidth: borderWidth,
         borderBottomWidth: borderWidth,
         borderColor: borderColor,
-        borderBottomLeftRadius: 6,
-        borderBottomRightRadius: 6,
         flex: 1,
         // Overlap neighbors by 1px to avoid double-thick seams.
         marginRight: -1,
