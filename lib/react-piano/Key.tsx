@@ -176,7 +176,6 @@ function Key({
                 keyBase,
                 accidental ? styles.keyAccidental : styles.keyNatural,
                 styles.key,
-                (active ?? pressed) && styles.keyActive,
                 disabled && {
                     backgroundColor: disabledKeyColor,
                     borderColor: disabledBorderColor,
@@ -190,6 +189,7 @@ function Key({
                 },
                 !accidental && { height: whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT },
                 accidental && { height: blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT },
+                (active ?? pressed) && styles.keyActive,
                 keyLayout(left, width),
                 style,
             ]}
