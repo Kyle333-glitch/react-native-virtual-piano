@@ -60,6 +60,8 @@ const iosMap: Record<string, SFSymbol> = {
   palette: "paintpalette",
   "chevron-up": "chevron.up",
   "chevron-down": "chevron.down",
+  success: "checkmark.circle",
+  loading: "arrow.triangle.2.circlepath",
 };
 
 export default function NativeIcon({ name, size = 24, color = "black", outline = false }: NativeIconProps) {
