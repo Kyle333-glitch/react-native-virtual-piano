@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderTopWidth: 1,
         borderColor: "#ccc",
-        marginHorizontal: 8,
-        paddingVertical: 4,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
     },
     buttonText: {
         fontSize: 18,
@@ -134,7 +134,6 @@ const styles = StyleSheet.create({
     },
     button: {
         paddingHorizontal: 12,
-        paddingVertical: 6,
         borderWidth: 1,
         borderColor: "#ccc",
         backgroundColor: "#f2f2f2",
