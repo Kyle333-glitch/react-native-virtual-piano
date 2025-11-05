@@ -1,6 +1,6 @@
 import NumericInput from "react-native-numeric-input";
 import { Platform, View, TextInput, Pressable, Text, StyleSheet } from "react-native";
-import Toast from "react-native-toast-message";
+import showToast from "./Toast";
 
 type Props = {
     value: number;
@@ -67,33 +67,11 @@ export default function Stepper({
                     } else {
                         if (num < minValue) {
                             onChange(minValue);
-                            Toast.show({
-                                type: "info",
-                                text1: `Minimum value is ${minValue}`,
-                                position: Platform.select({
-                                    ios: "top",
-                                    macos: "top",
-                                    windows: "top",
-                                    android: "bottom",
-                                    web: "bottom",
-                                    default: "bottom",
-                                }),
-                            });
+                            showToast({ message: `Minimum value is ${minValue}`, type: "error" });
                         }
                         else if (num > maxValue) {
                             onChange(maxValue);
-                            Toast.show({
-                                type: "info",
-                                text1: `Maximum value is ${maxValue}`,
-                                position: Platform.select({
-                                    ios: "top",
-                                    macos: "top",
-                                    windows: "top",
-                                    android: "bottom",
-                                    web: "bottom",
-                                    default: "bottom",
-                                }),
-                            });
+                            showToast({ message: `Maximum value is ${maxValue}`, type: "error" });
                         }
                         else onChange(num);
                     }
