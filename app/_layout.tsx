@@ -1,77 +1,82 @@
 import { Drawer } from "expo-router/drawer";
-import NativeIcon from "../components/NativeIcons"
+import NativeIcon from "../components/NativeIcons";
+import Toast from "react-native-toast-message";
 
 export default function RootLayout() {
   return(
-    <Drawer
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: "blue",
-          width: 240,
-          height: "100%",
-        },
-        drawerPosition: "right",
-        drawerType: "front",
-        drawerActiveTintColor: "white",
-        drawerInactiveTintColor: "#ccc",
-        headerStyle: { backgroundColor: "blue"},
-        headerTintColor: "black",
-      }}
-    >
-      <Drawer.Screen
-        name="index"
-        options={{
-          drawerLabel: "Piano",
-          title: "Piano",
-          drawerIcon: ({ color, size }) => (
-            <NativeIcon name="piano" color={color} size={size}/>
-          ),
+    <>
+      <Drawer
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: "blue",
+            width: 240,
+            height: "100%",
+          },
+          drawerPosition: "right",
+          drawerType: "front",
+          drawerActiveTintColor: "white",
+          drawerInactiveTintColor: "#ccc",
+          headerStyle: { backgroundColor: "blue"},
+          headerTintColor: "black",
         }}
-      />
+      >
+        <Drawer.Screen
+          name="index"
+          options={{
+            drawerLabel: "Piano",
+            title: "Piano",
+            drawerIcon: ({ color, size }) => (
+              <NativeIcon name="piano" color={color} size={size}/>
+            ),
+          }}
+        />
 
-      <Drawer.Screen
-        name="appearance"
-        options={{
-          drawerLabel: "Appearance",
-          title: "Appearance Preferences",
-          drawerIcon: ({ color, size }) => (
-            <NativeIcon name="palette" color={color} size={size}/>
-          ),
-        }}
-      />
+        <Drawer.Screen
+          name="appearance"
+          options={{
+            drawerLabel: "Appearance",
+            title: "Appearance Preferences",
+            drawerIcon: ({ color, size }) => (
+              <NativeIcon name="palette" color={color} size={size}/>
+            ),
+          }}
+        />
 
-      <Drawer.Screen
-        name="settings"
-        options={{
-          drawerLabel: "Behavior Settings",
-          title: "Settings",
-          drawerIcon: ({ color, size }) => (
-            <NativeIcon name="settings" color={color} size={size}/>
-          ),
-        }}
-      />
+        <Drawer.Screen
+          name="settings"
+          options={{
+            drawerLabel: "Behavior Settings",
+            title: "Settings",
+            drawerIcon: ({ color, size }) => (
+              <NativeIcon name="settings" color={color} size={size}/>
+            ),
+          }}
+        />
 
-      <Drawer.Screen
-        name="faqs"
-        options={{
-          drawerLabel: "FAQs",
-          title: "FAQs",
-          drawerIcon: ({ color, size }) => (
-            <NativeIcon name="help" color={color} size={size}/>
-          ),
-        }}
-      />
+        <Drawer.Screen
+          name="faqs"
+          options={{
+            drawerLabel: "FAQs",
+            title: "FAQs",
+            drawerIcon: ({ color, size }) => (
+              <NativeIcon name="help" color={color} size={size}/>
+            ),
+          }}
+        />
 
-      <Drawer.Screen
-        name="about"
-        options={{
-          drawerLabel: "About",
-          title: "About",
-          drawerIcon: ({ color, size }) => (
-            <NativeIcon name="info" color={color} size={size}/>
-          ),
-        }}
-      />
-    </Drawer>
+        <Drawer.Screen
+          name="about"
+          options={{
+            drawerLabel: "About",
+            title: "About",
+            drawerIcon: ({ color, size }) => (
+              <NativeIcon name="info" color={color} size={size}/>
+            ),
+          }}
+        />
+      </Drawer>
+
+      <Toast />
+  </>
   );
 }
