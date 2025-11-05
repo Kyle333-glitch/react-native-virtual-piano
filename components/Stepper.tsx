@@ -1,5 +1,6 @@
 import NumericInput from "react-native-numeric-input";
 import { Platform, View, TextInput, Pressable, Text, StyleSheet } from "react-native";
+import Toast from "react-native-toast-message";
 
 type Props = {
     value: number;
@@ -9,6 +10,7 @@ type Props = {
     step?: number;
     textColor?: string;
     rounded?: boolean;
+    height?: number;
 };
 
 export default function Stepper({
@@ -18,7 +20,8 @@ export default function Stepper({
     maxValue = 100,
     step = 1,
     textColor = "black",
-    rounded = Platform.OS === "ios" ? true : false
+    rounded = Platform.OS === "ios" ? true : false,
+    height = 40,
 }: Props) {
     if (Platform.OS === "ios" || Platform.OS === "android") {
         return (
@@ -38,20 +41,61 @@ export default function Stepper({
         <View style={styles.container}>
             <Pressable 
                 onPress={() => onChange(Math.max(minValue, value - step))} 
-                style={styles.button}
+                style={[styles.button, styles.leftButton, { height }]}
                 accessibilityLabel="Decrease value"
                 accessibilityRole="button"
             >
                 <Text style={styles.buttonText}>-</Text>
             </Pressable>
             <TextInput
-                style={[styles.input, { color: textColor }]}
+                style={[styles.input, { color: textColor , height }]}
                 keyboardType="numeric"
                 value={String(value)}
                 onChangeText={(t) => {
-                    const num = parseFloat(t);
+                    if (t === "") {
+                        return
+                    }
+                    const num = Number(t);
                     if (!isNaN(num)) {
-                        onChange(Math.min(maxValue, Math.max(minValue, num)));
+                        onChange(num);
+                    }
+                }}
+                onBlur={() => {
+                    const num = Number(value);
+                    if (isNaN(num) || value === null || value === undefined) {
+                        onChange(minValue)
+                    } else {
+                        if (num < minValue) {
+                            onChange(minValue);
+                            Toast.show({
+                                type: "info",
+                                text1: `Minimum value is ${minValue}`,
+                                position: Platform.select({
+                                    ios: "top",
+                                    macos: "top",
+                                    windows: "top",
+                                    android: "bottom",
+                                    web: "bottom",
+                                    default: "bottom",
+                                }),
+                            });
+                        }
+                        else if (num > maxValue) {
+                            onChange(maxValue);
+                            Toast.show({
+                                type: "info",
+                                text1: `Maximum value is ${maxValue}`,
+                                position: Platform.select({
+                                    ios: "top",
+                                    macos: "top",
+                                    windows: "top",
+                                    android: "bottom",
+                                    web: "bottom",
+                                    default: "bottom",
+                                }),
+                            });
+                        }
+                        else onChange(num);
                     }
                 }}
                 accessibilityLabel="Numeric value input"
@@ -59,7 +103,7 @@ export default function Stepper({
             />
             <Pressable 
                 onPress={() => onChange(Math.min(maxValue, value + step))}
-                style={styles.button}
+                style={[styles.button, styles.rightButton, {height}]}
                 accessibilityLabel="Increase value"
                 accessibilityRole="button"
             >
@@ -73,16 +117,15 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 8,
     },
     input: {
         width: 60,
         textAlign: "center",
-        borderWidth: 1,
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
         borderColor: "#ccc",
         marginHorizontal: 8,
         paddingVertical: 4,
-        borderRadius: 4,
     },
     buttonText: {
         fontSize: 18,
@@ -94,7 +137,18 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
         borderWidth: 1,
         borderColor: "#ccc",
-        borderRadius: 4,
-        backgroundColor: "#f2f2f2"
+        backgroundColor: "#f2f2f2",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    leftButton: {
+        borderTopLeftRadius: 4,
+        borderBottomLeftRadius: 4,
+        borderRightWidth: 0,
+    },
+    rightButton: {
+        borderTopRightRadius: 4,
+        borderBottomRightRadius: 4,
+        borderLeftWidth: 0,
     },
 });
