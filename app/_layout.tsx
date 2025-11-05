@@ -1,6 +1,5 @@
 import { Drawer } from "expo-router/drawer";
 import NativeIcon from "../components/NativeIcons";
-import Toast from "react-native-toast-message";
 
 export default function RootLayout() {
   return(
@@ -75,8 +74,6 @@ export default function RootLayout() {
           }}
         />
       </Drawer>
-
-      <Toast />
   </>
   );
 }
