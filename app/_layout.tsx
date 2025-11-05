@@ -1,5 +1,6 @@
 import { Drawer } from "expo-router/drawer";
 import NativeIcon from "../components/NativeIcons";
+import { Toasts } from "@backpackapp-io/react-native-toast";
 
 export default function RootLayout() {
   return(
@@ -74,6 +75,8 @@ export default function RootLayout() {
           }}
         />
       </Drawer>
-  </>
+
+      <Toasts/>
+    </>
   );
 }
