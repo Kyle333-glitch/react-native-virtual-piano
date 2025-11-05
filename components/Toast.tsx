@@ -1,24 +1,35 @@
 import { Platform } from "react-native";
 import { toast, ToastPosition } from "@backpackapp-io/react-native-toast";
+import NativeIcon from "./NativeIcons";
 
 type ToastProps = {
     message: string;
-    type: "success" | "error" | "loading" | "neutral";
+    type?: "success" | "error" | "loading" | "neutral" | "info";
+    duration?: number;
 };
 export default function showToast({
     message,
-    type,
+    type = "info",
+    duration = 4000,
 }: ToastProps) {
     const toastTypeMap = {
         "success": toast.success,
         "error": toast.error,
         "loading": toast.loading,
+        "info": toast,
         "neutral": toast,
     };
 
     const showToastType = toastTypeMap[type];
 
-    return showToastType(message, {
+    const iconMap = {
+        "success": "success",
+        "error": "error",
+        "loading": "loading",
+        "info": "info",
+    };
+
+    showToastType(message, {
         limit: 3,
         styles: {
             view: {
@@ -44,5 +55,46 @@ export default function showToast({
             web: ToastPosition.TOP_RIGHT,
             default: ToastPosition.TOP_RIGHT,
         }),
+        duration,
+        animationType: "spring",
+        icon: type !== "neutral" && <NativeIcon name={iconMap[type]}/>,
     });
 }
+
+export async function promiseToast<T>(
+    promise: Promise<T>,
+    messages: { loading: string; success: string; error: string; }
+): Promise<T> {
+    showToast({ message: messages.loading, type: "loading" });
+    
+    try {
+        const result = await promise;
+
+        showToast({ message: messages.success, type: "success"})
+
+        return result;
+    } catch (e) {
+        showToast({ message: messages.error, type: "error" })
+
+        throw e;
+    }
+}
+
+export async function loadingToast<T>(
+    fn: () => Promise<T>,
+    messages: { loading: string; success: string; error: string; },
+): Promise<T> {
+    try {
+        return await promiseToast(fn(), {
+            loading: messages.loading,
+            success: messages.success,
+            error: messages.error,
+        });
+    } catch (e) {
+        console.error("loadingToast failed:", e);
+
+        throw e;
+    }
+}
+
+//TODO: warning type
