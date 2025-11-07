@@ -1,3 +1,6 @@
+// © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
+// UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
+
 import { Drawer } from "expo-router/drawer";
 import NativeIcon from "../components/NativeIcons";
 import { Toasts } from "@backpackapp-io/react-native-toast";
