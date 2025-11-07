@@ -1,6 +1,12 @@
-import Piano from "@/lib/react-piano/Piano";
-import { DEFAULTS, headerStyles } from "@/lib/react-piano/styles";
-import { Dimensions, Platform, ScrollView, Text, View } from "react-native";
+// © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
+// UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
+
+import Piano from "@/lib/react-native-virtual-piano/Piano";
+import {
+    DEFAULTS,
+    headerStyles,
+} from "@/lib/react-native-virtual-piano/styles";
+import { Dimensions, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ColorPicker, {
     HueSlider,
@@ -57,11 +63,11 @@ export default function Appearance() {
     const [whiteNoteLabelColor, setWhiteNoteLabelColor] = usePersistentState(
         "whiteNoteLabelColor",
         DEFAULTS.NOTE_LABEL_WHITE_COLOR
-    )
+    );
     const [blackNoteLabelColor, setBlackNoteLabelColor] = usePersistentState(
         "blackNoteLabelColor",
         DEFAULTS.NOTE_LABEL_BLACK_COLOR
-    )
+    );
     const [blackKeyHeight, setBlackKeyHeight] = usePersistentState(
         "blackKeyHeight",
         DEFAULTS.BLACK_KEY_HEIGHT
@@ -71,7 +77,7 @@ export default function Appearance() {
         DEFAULTS.WHITE_KEY_HEIGHT
     );
     const [pressDepth, setPressDepth] = usePersistentState(
-        "whiteKeyHeight",
+        "pressDepth",
         DEFAULTS.PRESS_DEPTH
     );
 
@@ -97,7 +103,6 @@ export default function Appearance() {
                     maxValue={20}
                     step={1}
                     textColor="black"
-                    rounded={Platform.OS !== "android"}
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>
@@ -110,7 +115,6 @@ export default function Appearance() {
                     maxValue={10}
                     step={1}
                     textColor="black"
-                    rounded={Platform.OS !== "android"}
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>
@@ -123,7 +127,6 @@ export default function Appearance() {
                     maxValue={10}
                     step={1}
                     textColor="black"
-                    rounded={Platform.OS !== "android"}
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>
@@ -204,7 +207,7 @@ export default function Appearance() {
                     <HueSlider />
                 </ColorPicker>
 
-                 <Text style={headerStyles.mediumSectionHeader}>
+                <Text style={headerStyles.mediumSectionHeader}>
                     Black Key Note Label Color
                 </Text>
                 <ColorPicker
@@ -217,7 +220,7 @@ export default function Appearance() {
                     <HueSlider />
                 </ColorPicker>
 
-                 <Text style={headerStyles.mediumSectionHeader}>
+                <Text style={headerStyles.mediumSectionHeader}>
                     White Key Note Label Color
                 </Text>
                 <ColorPicker
@@ -231,7 +234,7 @@ export default function Appearance() {
                 </ColorPicker>
 
                 <Text style={headerStyles.mediumSectionHeader}>
-                    Black Key Height: {blackKeyHeight}%
+                    Black Key Height: {blackKeyHeight}
                 </Text>
                 <Stepper
                     value={blackKeyHeight}
@@ -239,11 +242,10 @@ export default function Appearance() {
                     minValue={40}
                     maxValue={100}
                     step={5}
-                    rounded={Platform.OS !== "android"}
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>
-                    White Key Height: {whiteKeyHeight}%
+                    White Key Height: {whiteKeyHeight}
                 </Text>
                 <Stepper
                     value={whiteKeyHeight}
@@ -251,7 +253,6 @@ export default function Appearance() {
                     minValue={50}
                     maxValue={100}
                     step={5}
-                    rounded={Platform.OS !== "android"}
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>
@@ -263,7 +264,6 @@ export default function Appearance() {
                     minValue={0}
                     maxValue={20}
                     step={1}
-                    rounded={Platform.OS !== "android"}
                 />
 
                 <Text style={headerStyles.mediumSectionHeader}>
@@ -275,7 +275,6 @@ export default function Appearance() {
                     minValue={0}
                     maxValue={100}
                     step={5}
-                    rounded={Platform.OS !== "android"}
                 />
             </ScrollView>
 
