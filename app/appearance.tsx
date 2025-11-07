@@ -207,6 +207,7 @@ export default function Appearance() {
                     <HueSlider />
                 </ColorPicker>
 
+                {/*
                 <Text style={headerStyles.mediumSectionHeader}>
                     Black Key Note Label Color
                 </Text>
@@ -232,6 +233,7 @@ export default function Appearance() {
                     <Panel1 />
                     <HueSlider />
                 </ColorPicker>
+                */}
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     Black Key Height: {blackKeyHeight}
@@ -255,6 +257,7 @@ export default function Appearance() {
                     step={5}
                 />
 
+                {/*
                 <Text style={headerStyles.mediumSectionHeader}>
                     Press Key in Animation Depth
                 </Text>
@@ -276,6 +279,7 @@ export default function Appearance() {
                     maxValue={100}
                     step={5}
                 />
+                */}
             </ScrollView>
 
             <View
