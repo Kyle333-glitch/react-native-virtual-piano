@@ -8,11 +8,7 @@ import {
 } from "@/lib/react-native-virtual-piano/styles";
 import { Dimensions, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ColorPicker, {
-    HueSlider,
-    Panel1,
-    Preview,
-} from "reanimated-color-picker";
+import ColorPicker from "../components/ColorPicker";
 import Stepper from "../components/Stepper";
 import usePersistentState from "../hooks/usePersistentState";
 
@@ -133,106 +129,74 @@ export default function Appearance() {
                     Disabled Border Color
                 </Text>
                 <ColorPicker
-                    value={disabledBorderColor}
+                    defaultColor={disabledBorderColor}
                     onComplete={({ hex }) => setDisabledBorderColor(hex)}
                     style={{ width: width / 6 }}
-                >
-                    <Preview />
-                    <Panel1 />
-                    <HueSlider />
-                </ColorPicker>
+                />
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     White Key Color
                 </Text>
                 <ColorPicker
-                    value={whiteKeyColor}
+                    defaultColor={whiteKeyColor}
                     onComplete={({ hex }) => setWhiteKeyColor(hex)}
                     style={{ width: width / 6 }}
-                >
-                    <Preview />
-                    <Panel1 />
-                    <HueSlider />
-                </ColorPicker>
+                />
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     Black Key Color
                 </Text>
                 <ColorPicker
-                    value={blackKeyColor}
+                    defaultColor={blackKeyColor}
                     onComplete={({ hex }) => setBlackKeyColor(hex)}
                     style={{ width: width / 6 }}
-                >
-                    <Preview />
-                    <Panel1 />
-                    <HueSlider />
-                </ColorPicker>
+                />
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     Pressed Color
                 </Text>
                 <ColorPicker
-                    value={pressedColor}
+                    defaultColor={pressedColor}
                     onComplete={({ hex }) => setPressedColor(hex)}
                     style={{ width: width / 6 }}
-                >
-                    <Preview />
-                    <Panel1 />
-                    <HueSlider />
-                </ColorPicker>
+                />
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     Disabled Key Color
                 </Text>
                 <ColorPicker
-                    value={disabledKeyColor}
+                    defaultColor={disabledKeyColor}
                     onComplete={({ hex }) => setDisabledKeyColor(hex)}
                     style={{ width: width / 6 }}
-                >
-                    <Preview />
-                    <Panel1 />
-                    <HueSlider />
-                </ColorPicker>
+                />
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     Border Color
                 </Text>
                 <ColorPicker
-                    value={borderColor}
+                    defaultColor={borderColor}
                     onComplete={({ hex }) => setBorderColor(hex)}
                     style={{ width: width / 6 }}
-                >
-                    <Preview />
-                    <Panel1 />
-                    <HueSlider />
-                </ColorPicker>
+                />
 
                 {/*
                 <Text style={headerStyles.mediumSectionHeader}>
                     Black Key Note Label Color
                 </Text>
                 <ColorPicker
-                    value={blackNoteLabelColor}
+                    defaultColor={blackNoteLabelColor}
                     onComplete={({ hex }) => setBlackNoteLabelColor(hex)}
                     style={{ width: width / 6 }}
-                >
-                    <Preview />
-                    <Panel1 />
-                    <HueSlider />
-                </ColorPicker>
+                />
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     White Key Note Label Color
                 </Text>
                 <ColorPicker
-                    value={whiteNoteLabelColor}
+                    defaultColor={whiteNoteLabelColor}
                     onComplete={({ hex }) => setWhiteNoteLabelColor(hex)}
                     style={{ width: width / 6 }}
-                >
-                    <Preview />
-                    <Panel1 />
-                    <HueSlider />
-                </ColorPicker>
+                />
                 */}
 
                 <Text style={headerStyles.mediumSectionHeader}>
