@@ -1,16 +1,19 @@
-import { Link } from "expo-router";
+// © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
+// UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
+
+import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Piano } from "../lib/react-piano";
+import { Piano } from "../piano/react-native-virtual-piano";
+import { DEFAULTS } from "../piano/react-native-virtual-piano/styles";
 
 import usePersistentState from "../hooks/usePersistentState";
-import { DEFAULTS } from "../lib/react-piano/styles";
+import Pressable from "../components/Pressable";
 
 export default function Index() {
-    const [borderRadius] = usePersistentState(
-        "borderRadius",
-        DEFAULTS.BORDER_RADIUS
-    );
+    // Wait for all settings to load before rendering
+    const [borderRadius, setBorderRadius, borderRadiusLoading] =
+        usePersistentState("borderRadius", DEFAULTS.BORDER_RADIUS);
     const [borderWidth] = usePersistentState(
         "borderWidth",
         DEFAULTS.BORDER_WIDTH
@@ -81,16 +84,21 @@ export default function Index() {
     const [whiteNoteLabelColor] = usePersistentState(
         "whiteNoteLabelColor",
         DEFAULTS.NOTE_LABEL_WHITE_COLOR
-    )
+    );
     const [blackNoteLabelColor] = usePersistentState(
         "blackNoteLabelColor",
         DEFAULTS.NOTE_LABEL_BLACK_COLOR
-    )
-
-    const [pressDepth] = usePersistentState(
-        "pressDepth",
-        DEFAULTS.PRESS_DEPTH
     );
+
+    const [pressDepth] = usePersistentState("pressDepth", DEFAULTS.PRESS_DEPTH);
+
+    const [octaveShift, setOctaveShift] = usePersistentState("octaveShift", 0); //FIXME: allow for more fine-grained control
+
+    const getNoteRange = (): [string, string] => {
+        const baseStart = 4; // c4
+        const baseEnd = 5; // c5
+        return [`c${baseStart + octaveShift}`, `c${baseEnd + octaveShift}`];
+    };
 
     const [keyColorSubset] = usePersistentState(
         "keyColorSubset",
@@ -103,6 +111,16 @@ export default function Index() {
     );
     const [special] = usePersistentState("special", DEFAULTS.SPECIAL);
 
+    // Check if any settings are still loading
+    const isLoading = [
+        borderRadiusLoading,
+        // Add other loading states here
+    ].some((loading) => loading);
+
+    if (isLoading) {
+        return null;
+    }
+
     return (
         <SafeAreaView
             style={{
@@ -111,8 +129,39 @@ export default function Index() {
                 alignItems: "center",
             }}
         >
+            <View style={{ flexDirection: "row", marginTop: 20 }}>
+                <Pressable
+                    onPress={() =>
+                        setOctaveShift(Math.max(octaveShift - 1, -3))
+                    }
+                    style={{
+                            padding: 10,
+                            marginRight: 10,
+                            borderRadius: 6,
+                    }}
+                >
+                    <Text>Octave Down</Text>
+                </Pressable>
+
+                <Pressable
+                    onPress={() => setOctaveShift(Math.max(octaveShift + 1, 3))}
+                    style={{
+                            padding: 10,
+                            marginRight: 10,
+                            borderRadius: 6,
+                    }}
+                >
+                    <Text>Octave Up</Text>
+                </Pressable>
+
+                <Text style={{ marginTop: 10 }}>
+                    Current Range: {getNoteRange()[0].toUpperCase()} -{" "}
+                    {getNoteRange()[1].toUpperCase()}
+                </Text>
+            </View>
+
             <Piano
-                noteRange={["c4", "c5"]}
+                noteRange={getNoteRange()}
                 // Printing to console
                 onNoteOn={(midi, ctx) => console.log("Note on:", midi, ctx)}
                 onNoteOff={(midi, ctx) => console.log("Note off:", midi, ctx)}
@@ -137,8 +186,6 @@ export default function Index() {
                 releaseHapticOn={releaseHapticOn}
                 hapticsStrength={hapticsStrength}
             />
-            <Link href="/settings" asChild>
-            </Link>
         </SafeAreaView>
     );
 }
