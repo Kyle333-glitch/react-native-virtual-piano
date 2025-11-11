@@ -129,7 +129,7 @@ export default function Index() {
                 alignItems: "center",
             }}
         >
-            <View style={{ flexDirection: "row", marginTop: 20 }}>
+            <View style={{ flexDirection: "row", marginTop: 20, alignItems: "center" }}>
                 <Pressable
                     onPress={() =>
                         setOctaveShift(Math.max(octaveShift - 1, -3))
@@ -154,7 +154,7 @@ export default function Index() {
                     <Text>Octave Up</Text>
                 </Pressable>
 
-                <Text style={{ marginTop: 10 }}>
+                <Text>
                     Current Range: {getNoteRange()[0].toUpperCase()} -{" "}
                     {getNoteRange()[1].toUpperCase()}
                 </Text>
