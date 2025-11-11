@@ -1,7 +1,7 @@
 // © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
 // UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
 
-import { Text, View, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function About() {
