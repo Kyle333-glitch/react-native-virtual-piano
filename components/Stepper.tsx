@@ -1,4 +1,6 @@
-import { Platform, View, TextInput, Pressable, Text, StyleSheet } from "react-native";
+import { Platform, View, TextInput, Text, StyleSheet } from "react-native";
+
+import Pressable from "./Pressable";
 import showToast from "./Toast";
 
 type Props = {
@@ -44,7 +46,6 @@ export default function Stepper({
                 onPress={() => onChange(Math.max(minValue, value - step))} 
                 style={[styles.button, styles.leftButton, { height }]}
                 accessibilityLabel="Decrease value"
-                accessibilityRole="button"
             >
                 <Text style={styles.buttonText}>-</Text>
             </Pressable>
@@ -84,7 +85,6 @@ export default function Stepper({
                 onPress={() => onChange(Math.min(maxValue, value + step))}
                 style={[styles.button, styles.rightButton, {height}]}
                 accessibilityLabel="Increase value"
-                accessibilityRole="button"
             >
                 <Text style={styles.buttonText}>+</Text>
             </Pressable>
