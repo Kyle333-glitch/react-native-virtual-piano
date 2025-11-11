@@ -189,6 +189,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 4,
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        marginVertical: 16,
+        marginHorizontal: 12,
     },
     primaryText: {
         fontWeight: "600",
@@ -196,6 +200,10 @@ const styles = StyleSheet.create({
     secondary: {
         elevation: 2,
         borderWidth: 2,
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        marginVertical: 12,
+        marginHorizontal: 8,
     },
     secondaryText: {
         fontWeight: "500",
@@ -203,6 +211,10 @@ const styles = StyleSheet.create({
     regular: {
         elevation: 0,
         shadowOpacity: 0,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        marginVertical: 8,
+        marginHorizontal: 6,
     },
     pressedShadow: {
         ...Platform.select({
