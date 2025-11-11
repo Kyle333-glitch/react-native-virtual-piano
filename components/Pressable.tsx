@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
-
 import { useRef, useState } from "react";
 import { Pressable, Platform, StyleSheet, StyleProp, ViewStyle, Text, Animated, View } from "react-native";
 import * as Haptics from "expo-haptics";
+
+import type { ReactNode } from "react";
 
 type PressableFeedbackProps = {
     children?: ReactNode | String,
