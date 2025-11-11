@@ -252,9 +252,69 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject, // Completely overlays button
         backgroundColor: "rgba(0,0,0,0.15)",
     },
+    lightPrimary: {
+        backgroundColor: Platform.select({
+            ios: "#007AFF",
+            android: "#2196F3",
+            macos: "#0A84FF",
+            windows: "#0078D7",
+            web: "#0A84FF",
+            default: "#2196F3",
+        }),
+    },
+    lightSecondary: {
+        backgroundColor: Platform.select({
+            ios: "#6699CC",
+            android: "#64B5F6",
+            macos: "#5A9BD5",
+            windows: "#5A9BD5",
+            web: "#6699CC",
+            default: "#6699CC",
+        }),
+    },
+    lightRegular: {
+        backgroundColor: Platform.select({
+            ios: "#CFCFCF",
+            android: "#BDBDBD",
+            macos: "#DADADA",
+            windows: "#E5E5E5",
+            web: "#E0E0E0",
+            default: "#E0E0E0",
+        }),
+    },
+    darkPrimary: {
+        backgroundColor: Platform.select({
+            ios: "#0A84FF",
+            android: "#90CAF9",
+            macos: "#0A84FF",
+            windows: "#0078D7",
+            web: "#3399FF",
+            default: "#0A84FF",
+        }),
+    },
+    darkSecondary: {
+        backgroundColor: Platform.select({
+            ios: "#264D73",
+            android: "#1976D2",
+            macos: "#1E3A5F",
+            windows: "#1E3A5F",
+            web: "#264D73",
+            default: "#264D73",
+        }),
+    },
+    darkRegular: {
+        backgroundColor: Platform.select({
+            ios: "#4A4A4A",
+            android: "#555555",
+            macos: "#3C3C3C",
+            windows: "#3C3C3C",
+            web: "#3A3A3A",
+            default: "#3A3A3A",
+        }),
+    },
 });
 
 // primary-level buttons: haptics(ridid), sound cues, shrink, shadow/elevation change
 // secondary-level buttons: opacity darken, light shadow/elevation, border change, haptics (medium)
 // regular buttons (default, unintrusive): opacity fade, border change, haptics (light)
-// TODO: debounce
+// TODO: debounce, border color
