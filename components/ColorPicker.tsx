@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
         borderColor: "#36454F",
     },
     resetButton: {
-        padding: 6,
-        marginVertical: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
         borderRadius: Platform.select({
             ios: 12,
             android: 10,
