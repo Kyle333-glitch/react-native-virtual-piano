@@ -4,6 +4,8 @@ import * as Haptics from "expo-haptics";
 
 import type { ReactNode } from "react";
 
+import { isLightMode } from "../theme/ThemeProvider";
+
 type PressableFeedbackProps = {
     children?: ReactNode | String,
     text? : string,
@@ -147,28 +149,46 @@ export default function PressableFeedback({
                 }
             >
                 {({ pressed }) => (
-                    <Animated.View 
-                        style={{
-                            transform: [{ scale }],
-                            borderRadius,
-                            opacity,
-                            borderWidth,
-                        }}
+                    <View 
+                        style={[
+                            variant === "primary" && styles.primary,
+                            variant === "secondary" && styles.secondary,
+                            variant === "regular" && styles.regular,
+                            { borderRadius },
+                        ]}
                     >
-                        { 
-                            text
-                            ? <Text 
-                                style={variant==="primary" ? styles.primaryText 
-                                    : variant==="secondary" ? styles.secondaryText 
-                                    : null
-                                    }
-                            >
-                                {text}
-                            </Text>
-                            : children 
-                        }
-                        { pressed && <View style={[styles.darkOverlay, { borderRadius }]}/> }
-                    </Animated.View>
+                        <Animated.View 
+                            style={[{
+                                transform: [{ scale }],
+                                borderRadius,
+                                opacity,
+                                borderWidth,
+                            },
+                            variant === "primary" && styles.primary,
+                            variant === "secondary" && styles.secondary,
+                            variant === "regular" && styles.regular,
+                            variant === "primary"
+                                ? isLightMode() ? styles.lightPrimary : styles.darkPrimary
+                            : variant === "secondary"
+                                ? isLightMode() ? styles.lightSecondary : styles.darkSecondary
+                            : isLightMode() ? styles.lightRegular : styles.darkRegular
+                            ]}
+                        >
+                            {text ? (
+                                <Text 
+                                    style={variant==="primary" ? styles.primaryText 
+                                        : variant==="secondary" ? styles.secondaryText 
+                                        : null
+                                        }
+                                >
+                                    {text}
+                                </Text>
+                            ) : ( 
+                                children 
+                            )}
+                            { pressed && <View style={[styles.darkOverlay, { borderRadius }]}/> }
+                        </Animated.View>
+                    </View>
                 )}
             </Pressable>
         </View>
@@ -179,8 +199,6 @@ const styles = StyleSheet.create({
     base: {
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 10,
-        paddingHorizontal: 20,
         overflow: "hidden",
     },
     primary: {
