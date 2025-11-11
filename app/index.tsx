@@ -111,6 +111,9 @@ export default function Index() {
     );
     const [special] = usePersistentState("special", DEFAULTS.SPECIAL);
 
+    const clamp = (value: number, min: number, max: number) =>
+        Math.min(Math.max(value, min), max);
+
     // Check if any settings are still loading
     const isLoading = [
         borderRadiusLoading,
@@ -132,7 +135,7 @@ export default function Index() {
             <View style={{ flexDirection: "row", marginTop: 20, alignItems: "center" }}>
                 <Pressable
                     onPress={() =>
-                        setOctaveShift(Math.max(octaveShift - 1, -3))
+                        setOctaveShift(clamp(octaveShift - 1, -3, 3))
                     }
                     style={{
                             padding: 10,
@@ -144,7 +147,7 @@ export default function Index() {
                 </Pressable>
 
                 <Pressable
-                    onPress={() => setOctaveShift(Math.max(octaveShift + 1, 3))}
+                    onPress={() => setOctaveShift(clamp(octaveShift + 1, -3, 3))}
                     style={{
                             padding: 10,
                             marginRight: 10,
