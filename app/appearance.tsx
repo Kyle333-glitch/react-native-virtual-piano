@@ -1,11 +1,11 @@
 // © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
 // UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
 
-import Piano from "@/lib/react-native-virtual-piano/Piano";
+import Piano from "@/piano/react-native-virtual-piano/Piano";
 import {
     DEFAULTS,
     headerStyles,
-} from "@/lib/react-native-virtual-piano/styles";
+} from "@/piano/react-native-virtual-piano/styles";
 import { Dimensions, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ColorPicker from "../components/ColorPicker";
