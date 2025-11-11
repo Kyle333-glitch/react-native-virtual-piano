@@ -2,7 +2,9 @@ import ReanimatedColorPicker, {
     HueSlider,
     Panel1,
 } from "reanimated-color-picker";
-import { StyleSheet, Platform, ViewStyle, Pressable, Text } from "react-native";
+import { StyleSheet, Platform, ViewStyle, Text } from "react-native";
+
+import Pressable from "../components/Pressable";
 
 type ColorPickerProps = {
     defaultColor: string;
@@ -38,7 +40,11 @@ export default function ColorPicker({
             />
             <HueSlider/>
             <Pressable
-            style={styles.resetButton}
+                onPress={() => {
+                    onComplete({ hex: defaultColor });
+                    onChange?.({ hex: defaultColor });
+                }}
+                style={styles.resetButton}
             >
                 <Text>Reset to default</Text>
             </Pressable>
