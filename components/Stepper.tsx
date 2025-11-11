@@ -1,4 +1,3 @@
-import NumericInput from "react-native-numeric-input";
 import { Platform, View, TextInput, Pressable, Text, StyleSheet } from "react-native";
 import showToast from "./Toast";
 
@@ -23,6 +22,7 @@ export default function Stepper({
     rounded = Platform.OS === "ios" ? true : false,
     height = 40,
 }: Props) {
+    /*
     if (Platform.OS === "ios" || Platform.OS === "android") {
         return (
             <NumericInput
@@ -36,6 +36,7 @@ export default function Stepper({
             />
         );
     }
+    FIXME: Add a native stepper for ios and andriod.*/
 
     return (
         <View style={styles.container}>
