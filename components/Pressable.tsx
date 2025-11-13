@@ -5,6 +5,7 @@ import * as Haptics from "expo-haptics";
 import type { ReactNode } from "react";
 
 import { isLightMode } from "../theme/ThemeProvider";
+import color from "../theme/Colors";
 
 type PressableFeedbackProps = {
     children?: ReactNode | String,
@@ -106,92 +107,79 @@ export default function PressableFeedback({
     };
 
     return (
-        <View style={{ borderRadius, overflow: "hidden" }}>
-            <Pressable
-                onPress={handlePress}
-                onPressIn={onPressIn}
-                onPressOut={onPressOut}
-                accessibilityRole="button"
-                accessibilityLabel={label}
-                accessibilityHint={hint}
-                tabIndex={0}
-                onLayout={e => {
-                    const { width, height } = e.nativeEvent.layout;
-                    setDimensions({ width, height });
-                }}
-                hitSlop={{
-                    top: Math.max(0, (48 - dimensions.height) / 2),
-                    bottom: Math.max(0, (48 - dimensions.height) / 2),
-                    left: Math.max(0, (48 - dimensions.width) / 2),
-                    right: Math.max(0, (48 - dimensions.width) / 2),
-                }}
-                android_ripple={
-                    Platform.OS === "android" ? 
-                    { color: "rgba(255,255,255,0.2)", borderless: borderless } 
-                    : undefined
-                }
-                style={({ pressed }) => 
-                    StyleSheet.flatten([
-                        styles.base,
-                        variant === "primary" && styles.primary,
-                        variant === "secondary" && styles.secondary,
-                        variant === "regular" && styles.regular,
-                        { borderRadius },
-                        style,
-                        pressed &&
-                            (variant === "primary"
-                                ? styles.pressedShadow
-                                : variant === "secondary"
-                                ? styles.lightPressedShadow
-                                : undefined
-                            ),
-                    ])
-                }
-            >
-                {({ pressed }) => (
-                    <View 
-                        style={[
-                            variant === "primary" && styles.primary,
-                            variant === "secondary" && styles.secondary,
-                            variant === "regular" && styles.regular,
-                            { borderRadius },
-                        ]}
-                    >
-                        <Animated.View 
-                            style={[{
-                                transform: [{ scale }],
-                                borderRadius,
-                                opacity,
-                                borderWidth,
-                            },
-                            variant === "primary" && styles.primary,
-                            variant === "secondary" && styles.secondary,
-                            variant === "regular" && styles.regular,
-                            variant === "primary"
-                                ? isLightMode() ? styles.lightPrimary : styles.darkPrimary
+        <Pressable
+            onPress={handlePress}
+            onPressIn={onPressIn}
+            onPressOut={onPressOut}
+            accessibilityRole="button"
+            accessibilityLabel={label}
+            accessibilityHint={hint}
+            tabIndex={0}
+            onLayout={e => {
+                const { width, height } = e.nativeEvent.layout;
+                setDimensions({ width, height });
+            }}
+            hitSlop={{
+                top: Math.max(0, (48 - dimensions.height) / 2),
+                bottom: Math.max(0, (48 - dimensions.height) / 2),
+                left: Math.max(0, (48 - dimensions.width) / 2),
+                right: Math.max(0, (48 - dimensions.width) / 2),
+            }}
+            android_ripple={
+                Platform.OS === "android" ? 
+                { color: "rgba(255,255,255,0.2)", borderless: borderless } 
+                : undefined
+            }
+            style={({ pressed }) => 
+                StyleSheet.flatten([
+                    styles.base,
+                    variant === "primary" && styles.primary,
+                    variant === "secondary" && styles.secondary,
+                    variant === "regular" && styles.regular,
+                    { borderRadius },
+                    style,
+                    pressed &&
+                        (variant === "primary"
+                            ? styles.pressedShadow
                             : variant === "secondary"
-                                ? isLightMode() ? styles.lightSecondary : styles.darkSecondary
-                            : isLightMode() ? styles.lightRegular : styles.darkRegular
-                            ]}
+                            ? styles.lightPressedShadow
+                            : undefined
+                        ),
+                ])
+            }
+        >
+            {({ pressed }) => (
+                <Animated.View 
+                    style={[{
+                        transform: [{ scale }],
+                        borderRadius,
+                        opacity,
+                        borderWidth,
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                    },
+                    variant === "primary" && styles.primary,
+                    variant === "secondary" && styles.secondary,
+                    variant === "regular" && styles.regular,
+                    ]}
+                >
+                    {text ? (
+                        <Text 
+                            style={variant==="primary" ? styles.primaryText 
+                                : variant==="secondary" ? styles.secondaryText 
+                                : null
+                                }
                         >
-                            {text ? (
-                                <Text 
-                                    style={variant==="primary" ? styles.primaryText 
-                                        : variant==="secondary" ? styles.secondaryText 
-                                        : null
-                                        }
-                                >
-                                    {text}
-                                </Text>
-                            ) : ( 
-                                children 
-                            )}
-                            { pressed && <View style={[styles.darkOverlay, { borderRadius }]}/> }
-                        </Animated.View>
-                    </View>
-                )}
-            </Pressable>
-        </View>
+                            {text}
+                        </Text>
+                    ) : ( 
+                        children 
+                    )}
+                    { pressed && <View style={[styles.darkOverlay, { borderRadius }]}/> }
+                </Animated.View>
+            )}
+        </Pressable>
     );
 }
 
@@ -211,17 +199,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginVertical: 16,
         marginHorizontal: 12,
+        backgroundColor: color("accentPrimary"),
     },
     primaryText: {
         fontWeight: "600",
     },
     secondary: {
         elevation: 2,
-        borderWidth: 2,
         paddingVertical: 10,
         paddingHorizontal: 16,
         marginVertical: 12,
         marginHorizontal: 8,
+        backgroundColor: color("buttonSecondaryBackground"),
     },
     secondaryText: {
         fontWeight: "500",
@@ -233,6 +222,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginVertical: 8,
         marginHorizontal: 6,
+        backgroundColor: color("buttonBackground"),
     },
     pressedShadow: {
         ...Platform.select({
@@ -270,69 +260,8 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject, // Completely overlays button
         backgroundColor: "rgba(0,0,0,0.15)",
     },
-    lightPrimary: {
-        backgroundColor: Platform.select({
-            ios: "#007AFF",
-            android: "#2196F3",
-            macos: "#0A84FF",
-            windows: "#0078D7",
-            web: "#0A84FF",
-            default: "#2196F3",
-        }),
-    },
-    lightSecondary: {
-        backgroundColor: Platform.select({
-            ios: "#6699CC",
-            android: "#64B5F6",
-            macos: "#5A9BD5",
-            windows: "#5A9BD5",
-            web: "#6699CC",
-            default: "#6699CC",
-        }),
-    },
-    lightRegular: {
-        backgroundColor: Platform.select({
-            ios: "#CFCFCF",
-            android: "#BDBDBD",
-            macos: "#DADADA",
-            windows: "#E5E5E5",
-            web: "#E0E0E0",
-            default: "#E0E0E0",
-        }),
-    },
-    darkPrimary: {
-        backgroundColor: Platform.select({
-            ios: "#0A84FF",
-            android: "#90CAF9",
-            macos: "#0A84FF",
-            windows: "#0078D7",
-            web: "#3399FF",
-            default: "#0A84FF",
-        }),
-    },
-    darkSecondary: {
-        backgroundColor: Platform.select({
-            ios: "#264D73",
-            android: "#1976D2",
-            macos: "#1E3A5F",
-            windows: "#1E3A5F",
-            web: "#264D73",
-            default: "#264D73",
-        }),
-    },
-    darkRegular: {
-        backgroundColor: Platform.select({
-            ios: "#4A4A4A",
-            android: "#555555",
-            macos: "#3C3C3C",
-            windows: "#3C3C3C",
-            web: "#3A3A3A",
-            default: "#3A3A3A",
-        }),
-    },
 });
 
 // primary-level buttons: haptics(ridid), sound cues, shrink, shadow/elevation change
 // secondary-level buttons: opacity darken, light shadow/elevation, border change, haptics (medium)
 // regular buttons (default, unintrusive): opacity fade, border change, haptics (light)
-// TODO: debounce, border color
