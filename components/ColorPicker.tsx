@@ -5,6 +5,7 @@ import ReanimatedColorPicker, {
 import { StyleSheet, Platform, ViewStyle, Text } from "react-native";
 
 import Pressable from "../components/Pressable";
+import borderRadius from "../theme/BorderRadius";
 
 type ColorPickerProps = {
     defaultColor: string;
@@ -59,14 +60,7 @@ const styles = StyleSheet.create({
     resetButton: {
         paddingVertical: 8,
         paddingHorizontal: 12,
-        borderRadius: Platform.select({
-            ios: 12,
-            android: 10,
-            macos: 6,
-            windows: 4,
-            web: 4,
-            default: 4,
-        }),
+        borderRadius: borderRadius("button"),
         backgroundColor: "#555555",
         borderColor: "#666666",
         alignItems: "center",
