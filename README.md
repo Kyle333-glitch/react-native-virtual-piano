@@ -1,50 +1,82 @@
-# Welcome to your Expo app 👋
+_**FIXME: NAME HERE**_ is a free, offline piano app designed for a clean, focused experience. Instead of overwhelming users with menus or complex features, it’s designed to be lightweight, intuitive, and instantly playable. Open the app and you’re at the keyboard — ready to explore music, relax, or experiment with sound anytime, anywhere. 
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This app is perfect for beginners learning piano, casual players expirementing with sound, and musicians wanting a lightweight, portable instrument on the go.
 
-## Get started
+## Problems with Current Piano Apps
 
-1. Install dependencies
+| Problem | Solution |
+|---------|----------|
+| 🚧 Subscription paywalls | No subscriptions required — every feature is free to use. |
+| 📢 Distracting ads | 100% ad‑free, so you can focus on music without interruptions. |
+| 💸 Hidden costs & upsells | No hidden costs, upsells, or in‑app purchases. Everything is free. |
+| 🌐 Online dependency | Works fully offline — no connectivity required. |
+| 📦 Heavy storage size | Only _ MB on Android + _ MB on iOS. **FIXME: PUT IN ACTUAL VALUES** |
+| 🔋 Battery drain | Uses __ battery in 10 minutes (likely <1% on iPhone 17 Pro). **FIXME: PUT IN ACTUAL VALUES** |
+| 🐢 Slow startup | Cold start in only __ (around 0.5–1s on iPhone 17 Pro). **FIXME: PUT IN ACTUAL VALUES** |
+| 🐌 Laggy audio | Smooth, responsive playback. **FIXME: PUT IN ACTUAL VALUES FOR DATA HERE** |
+| 🤯 Complex & not beginner‑friendly | Simple, intuitive piano that works instantly, with FAQs for effortless support. |
+| 🔧 Lack of customization | Dedicated screens for customizing both appearance and behavior preferences. |
+| 💤 Minimal tactile response | Customizable, responsive haptics for note presses and releases. |
+| 🕵️ Privacy‑invasive | No accounts, offline use, minimal permissions, no data sale, no analytics, no hidden tracking, and no ads or profiling. |
+| 🌀 Gamification clutter | No empty points, trivial badges, stressful streaks, locked mechanics, discouraging leaderboards, or intrusive nudges. |
+| 🤔 Clunky, non‑native interfaces | Polished, familiar design that looks and feels built for your device. |
 
-   ```bash
-   npm install
-   ```
+## What sets this app apart
+- 🎶 Simple — a streamlined design that keeps the focus on your music.
+- 🛠️ Customizable — customize the appearance and behavior of the piano however you like.
+- 🔄 Octave shift — expand your range with just a tap.
+- 📡 Offline — play anywhere, anytime, without needing a connection.
+- 🎹 Accessible & inclusive — perfect for beginners, casual players, or anyone curious.
+- ⚡ Instant — no setup, no learning curve, just open and start making sound.
+- 🔋 Battery-friendly — lightweight design that conserves power.
+- 🎧 Lightweight & fast — takes little storage, runs smoothly on any device.
+- 🔒 Privacy-respecting — no accounts, no tracking, no data selling, just music.
+- 🆓 Completely free — no hidden costs or ads.
+- ⏱️ Fast startup — **FIXME: TIME HERE** seconds
+- 📳 Responsive tactile feedback — customizable haptics for note presses and releases.
+- 🌀 No gamification clutter — no popups and distractions.
+- 📱 Native look & feel — React Native uses familar and natural native components.
 
-2. Start the app
+## Answers to Hack Cider form questions
 
-   ```bash
-   npx expo start
-   ```
+### How did you hear about this?
+I discovered this program while browsing the Hack Club homepage, where it was featured and caught my attention.
 
-In the output, you'll find options to open the app in a
+### What are we doing well?
+- Removing Apple Developer Membership paywall
+- Helping getting app on TestFlight
+- Motivation through rewards
+- Visibility in submissions gallery
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### How can we improve?
+- Not every student can create an app in only 30 days, leading to rushed apps.
+- It's hard to code 40 hours in 30 days.
+- The vast majority of people don't have a Mac to code in SwiftUI and Swift.
+- Even if you use React Native, you can't plug in an iPhone to test the app.
+- You need a mac for an iOS Simulator, so every time you want to test your app, you have to keep a physical device with you with Expo Go, which only has a limited set of native modules.
+- No Instruments Profiler, can't see CPU usage, memory allocation, battery impact, frame rates, etc. 
+- Submissions gallery isn't working: "Error loading submissions. Please try again later. You are not authorized to perform this operation"
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## README for Hack Cider
+Name: name from above
 
-## Get a fresh project
+Description: Description from above
 
-When you're ready, run:
+GitHub URL:
 
-```bash
-npm run reset-project
-```
+How did you build this: I used my prior knowledge of React Native to build this app, leveraging Expo to streamline development and testing.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Did you use Hakatime to log your progress?: Yes
 
-## Learn more
+Total hours:
 
-To learn more about developing your project with Expo, look at the following resources:
+Testflight link: 
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+How many users on TestFlight?: 
 
-## Join the community
+Ship URL:
 
-Join our community of developers creating universal apps.
+Video Demo URL:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+TODO: what are we doing well, how we can improve
+TODO: any grammar errors, anywhere that I didn't get the meaning across well enough
