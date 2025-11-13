@@ -5,7 +5,7 @@ import * as Haptics from "expo-haptics";
 import type { ReactNode } from "react";
 
 import { isLightMode } from "../theme/ThemeProvider";
-import color from "../theme/Colors";
+import color from "../theme/colors";
 
 type PressableFeedbackProps = {
     children?: ReactNode | String,

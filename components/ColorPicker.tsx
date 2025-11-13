@@ -1,11 +1,11 @@
+import { StyleSheet, Text, ViewStyle } from "react-native";
 import ReanimatedColorPicker, {
     HueSlider,
     Panel1,
 } from "reanimated-color-picker";
-import { StyleSheet, Platform, ViewStyle, Text } from "react-native";
 
 import Pressable from "../components/Pressable";
-import borderRadius from "../theme/BorderRadius";
+import borderRadius from "../theme/borderRadius";
 
 type ColorPickerProps = {
     defaultColor: string;
@@ -36,10 +36,8 @@ export default function ColorPicker({
             thumbColor={thumbColor}
             style={style}
         >
-            <Panel1
-                thumbStyle={styles.thumb}
-            />
-            <HueSlider/>
+            <Panel1 thumbStyle={styles.thumb} />
+            <HueSlider />
             <Pressable
                 onPress={() => {
                     onComplete({ hex: defaultColor });
