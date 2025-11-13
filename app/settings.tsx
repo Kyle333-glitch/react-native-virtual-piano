@@ -8,9 +8,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {
     DEFAULTS,
     headerStyles,
-} from "@/piano/react-native-virtual-piano/styles";
+} from "@/piano/styles";
 import usePersistentState from "../hooks/usePersistentState";
-import { HapticsStrength } from "../piano/react-native-virtual-piano/Piano";
+import { HapticsStrength } from "../piano/Piano";
 
 export default function Settings() {
     const [glissandoOn, setGlissandoOn] = usePersistentState(
