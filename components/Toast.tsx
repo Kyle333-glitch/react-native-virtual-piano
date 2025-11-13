@@ -1,7 +1,7 @@
-import { Platform } from "react-native";
 import { toast, ToastPosition } from "@backpackapp-io/react-native-toast";
+import { Platform } from "react-native";
 
-import borderRadius from "../theme/BorderRadius";
+import borderRadius from "../theme/borderRadius";
 import NativeIcon from "./NativeIcons";
 
 type ToastProps = {
@@ -15,20 +15,20 @@ export default function showToast({
     duration = 4000,
 }: ToastProps) {
     const toastTypeMap = {
-        "success": toast.success,
-        "error": toast.error,
-        "loading": toast.loading,
-        "info": toast,
-        "neutral": toast,
+        success: toast.success,
+        error: toast.error,
+        loading: toast.loading,
+        info: toast,
+        neutral: toast,
     };
 
     const showToastType = toastTypeMap[type];
 
     const iconMap = {
-        "success": "success",
-        "error": "error",
-        "loading": "loading",
-        "info": "info",
+        success: "success",
+        error: "error",
+        loading: "loading",
+        info: "info",
     };
 
     showToastType(message, {
@@ -52,24 +52,24 @@ export default function showToast({
         }),
         duration,
         animationType: "spring",
-        icon: type !== "neutral" && <NativeIcon name={iconMap[type]}/>,
+        icon: type !== "neutral" && <NativeIcon name={iconMap[type]} />,
     });
 }
 
 export async function promiseToast<T>(
     promise: Promise<T>,
-    messages: { loading: string; success: string; error: string; }
+    messages: { loading: string; success: string; error: string }
 ): Promise<T> {
     showToast({ message: messages.loading, type: "loading" });
-    
+
     try {
         const result = await promise;
 
-        showToast({ message: messages.success, type: "success"})
+        showToast({ message: messages.success, type: "success" });
 
         return result;
     } catch (e) {
-        showToast({ message: messages.error, type: "error" })
+        showToast({ message: messages.error, type: "error" });
 
         throw e;
     }
@@ -77,7 +77,7 @@ export async function promiseToast<T>(
 
 export async function loadingToast<T>(
     fn: () => Promise<T>,
-    messages: { loading: string; success: string; error: string; },
+    messages: { loading: string; success: string; error: string }
 ): Promise<T> {
     try {
         return await promiseToast(fn(), {
