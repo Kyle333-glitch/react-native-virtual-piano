@@ -44,6 +44,9 @@ const colorMap = {
   buttonSecondaryText: PlatformColor(
     "labelColor", "?android:attr/textColorPrimary", "SystemColorWindowTextBrush", "#000000", "labelColor"
   ),
+  buttonBackground: PlatformColor(
+    "systemGray5", "?attr/colorBackground", "SystemColorControlLightBrush", "#E0E0E0", "systemGray5"
+  ),
   buttonDisabledBackground: PlatformColor(
     "systemGray5", "?android:attr/colorBackground", "SystemColorGrayTextBrush", "#DDDDDD", "systemGray5"
   ),
