@@ -1,10 +1,16 @@
-import SegmentedControl from "@react-native-segmented-control/segmented-control";
-import { Platform, ScrollView, Switch, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Stepper from "../components/Stepper";
+// © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
+// UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
 
-import { DEFAULTS, headerStyles } from "@/lib/react-piano/styles";
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
+import { ScrollView, Switch, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import {
+    DEFAULTS,
+    headerStyles,
+} from "@/piano/react-native-virtual-piano/styles";
 import usePersistentState from "../hooks/usePersistentState";
+import { HapticsStrength } from "../piano/react-native-virtual-piano/Piano";
 
 export default function Settings() {
     const [glissandoOn, setGlissandoOn] = usePersistentState(
@@ -24,7 +30,11 @@ export default function Settings() {
         DEFAULTS.RELEASE_HAPTIC_ON
     );
 
-    const hapticsStrengthOptions = ["Light", "Medium", "Heavy"];
+    const hapticsStrengthOptions: HapticsStrength[] = [
+        "Light",
+        "Medium",
+        "Heavy",
+    ];
     const [hapticsStrength, setHapticsStrength] = usePersistentState(
         "hapticsStrength",
         DEFAULTS.HAPTICS_STRENGTH
@@ -66,8 +76,10 @@ export default function Settings() {
             }}
         >
             <ScrollView>
+                {/*
                 <Text style={headerStyles.smallSectionHeader}>Glissando</Text>
                 <Switch value={glissandoOn} onValueChange={setGlissandoOn} />
+                */}
 
                 <Text style={headerStyles.smallSectionHeader}>
                     Key Lift Effect
@@ -104,6 +116,7 @@ export default function Settings() {
                     }}
                 />
 
+                {/*
                 <Text style={headerStyles.mediumSectionHeader}>
                     Key Shrink: {keyShrinkPercent}%
                 </Text>
@@ -113,9 +126,10 @@ export default function Settings() {
                     minValue={50}
                     maxValue={100}
                     step={5}
-                    rounded={Platform.OS !== "android"}
                 />
+                */}
 
+                {/*
                 <Text style={headerStyles.sectionHeader}>
                     Key Label Mode:{" "}
                     {special != "Unset"
@@ -171,6 +185,10 @@ export default function Settings() {
                         setSpecial(specialOptions[index].value);
                     }}
                 />
+                */}
+                {
+                    //FIXME: uncomment all of the UI
+                }
             </ScrollView>
         </SafeAreaView>
     );
