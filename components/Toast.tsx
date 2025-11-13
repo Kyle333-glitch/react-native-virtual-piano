@@ -1,5 +1,7 @@
 import { Platform } from "react-native";
 import { toast, ToastPosition } from "@backpackapp-io/react-native-toast";
+
+import borderRadius from "../theme/BorderRadius";
 import NativeIcon from "./NativeIcons";
 
 type ToastProps = {
@@ -37,14 +39,7 @@ export default function showToast({
                 marginRight: 16,
                 paddingVertical: 12,
                 paddingHorizontal: 16,
-                borderRadius: Platform.select({
-                    ios: 10,
-                    android: 12,
-                    macos: 6,
-                    windows: 4,
-                    web: 4,
-                    default: 4,
-                }),
+                borderRadius: borderRadius("toast"),
             },
         },
         position: Platform.select({
