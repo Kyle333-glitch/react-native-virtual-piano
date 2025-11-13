@@ -53,16 +53,6 @@ export default function ColorPicker({
 }
 
 const styles = StyleSheet.create({
-    swatches: {
-        borderRadius: Platform.select({
-            ios: 12,
-            android: 10,
-            macos: 6,
-            windows: 4,
-            web: 4,
-            default: 4,
-        }),
-    },
     thumb: {
         borderColor: "#36454F",
     },
