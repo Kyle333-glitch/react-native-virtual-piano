@@ -1,7 +1,7 @@
-import { Platform, View, TextInput, Text, StyleSheet } from "react-native";
+import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
 
+import showToast from "../helpers/Toast";
 import Pressable from "./Pressable";
-import showToast from "./Toast";
 
 type Props = {
     value: number;
@@ -42,20 +42,20 @@ export default function Stepper({
 
     return (
         <View style={styles.container}>
-            <Pressable 
-                onPress={() => onChange(Math.max(minValue, value - step))} 
+            <Pressable
+                onPress={() => onChange(Math.max(minValue, value - step))}
                 style={[styles.button, styles.leftButton, { height }]}
                 accessibilityLabel="Decrease value"
             >
                 <Text style={styles.buttonText}>-</Text>
             </Pressable>
             <TextInput
-                style={[styles.input, { color: textColor , height }]}
+                style={[styles.input, { color: textColor, height }]}
                 keyboardType="numeric"
                 value={String(value)}
                 onChangeText={(t) => {
                     if (t === "") {
-                        return
+                        return;
                     }
                     const num = Number(t);
                     if (!isNaN(num)) {
@@ -65,25 +65,29 @@ export default function Stepper({
                 onBlur={() => {
                     const num = Number(value);
                     if (isNaN(num) || value === null || value === undefined) {
-                        onChange(minValue)
+                        onChange(minValue);
                     } else {
                         if (num < minValue) {
                             onChange(minValue);
-                            showToast({ message: `Minimum value is ${minValue}`, type: "error" });
-                        }
-                        else if (num > maxValue) {
+                            showToast({
+                                message: `Minimum value is ${minValue}`,
+                                type: "error",
+                            });
+                        } else if (num > maxValue) {
                             onChange(maxValue);
-                            showToast({ message: `Maximum value is ${maxValue}`, type: "error" });
-                        }
-                        else onChange(num);
+                            showToast({
+                                message: `Maximum value is ${maxValue}`,
+                                type: "error",
+                            });
+                        } else onChange(num);
                     }
                 }}
                 accessibilityLabel="Numeric value input"
                 accessibilityRole="adjustable"
             />
-            <Pressable 
+            <Pressable
                 onPress={() => onChange(Math.min(maxValue, value + step))}
-                style={[styles.button, styles.rightButton, {height}]}
+                style={[styles.button, styles.rightButton, { height }]}
                 accessibilityLabel="Increase value"
             >
                 <Text style={styles.buttonText}>+</Text>
