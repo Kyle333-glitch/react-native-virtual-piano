@@ -5,7 +5,7 @@ import * as Haptics from "expo-haptics";
 import type { ReactNode } from "react";
 
 import { isLightMode } from "../theme/ThemeProvider";
-import color from "../theme/colors";
+import colors from "../theme/colors";
 
 type PressableFeedbackProps = {
     children?: ReactNode | String,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginVertical: 16,
         marginHorizontal: 12,
-        backgroundColor: color("accentPrimary"),
+        backgroundColor: colors.accentPrimary,
     },
     primaryText: {
         fontWeight: "600",
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         marginVertical: 12,
         marginHorizontal: 8,
-        backgroundColor: color("buttonSecondaryBackground"),
+        backgroundColor: colors.buttonSecondaryBackground,
     },
     secondaryText: {
         fontWeight: "500",
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         marginVertical: 8,
         marginHorizontal: 6,
-        backgroundColor: color("buttonBackground"),
+        backgroundColor: colors.buttonBackground,
     },
     pressedShadow: {
         ...Platform.select({
