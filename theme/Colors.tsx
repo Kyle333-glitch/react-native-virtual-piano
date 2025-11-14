@@ -1,15 +1,23 @@
 import { Platform, PlatformColor } from "react-native";
 
-// Native platforms (iOS, macOS, Android, Windows)
-const nativeColorMap = {
+function getColor(...args: string[]) {
+  if (["ios", "android", "windows"].includes(Platform.OS)) {
+    return PlatformColor(...args);
+  }
+
+  return args[args.length - 1]
+}
+
+  // Native platforms (iOS, macOS, Android, Windows)
+const colorMap = {
   // Backgrounds
-  backgroundPrimary: PlatformColor(
+  backgroundPrimary: getColor(
     "systemBackground",
     "?attr/colorBackground",
     "SystemColorWindowBrush",
     "#FFFFFF"
   ),
-  backgroundSecondary: PlatformColor(
+  backgroundSecondary: getColor(
     "secondarySystemBackground",
     "?attr/colorBackgroundFloating",
     "SystemColorControlBrush",
@@ -17,13 +25,13 @@ const nativeColorMap = {
   ),
 
   // Text
-  textPrimary: PlatformColor(
+  textPrimary: getColor(
     "labelColor",
     "?android:attr/textColorPrimary",
     "SystemColorWindowTextBrush",
     "#000000"
   ),
-  textSecondary: PlatformColor(
+  textSecondary: getColor(
     "secondaryLabelColor",
     "?android:attr/textColorSecondary",
     "SystemColorGrayTextBrush",
@@ -31,25 +39,25 @@ const nativeColorMap = {
   ),
 
   // Accents / States
-  accentPrimary: PlatformColor(
+  accentPrimary: getColor(
     "systemBlue",
     "?attr/colorAccent",
     "SystemColorHighlightBrush",
     "#007AFF"
   ),
-  error: PlatformColor(
+  error: getColor(
     "systemRed",
     "?attr/colorError",
     "SystemColorErrorTextBrush",
     "#FF3B30"
   ),
-  success: PlatformColor(
+  success: getColor(
     "systemGreen",
     "?attr/colorPrimary",
     "SystemColorSuccessTextBrush",
     "#34C759"
   ),
-  warning: PlatformColor(
+  warning: getColor(
     "systemOrange",
     "?attr/colorWarning",
     "SystemColorWarningTextBrush",
@@ -57,43 +65,43 @@ const nativeColorMap = {
   ),
 
   // Buttons
-  buttonPrimaryBackground: PlatformColor(
+  buttonPrimaryBackground: getColor(
     "systemBlue",
     "?attr/colorAccent",
     "SystemColorHighlightBrush",
     "#007AFF"
   ),
-  buttonPrimaryText: PlatformColor(
+  buttonPrimaryText: getColor(
     "whiteColor",
     "?android:attr/textColorPrimaryInverse",
     "SystemColorWindowTextBrush",
     "#FFFFFF"
   ),
-  buttonSecondaryBackground: PlatformColor(
+  buttonSecondaryBackground: getColor(
     "secondarySystemBackground",
     "?attr/colorBackgroundFloating",
     "SystemColorControlBrush",
     "#F5F5F5"
   ),
-  buttonSecondaryText: PlatformColor(
+  buttonSecondaryText: getColor(
     "labelColor",
     "?android:attr/textColorPrimary",
     "SystemColorWindowTextBrush",
     "#000000"
   ),
-  buttonBackground: PlatformColor(
+  buttonBackground: getColor(
     "systemGray5",
     "?attr/colorBackground",
     "SystemColorControlLightBrush",
     "#E0E0E0"
   ),
-  buttonDisabledBackground: PlatformColor(
+  buttonDisabledBackground: getColor(
     "systemGray5",
     "?android:attr/colorBackground",
     "SystemColorGrayTextBrush",
     "#DDDDDD"
   ),
-  buttonDisabledText: PlatformColor(
+  buttonDisabledText: getColor(
     "systemGray",
     "?android:attr/textColorSecondary",
     "SystemColorGrayTextBrush",
@@ -101,35 +109,12 @@ const nativeColorMap = {
   ),
 
   // Interactive states
-  pressedBackground: PlatformColor(
+  pressedBackground: getColor(
     "systemGray4",
     "?attr/colorControlActivated",
     "SystemColorControlBrush",
     "#CCCCCC"
   ),
 };
-
-// Default (web/other)
-const defaultColorMap = {
-  backgroundPrimary: "#FFFFFF",
-  backgroundSecondary: "#F5F5F5",
-  textPrimary: "#000000",
-  textSecondary: "#666666",
-  accentPrimary: "#007AFF",
-  error: "#FF3B30",
-  success: "#34C759",
-  warning: "#FF9500",
-  buttonPrimaryBackground: "#007AFF",
-  buttonPrimaryText: "#FFFFFF",
-  buttonSecondaryBackground: "#F5F5F5",
-  buttonSecondaryText: "#000000",
-  buttonBackground: "#E0E0E0",
-  buttonDisabledBackground: "#DDDDDD",
-  buttonDisabledText: "#999999",
-  pressedBackground: "#CCCCCC",
-};
-
-const colorMap = 
-  ["ios", "macos", "android", "windows"].includes(Platform.OS) ? nativeColorMap : defaultColorMap;
 
 export default colorMap;
