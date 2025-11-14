@@ -4,8 +4,8 @@
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Piano } from "../piano/react-native-virtual-piano";
-import { DEFAULTS } from "../piano/react-native-virtual-piano/styles";
+import Piano from "../piano/Piano";
+import { DEFAULTS } from "../piano/styles";
 
 import usePersistentState from "../hooks/usePersistentState";
 import Pressable from "../components/Pressable";
