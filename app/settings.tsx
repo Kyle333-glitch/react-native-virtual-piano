@@ -11,6 +11,8 @@ import {
 } from "@/piano/styles";
 import usePersistentState from "../hooks/usePersistentState";
 import { HapticsStrength } from "../piano/Piano";
+import Pressable from "../components/Pressable";
+import confirmDialog from "../helpers/confirmDialog";
 
 export default function Settings() {
     const [glissandoOn, setGlissandoOn] = usePersistentState(
@@ -189,6 +191,36 @@ export default function Settings() {
                 {
                     //FIXME: uncomment all of the UI
                 }
+                <Pressable
+                    onPress={() => {
+                        confirmDialog({
+                            title: "Restore Defaults",
+                            message: "Are you sure you want to reset all settings to defaults? This is irreversible.",
+                            confirmLabel: "Reset",
+                            cancelLabel: "Cancel",
+                            confirmButtonStyle: "destructive",
+                            buttonOrder: "cancelLeft",
+                            confirmToastMessage: "Settings restored to defaults.",
+                            cancelToastMessage: "Reset canceled.",
+                            onConfirm: () => {
+                                setGlissandoOn(DEFAULTS.GLISSANDO_ON);
+                                setKeyLiftOn(DEFAULTS.KEY_LIFT_ON);
+                                setPressHapticOn(DEFAULTS.PRESS_HAPTIC_ON);
+                                setReleaseHapticOn(DEFAULTS.RELEASE_HAPTIC_ON);
+                                setHapticsStrength(DEFAULTS.HAPTICS_STRENGTH);
+                                setKeyShrinkPercent(DEFAULTS.KEY_SHRINK_PERCENT);
+                                setKeyColorSubset(DEFAULTS.KEY_COLOR_SUBSET);
+                                setOnlyC(DEFAULTS.ONLY_C);
+                                setWithOctaveNumbers(DEFAULTS.WITH_OCTAVE_NUMBERS);
+                                setSpecial(DEFAULTS.SPECIAL);
+                            },
+                        });
+                    }}
+                >
+                    <Text>
+                        Restore Defaults
+                    </Text>
+                </Pressable>
             </ScrollView>
         </SafeAreaView>
     );
