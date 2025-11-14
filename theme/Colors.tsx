@@ -1,5 +1,4 @@
-import { Platform } from "react-native";
-import { PlatformColor } from "react-native";
+import { Platform, PlatformColor } from "react-native";
 
 // Native platforms (iOS, macOS, Android, Windows)
 const nativeColorMap = {
@@ -131,6 +130,6 @@ const defaultColorMap = {
 };
 
 const colorMap = 
-  ["ios", "macos", "android", "windows"].includes(Platform.OS) ? defaultColorMap : nativeColorMap;
+  ["ios", "macos", "android", "windows"].includes(Platform.OS) ? nativeColorMap : defaultColorMap;
 
 export default colorMap;
