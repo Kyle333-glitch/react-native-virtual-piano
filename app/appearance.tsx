@@ -1,16 +1,19 @@
 // © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
 // UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
 
+import { Dimensions, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import Piano from "@/piano/Piano";
 import {
     DEFAULTS,
     headerStyles,
 } from "@/piano/styles";
-import { Dimensions, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import ColorPicker from "../components/ColorPicker";
 import Stepper from "../components/Stepper";
 import usePersistentState from "../hooks/usePersistentState";
+import Pressable from "../components/Pressable";
+import confirmDialog from "../helpers/confirmDialog";
 
 export default function Appearance() {
     const [borderRadius, setBorderRadius] = usePersistentState(
@@ -244,6 +247,42 @@ export default function Appearance() {
                     step={5}
                 />
                 */}
+
+                <Pressable
+                    onPress={() => {
+                        confirmDialog({
+                            title: "Restore Defaults",
+                            message: "Are you sure you want to reset all visual preferences to defaults? This is irreversible.",
+                            confirmLabel: "Reset",
+                            cancelLabel: "Cancel",
+                            confirmButtonStyle: "destructive",
+                            buttonOrder: "cancelLeft",
+                            confirmToastMessage: "Visual preferences restored to defaults.",
+                            cancelToastMessage: "Reset canceled.",
+                            onConfirm: () => {
+                                setBorderRadius(DEFAULTS.BORDER_RADIUS);
+                                setBorderWidth(DEFAULTS.BORDER_WIDTH);
+                                setDisabledBorderWidth(DEFAULTS.DISABLED_BORDER_WIDTH);
+                                setDisabledBorderColor(DEFAULTS.DISABLED_BORDER_COLOR);
+                                setKeyShrinkPercent(DEFAULTS.KEY_SHRINK_PERCENT);
+                                setWhiteKeyColor(DEFAULTS.WHITE_KEY_COLOR);
+                                setBlackKeyColor(DEFAULTS.BLACK_KEY_COLOR);
+                                setPressedColor(DEFAULTS.PRESSED_COLOR);
+                                setDisabledKeyColor(DEFAULTS.DISABLED_KEY_COLOR);
+                                setBorderColor(DEFAULTS.BORDER_COLOR);
+                                setWhiteNoteLabelColor(DEFAULTS.NOTE_LABEL_WHITE_COLOR);
+                                setBlackNoteLabelColor(DEFAULTS.NOTE_LABEL_BLACK_COLOR);
+                                setBlackKeyHeight(DEFAULTS.BLACK_KEY_HEIGHT);
+                                setWhiteKeyHeight(DEFAULTS.WHITE_KEY_HEIGHT);
+                                setPressDepth(DEFAULTS.PRESS_DEPTH);
+                            },
+                        });
+                    }}
+                >
+                    <Text>
+                        Restore Defaults
+                    </Text>
+                </Pressable>
             </ScrollView>
 
             <View
