@@ -1,8 +1,8 @@
 import { toast, ToastPosition } from "@backpackapp-io/react-native-toast";
 import { Platform } from "react-native";
 
+import NativeIcon from "../components/NativeIcons";
 import borderRadius from "../theme/borderRadius";
-import NativeIcon from "./NativeIcons";
 
 type ToastProps = {
     message: string;
