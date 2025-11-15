@@ -1,7 +1,7 @@
 // © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
 // UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
 
-import { Dimensions, ScrollView, Text, View } from "react-native";
+import { Dimensions, ScrollView, Text, View, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Piano from "@/piano/Piano";
@@ -12,7 +12,7 @@ import {
 import ColorPicker from "../components/ColorPicker";
 import Stepper from "../components/Stepper";
 import usePersistentState from "../hooks/usePersistentState";
-import Pressable from "../components/Pressable";
+/*import Pressable from "../components/Pressable"; TODO: implement own pressable */
 import confirmDialog from "../helpers/confirmDialog";
 
 export default function Appearance() {
