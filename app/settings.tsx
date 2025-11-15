@@ -12,6 +12,7 @@ import {
 import usePersistentState from "../hooks/usePersistentState";
 import { HapticsStrength } from "../piano/Piano";
 /*import Pressable from "../components/Pressable"; TODO: implement own pressable*/
+import { styles } from "../theme/styles"; // TODO: no longer needed when implement own pressable
 import confirmDialog from "../helpers/confirmDialog";
 
 export default function Settings() {
@@ -192,6 +193,7 @@ export default function Settings() {
                     //FIXME: uncomment all of the UI
                 }
                 <Pressable
+                    style={[styles.button, {width: 150}]} //TODO: no longer needed when custom pressable
                     onPress={() => {
                         confirmDialog({
                             title: "Restore Defaults",
