@@ -1,10 +1,10 @@
-import { StyleSheet, Text, ViewStyle } from "react-native";
+import { StyleSheet, Text, ViewStyle, Pressable } from "react-native";
 import ReanimatedColorPicker, {
     HueSlider,
     Panel1,
 } from "reanimated-color-picker";
 
-import Pressable from "../components/Pressable";
+/*import Pressable from "../components/Pressable"; TODO: implement own pressable*/
 import borderRadius from "../theme/borderRadius";
 
 type ColorPickerProps = {
