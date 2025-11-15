@@ -1,6 +1,10 @@
 import * as Haptics from "expo-haptics";
-import React, { useCallback, useMemo } from "react";
-import { Pressable, StyleProp, View, ViewStyle } from "react-native";
+import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
+import { View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+
+import type { StyleProp, ViewStyle } from "react-native";
+import type { GestureTouchEvent } from "react-native-gesture-handler";
 
 import MidiNumbers from "./midiNumbers";
 import { HapticsStrength } from "./Piano";
@@ -101,6 +105,42 @@ function Key({
     releaseHapticOn,
     hapticsStrength,
 }: KeyProps) {
+    const [activeTouches, setActiveTouches] = useState<Set<number>>(new Set());
+    const activeTouchesRef = useRef<Set<number>>(new Set());
+
+    const isPressed = activeTouches.size > 0;
+
+    const [keyBounds, setKeyBounds] = useState({ x: 0, y: 0, width: 0, height: 0});
+
+    const keyRef = useRef<View>(null);
+
+    useEffect(() => {
+        if (disabled) {
+            setActiveTouches(new Set());
+            handleNoteOff();
+        }
+    }, [disabled])
+
+    useEffect(() => {
+        return () => {
+            setActiveTouches(new Set());
+            handleNoteOff();
+        };
+    }, []);
+
+    const isFingerInsideKey = (touchX: number, touchY: number) => {
+        const { x, y, width, height } = keyBounds;
+        return touchX >= x && touchX <= x + width && touchY >= y && touchY <= y + height;
+    };
+
+    const updateKeyBounds = () => {
+        if (keyRef.current) {
+            keyRef.current.measureInWindow((x, y, width, height) => {
+                setKeyBounds({ x, y, width, height });
+            });
+        }
+    };
+
     const styles = useMemo(
         () =>
             getStyles({
@@ -171,107 +211,129 @@ function Key({
 
     const attrs = MidiNumbers.getAttributes(midiNumber);
 
+    const panGesture = Gesture.Pan()
+        .enabled(!disabled)
+        .minPointers(1)
+        .onTouchesDown((event: GestureTouchEvent) => {
+            if (activeTouches.size === 0) {
+                const touches = activeTouchesRef.current;
+                event.changedTouches.forEach((t) => touches.add(t.id));
+                activeTouchesRef.current = touches;
+                setActiveTouches(touches);
+                handleNoteOn();
+            }
+        })
+        .onTouchesMove((event: GestureTouchEvent) => {
+            if (!gliss) return;
+
+            const touches = activeTouchesRef.current
+
+            event.changedTouches.forEach((t) => {
+                const { x, y } = t;
+                const inKey = isFingerInsideKey(x, y);
+                const alreadyPressed = touches.has(t.id);
+
+                if (inKey && !alreadyPressed) {
+                    touches.add(t.id);
+                    if (touches.size === 1) handleNoteOn();
+                } else if (!inKey && alreadyPressed) {
+                    touches.delete(t.id);
+                    if (touches.size === 0) handleNoteOff();
+                }
+            });
+
+            activeTouchesRef.current = touches;
+
+            if (touches.size !== activeTouches.size) setActiveTouches(new Set(touches));
+        })
+        .onTouchesUp((event: GestureTouchEvent) => {
+            const touches = activeTouchesRef.current
+            event.changedTouches.forEach((t) => touches.delete(t.id));
+            setActiveTouches(touches);
+            if (touches.size === 0) handleNoteOff();
+        })
+        .onFinalize(() => {
+            // avoids stuck notes for glissando
+            setActiveTouches(new Set());
+            handleNoteOff();
+        });
+
+    const innerBg = disabled
+        ? disabledKeyColor
+        : (isPressed || active)
+        ? pressedColor
+        : accidental
+        ? blackKeyColor
+        : whiteKeyColor;
+
+    const desiredInnerHeight = accidental
+        ? blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT
+        : undefined;
+
+    const innerStyles: StyleProp<ViewStyle> = [
+        accidental
+          ? {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: desiredInnerHeight,
+                backgroundColor: innerBg,
+                borderRadius: 1,
+                margin: 0,
+            }
+          : {
+            ...styles.keyInner,
+            margin: 0,
+          }
+    ];
+
+    const outerStyles: StyleProp<ViewStyle> = [
+        accidental
+            ? ({
+                position: "absolute",
+                left,
+                width,
+                top: 0,
+            } as ViewStyle)
+            : keyLayout(left, width),
+        styles.key,
+        accidental ? styles.keyAccidental : styles.keyNatural,
+        accidental
+            ? { height: blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT }
+            : {},
+        style,
+    ]
+
     return (
-        <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={attrs.note}
-            accessibilityState={{ selected: !!active, disabled: !!disabled }}
-            accessibilityHint="Plays the piano note"
-            onPressIn={handleNoteOn}
-            onPressOut={handleNoteOff}
-            disabled={disabled}
-            style={[
-                // For natural keys: use keyLayout (top:0, bottom:0) to fill container.
-                // For accidental keys: use explicit left/width with top:0 and explicit height.
-                accidental
-                    ? ({
-                          position: "absolute" as const,
-                          left,
-                          width,
-                          top: 0,
-                      } as ViewStyle)
-                    : keyLayout(left, width),
-                styles.key,
-                accidental ? styles.keyAccidental : styles.keyNatural,
-                accidental
-                    ? { height: blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT }
-                    : {},
-                style,
-            ]}
-        >
-            {({ pressed }) => {
-                const innerBg = disabled
-                    ? disabledKeyColor
-                    : pressed || active
-                    ? pressedColor
-                    : accidental
-                    ? blackKeyColor
-                    : whiteKeyColor;
-
-                const desiredInnerHeight = accidental
-                    ? blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT
-                    : undefined;
-
-                // Build inner face styles. For natural keys we keep the
-                // existing `styles.keyInner` which fills the outer box. For
-                // accidentals we must NOT include `bottom: 0` (present in
-                // `styles.keyInner`) because that forces the inner face to
-                // stretch; instead create an absolute inner face with the
-                // explicit `height` we were passed.
-                const innerStyles: any[] = [];
-
-                if (accidental) {
-                    innerStyles.push({
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: desiredInnerHeight,
-                        backgroundColor: innerBg,
-                        borderRadius: 1,
-                    } as ViewStyle);
-                } else {
-                    innerStyles.push(styles.keyInner, {
-                        backgroundColor: innerBg,
-                    });
-                }
-
-                // Preserve the small margin/border adjustments used when
-                // pressed vs not pressed. These are safe to apply to both
-                // accidental and natural inner faces.
-                if (pressed) {
-                    innerStyles.push({
-                        marginTop: 0,
-                        marginBottom: 0,
-                        marginLeft: 0,
-                        marginRight: 0,
-                        borderWidth: 0,
-                    });
-                } else {
-                    innerStyles.push({
-                        marginTop: 0,
-                        marginBottom: 0,
-                        marginLeft: 0,
-                        marginRight: 0,
-                    });
-                }
-
-                return (
-                    <View style={innerStyles}>
-                        <View style={labelContainer}>
-                            {!disabled && renderNoteLabel
-                                ? renderNoteLabel({
-                                      midiNumber,
-                                      isActive: active,
-                                      isAccidental: accidental,
-                                  })
-                                : null}
-                        </View>
+        <GestureDetector gesture={panGesture}>
+            <View          
+                style={outerStyles}
+                onLayout={updateKeyBounds}
+                ref={keyRef}
+                accessibilityRole="button"
+                accessibilityLabel={attrs.note}
+                accessibilityState={{ selected: !!active, disabled: !!disabled }}
+                accessibilityHint="Piano key"
+            >   
+                <View style={innerStyles}>
+                    <View style={labelContainer}>
+                        {!disabled && renderNoteLabel
+                            ? renderNoteLabel({
+                                midiNumber,
+                                isActive: active,
+                                isAccidental: accidental,
+                            })
+                            : null}
                     </View>
-                );
-            }}
-        </Pressable>
+                </View>
+            </View>
+        </GestureDetector>
     );
 }
 
 export default React.memo(Key);
+//TODO: when implement scroll view:   onScroll={throttle(() => {
+//    updateKeyBounds(); // measure keys again
+// }, 16)}
+//  scrollEventThrottle={} based on screen refresh rate
