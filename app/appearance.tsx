@@ -13,6 +13,7 @@ import ColorPicker from "../components/ColorPicker";
 import Stepper from "../components/Stepper";
 import usePersistentState from "../hooks/usePersistentState";
 /*import Pressable from "../components/Pressable"; TODO: implement own pressable */
+import { styles } from "../theme/styles"; // TODO: no longer needed when implement own pressable
 import confirmDialog from "../helpers/confirmDialog";
 
 export default function Appearance() {
@@ -249,6 +250,7 @@ export default function Appearance() {
                 */}
 
                 <Pressable
+                    style={[styles.button, {width: 270}]} //TODO: no longer needed when custom pressable
                     onPress={() => {
                         confirmDialog({
                             title: "Restore Defaults",
