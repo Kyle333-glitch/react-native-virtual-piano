@@ -40,4 +40,11 @@ export const styles = StyleSheet.create({
         padding: 12,
         backgroundColor: "#fff",
     },
+
+    button: {
+        padding: 12,
+        borderWidth: 2,
+        borderColor: "blue",
+        borderRadius: 10, //FIXME: this is an ios value
+    },
 });
