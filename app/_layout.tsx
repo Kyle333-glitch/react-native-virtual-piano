@@ -35,7 +35,7 @@ export default function RootLayout() {
         />
 
         <Drawer.Screen
-          name="appearance"
+          name="Appearance"
           options={{
             drawerLabel: "Appearance",
             title: "Appearance Preferences",
@@ -46,7 +46,7 @@ export default function RootLayout() {
         />
 
         <Drawer.Screen
-          name="settings"
+          name="Settings"
           options={{
             drawerLabel: "Settings",
             title: "Behavior Settings",
@@ -57,7 +57,7 @@ export default function RootLayout() {
         />
 
         <Drawer.Screen
-          name="faqs"
+          name="Faqs"
           options={{
             drawerLabel: "FAQs",
             title: "FAQs",
@@ -68,7 +68,7 @@ export default function RootLayout() {
         />
 
         <Drawer.Screen
-          name="about"
+          name="About"
           options={{
             drawerLabel: "About",
             title: "About",
