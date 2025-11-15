@@ -1,14 +1,15 @@
 // © 2025 KYLE QUACH. ALL RIGHTS RESERVED.
 // UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
 
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity as Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Piano from "../piano/Piano";
 import { DEFAULTS } from "../piano/styles";
 
 import usePersistentState from "../hooks/usePersistentState";
-import Pressable from "../components/Pressable";
+import { styles } from "../theme/styles"; //TODO: no need after implement own pressable
+/*import Pressable from "../components/Pressable"; TODO: implement own pressable*/
 
 export default function Index() {
     // Wait for all settings to load before rendering
@@ -137,22 +138,22 @@ export default function Index() {
                     onPress={() =>
                         setOctaveShift(clamp(octaveShift - 1, -3, 3))
                     }
-                    style={{
+                    style={[styles.button, {
                             padding: 10,
                             marginRight: 10,
                             borderRadius: 6,
-                    }}
+                    }]}
                 >
                     <Text>Octave Down</Text>
                 </Pressable>
 
                 <Pressable
                     onPress={() => setOctaveShift(clamp(octaveShift + 1, -3, 3))}
-                    style={{
+                    style={[styles.button, {
                             padding: 10,
                             marginRight: 10,
                             borderRadius: 6,
-                    }}
+                    }]}
                 >
                     <Text>Octave Up</Text>
                 </Pressable>
