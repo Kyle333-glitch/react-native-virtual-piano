@@ -5,12 +5,15 @@ import {
     stopNote as defaultStopNote,
 } from "./DefaultSoundEngine";
 
+import type { KeyLabelMode } from "./keyLabelMode";
+
 import ControlledPiano from "./ControlledPiano";
 import { unloadRange } from "./DefaultSoundEngine";
-import normalizeNoteRange, { NoteRange } from "./NormalizeNoteRange";
+import normalizeNoteRange, { NoteRange } from "./normalizeNoteRange";
 import { DEFAULTS } from "./styles";
 
 type NoteContext = { prevActiveNotes: ReadonlyArray<number> };
+
 export type HapticsStrength = "Light" | "Medium" | "Heavy";
 
 type PianoProps = Omit<
@@ -57,6 +60,7 @@ type PianoProps = Omit<
     pressHapticOn?: boolean;
     releaseHapticOn?: boolean;
     hapticsStrength?: HapticsStrength;
+    keyLabelMode?: KeyLabelMode;
 };
 
 const Piano = ({
@@ -75,7 +79,7 @@ const Piano = ({
     disabledBorderWidth = DEFAULTS.DISABLED_BORDER_WIDTH,
     disabledBorderColor = DEFAULTS.DISABLED_BORDER_COLOR,
     disabledKeyColor = DEFAULTS.DISABLED_KEY_COLOR,
-    blackKeyHeight = DEFAULTS.BLACK_KEY_HEIGHT,
+    blackKeyHeight = DEFAULTS.BLACK_KEY_HEIGHT_RATIO,
     whiteKeyHeight = DEFAULTS.WHITE_KEY_HEIGHT,
     keyShrinkPercent = DEFAULTS.KEY_SHRINK_PERCENT,
     pressDepth = DEFAULTS.PRESS_DEPTH,
@@ -87,6 +91,7 @@ const Piano = ({
     pressHapticOn = DEFAULTS.PRESS_HAPTIC_ON,
     releaseHapticOn = DEFAULTS.RELEASE_HAPTIC_ON,
     hapticsStrength = DEFAULTS.HAPTICS_STRENGTH,
+    keyLabelMode = { type: "none" },
 }: PianoProps) => {
     let normalizedNoteRange;
     try {
@@ -198,6 +203,7 @@ const Piano = ({
             pressHapticOn,
             releaseHapticOn,
             hapticsStrength,
+            keyLabelMode,
         }),
         [
             internalActiveNotes,
@@ -224,6 +230,7 @@ const Piano = ({
             pressHapticOn,
             releaseHapticOn,
             hapticsStrength,
+            keyLabelMode,
         ]
     );
 

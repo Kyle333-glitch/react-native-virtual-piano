@@ -96,6 +96,8 @@ function ControlledPiano({
                 borderWidth: borderWidth ?? DEFAULTS.BORDER_WIDTH,
                 borderColor: borderColor ?? DEFAULTS.BORDER_COLOR,
                 pressedColor: pressedColor ?? DEFAULTS.PRESSED_COLOR,
+                noteLabelWhiteColor: noteLabelWhiteColor ?? DEFAULTS.NOTE_LABEL_WHITE_COLOR,
+                noteLabelBlackColor: noteLabelBlackColor ?? DEFAULTS.NOTE_LABEL_BLACK_COLOR,
             }),
         [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
     );

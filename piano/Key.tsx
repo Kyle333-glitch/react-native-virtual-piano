@@ -1,10 +1,10 @@
+import * as Haptics from "expo-haptics";
 import React, { useCallback, useMemo } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
-import * as Haptics from "expo-haptics";
 
-import MidiNumbers from "./MidiNumbers";
-import getStyles, { DEFAULTS, keyBase, keyLayout, labelContainer } from "./styles";
+import MidiNumbers from "./midiNumbers";
 import { HapticsStrength } from "./Piano";
+import getStyles, { DEFAULTS, keyLayout, labelContainer } from "./styles";
 
 type PitchPositions = Record<string, number>;
 
@@ -113,17 +113,18 @@ function Key({
                 noteLabelBlackColor,
             }),
         [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
-    )
+    );
 
     const handleNoteOn = useCallback(() => {
         if (!disabled) {
             onNoteOn(midiNumber);
             if (pressHapticOn) {
-                const hapticsStyle = hapticsStrength === "Heavy"
-                    ? Haptics.ImpactFeedbackStyle.Heavy
-                    : hapticsStrength === "Medium"
-                    ? Haptics.ImpactFeedbackStyle.Medium
-                    : Haptics.ImpactFeedbackStyle.Light;
+                const hapticsStyle =
+                    hapticsStrength === "Heavy"
+                        ? Haptics.ImpactFeedbackStyle.Heavy
+                        : hapticsStrength === "Medium"
+                        ? Haptics.ImpactFeedbackStyle.Medium
+                        : Haptics.ImpactFeedbackStyle.Light;
                 Haptics.impactAsync(hapticsStyle);
             }
         }
@@ -156,8 +157,10 @@ function Key({
     let width: number | string;
 
     if (typeof keyWidthPx === "number") {
-        left = relativePosition * keyWidthPx;
-        width = (accidental ? accidentalWidthRatio : 1) * keyWidthPx;
+        left = Math.round(relativePosition * keyWidthPx);
+        width = Math.round(
+            (accidental ? accidentalWidthRatio : 1) * keyWidthPx
+        );
     } else {
         const frac = naturalKeyWidthFraction ?? 1;
         const leftPct = relativePosition * frac * 100;
@@ -174,44 +177,101 @@ function Key({
             accessibilityLabel={attrs.note}
             accessibilityState={{ selected: !!active, disabled: !!disabled }}
             accessibilityHint="Plays the piano note"
-            style={({ pressed }) => [
-                keyBase,
-                accidental ? styles.keyAccidental : styles.keyNatural,
-                styles.key,
-                disabled && {
-                    backgroundColor: disabledKeyColor,
-                    borderColor: disabledBorderColor,
-                    borderWidth: disabledBorderWidth,
-                },
-                pressed && { backgroundColor: pressedColor },
-                pressed && keyLiftOn && {
-                    transform: [
-                        { translateY: pressDepth },
-                        { scale: 1 - (keyShrinkPercent ?? 0) / 100 },
-                    ],
-                },
-                !accidental && { height: whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT },
-                accidental && { height: blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT },
-                (active ?? pressed) && styles.keyActive,
-                keyLayout(left, width),
-                style,
-            ]}
             onPressIn={handleNoteOn}
             onPressOut={handleNoteOff}
             disabled={disabled}
+            style={[
+                // For natural keys: use keyLayout (top:0, bottom:0) to fill container.
+                // For accidental keys: use explicit left/width with top:0 and explicit height.
+                accidental
+                    ? ({
+                          position: "absolute" as const,
+                          left,
+                          width,
+                          top: 0,
+                      } as ViewStyle)
+                    : keyLayout(left, width),
+                styles.key,
+                accidental ? styles.keyAccidental : styles.keyNatural,
+                accidental
+                    ? { height: blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT }
+                    : {},
+                style,
+            ]}
         >
-            <View style={labelContainer}>
-                {!disabled && renderNoteLabel
-                    ? renderNoteLabel({
-                          midiNumber,
-                          isActive: active,
-                          isAccidental: accidental,
-                      })
-                    : null}
-            </View>
+            {({ pressed }) => {
+                const innerBg = disabled
+                    ? disabledKeyColor
+                    : pressed || active
+                    ? pressedColor
+                    : accidental
+                    ? blackKeyColor
+                    : whiteKeyColor;
+
+                const desiredInnerHeight = accidental
+                    ? blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT
+                    : undefined;
+
+                // Build inner face styles. For natural keys we keep the
+                // existing `styles.keyInner` which fills the outer box. For
+                // accidentals we must NOT include `bottom: 0` (present in
+                // `styles.keyInner`) because that forces the inner face to
+                // stretch; instead create an absolute inner face with the
+                // explicit `height` we were passed.
+                const innerStyles: any[] = [];
+
+                if (accidental) {
+                    innerStyles.push({
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: desiredInnerHeight,
+                        backgroundColor: innerBg,
+                        borderRadius: 1,
+                    } as ViewStyle);
+                } else {
+                    innerStyles.push(styles.keyInner, {
+                        backgroundColor: innerBg,
+                    });
+                }
+
+                // Preserve the small margin/border adjustments used when
+                // pressed vs not pressed. These are safe to apply to both
+                // accidental and natural inner faces.
+                if (pressed) {
+                    innerStyles.push({
+                        marginTop: 0,
+                        marginBottom: 0,
+                        marginLeft: 0,
+                        marginRight: 0,
+                        borderWidth: 0,
+                    });
+                } else {
+                    innerStyles.push({
+                        marginTop: 0,
+                        marginBottom: 0,
+                        marginLeft: 0,
+                        marginRight: 0,
+                    });
+                }
+
+                return (
+                    <View style={innerStyles}>
+                        <View style={labelContainer}>
+                            {!disabled && renderNoteLabel
+                                ? renderNoteLabel({
+                                      midiNumber,
+                                      isActive: active,
+                                      isAccidental: accidental,
+                                  })
+                                : null}
+                        </View>
+                    </View>
+                );
+            }}
         </Pressable>
     );
-
 }
 
 export default React.memo(Key);

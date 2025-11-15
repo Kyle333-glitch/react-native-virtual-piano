@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 
 import Key from "./Key";
-import MidiNumbers from "./MidiNumbers";
-import getStyles, { DEFAULTS } from "./styles";
+import MidiNumbers from "./midiNumbers";
 import { HapticsStrength } from "./Piano";
+import getStyles, { DEFAULTS } from "./styles";
 
 type NoteRange = { first: number; last: number };
 
@@ -86,8 +86,10 @@ function Keyboard({
                 borderWidth: borderWidth ?? DEFAULTS.BORDER_WIDTH,
                 borderColor: borderColor ?? DEFAULTS.BORDER_COLOR,
                 pressedColor: pressedColor ?? DEFAULTS.PRESSED_COLOR,
-                noteLabelWhiteColor: noteLabelWhiteColor ?? DEFAULTS.NOTE_LABEL_WHITE_COLOR,
-                noteLabelBlackColor: noteLabelBlackColor ?? DEFAULTS.NOTE_LABEL_BLACK_COLOR,
+                noteLabelWhiteColor:
+                    noteLabelWhiteColor ?? DEFAULTS.NOTE_LABEL_WHITE_COLOR,
+                noteLabelBlackColor:
+                    noteLabelBlackColor ?? DEFAULTS.NOTE_LABEL_BLACK_COLOR,
             }),
         [whiteKeyColor, blackKeyColor, borderWidth, borderColor, pressedColor]
     );
@@ -101,9 +103,9 @@ function Keyboard({
     ).length;
     const naturalKeyWidth = 1 / naturalKeyCount;
     // Measure container width on mobile for pixel-perfect key positioning.
-    const [measuredWidth, setMeasuredWidth] = useState<
-        number | undefined
-    >(typeof width === "number" ? width : undefined);
+    const [measuredWidth, setMeasuredWidth] = useState<number | undefined>(
+        typeof width === "number" ? width : undefined
+    );
 
     const isFixedPixel = typeof measuredWidth === "number";
     const keyWidthPx = isFixedPixel
@@ -111,15 +113,27 @@ function Keyboard({
         : undefined;
 
     const containerHeight = React.useMemo(() => {
-        if (!isFixedPixel) return "100%";
-        return (keyWidthPx as number) / keyWidthToHeight;
-    }, [isFixedPixel, keyWidthPx, keyWidthToHeight]);
+        if (!isFixedPixel) return whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT;
+        const calculatedHeight =
+            (keyWidthPx as number) * (1 / keyWidthToHeight);
+        return Math.max(
+            calculatedHeight,
+            whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT
+        );
+    }, [isFixedPixel, keyWidthPx, keyWidthToHeight, whiteKeyHeight]);
+
+    const scaledBlackKeyHeight = Math.round(
+        (blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT_RATIO) *
+            (whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT)
+    );
 
     return (
         <View
             style={[
                 styles.keyboard,
                 {
+                    position: "relative",
+                    overflow: "hidden",
                     width:
                         typeof measuredWidth === "number"
                             ? measuredWidth
@@ -156,21 +170,26 @@ function Keyboard({
                         onNoteOff={onNoteOff}
                         gliss={gliss}
                         renderNoteLabel={renderNoteLabel}
-                        whiteKeyColor={whiteKeyColor ?? DEFAULTS.WHITE_KEY_COLOR}
-                        blackKeyColor={blackKeyColor ?? DEFAULTS.BLACK_KEY_COLOR}
+                        whiteKeyColor={
+                            whiteKeyColor ?? DEFAULTS.WHITE_KEY_COLOR
+                        }
+                        blackKeyColor={
+                            blackKeyColor ?? DEFAULTS.BLACK_KEY_COLOR
+                        }
                         borderWidth={borderWidth ?? DEFAULTS.BORDER_WIDTH}
                         borderColor={borderColor ?? DEFAULTS.BORDER_COLOR}
                         pressedColor={pressedColor ?? DEFAULTS.PRESSED_COLOR}
                         disabledBorderWidth={disabledBorderWidth}
                         disabledBorderColor={disabledBorderColor}
                         disabledKeyColor={disabledKeyColor}
-                        blackKeyHeight={blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT}
-                        whiteKeyHeight={whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT}
+                        blackKeyHeight={scaledBlackKeyHeight}
+                        whiteKeyHeight={
+                            whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT
+                        }
                         keyShrinkPercent={keyShrinkPercent}
                         pressDepth={pressDepth ?? DEFAULTS.PRESS_DEPTH}
                         noteLabelWhiteColor={noteLabelWhiteColor}
                         noteLabelBlackColor={noteLabelBlackColor}
-
                         keyLiftOn={keyLiftOn}
                         pressHapticOn={pressHapticOn}
                         releaseHapticOn={releaseHapticOn}

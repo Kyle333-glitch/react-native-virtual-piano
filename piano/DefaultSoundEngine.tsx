@@ -1,13 +1,11 @@
-import { Audio } from "expo-av";
+import { createAudioPlayer, requestRecordingPermissionsAsync } from "expo-audio";
 import { InteractionManager } from "react-native";
 
-const soundCache: Record<number, Audio.Sound | undefined> = {};
-const loadingPromises: Record<number, Promise<Audio.Sound> | undefined> = {};
-// Track which MIDI numbers we've already warned about to avoid spamming the log.
+const playerCache: Record<number, ReturnType<typeof createAudioPlayer> | undefined> = {};
+const loadingPromises: Record<number, Promise<ReturnType<typeof createAudioPlayer>> | undefined> = {};
 const warnedMissingAsset: Record<number, boolean> = {};
 
 function midiToAsset(midi: number): any | null {
-    // Map MIDI numbers to bundled assets here. Keep function small and explicit.
     switch (midi) {
         /*
         case 60:
@@ -20,9 +18,9 @@ function midiToAsset(midi: number): any | null {
 
 export async function playNote(midiNumber: number, volume: number = 1.0) {
     try {
-        const cached = soundCache[midiNumber];
+        const cached = playerCache[midiNumber];
         if (cached) {
-            await cached.replayAsync();
+            await cached.play();
             return;
         }
 
@@ -40,21 +38,18 @@ export async function playNote(midiNumber: number, volume: number = 1.0) {
                 return;
             }
             loadingPromises[midiNumber] = (async () => {
-                const { sound } = await Audio.Sound.createAsync(asset, {
-                    shouldPlay: false,
-                    volume,
-                });
-                soundCache[midiNumber] = sound;
-                return sound;
+                const player = createAudioPlayer(asset);
+                playerCache[midiNumber] = player;
+                return player;
             })();
         }
 
-        const sound = await loadingPromises[midiNumber]!;
+        const player = await loadingPromises[midiNumber]!;
         // Ensure it plays from start
         try {
-            await sound.replayAsync();
+            await player.play();
         } catch (err) {
-            console.warn("[DefaultSoundEngine] replayAsync failed", err);
+            console.warn("[DefaultSoundEngine] play failed", err);
         }
         delete loadingPromises[midiNumber];
     } catch (error) {
@@ -76,17 +71,17 @@ export async function unloadNote(midi: number) {
         // ignore load errors when unloading
     }
 
-    const sound = soundCache[midi];
-    if (sound) {
+    const player = playerCache[midi];
+    if (player) {
         try {
-            await sound.unloadAsync();
+            await player.release();
         } catch (err) {
             console.warn(
-                `[DefaultSoundEngine] unloadNote: failed to unload MIDI ${midi}:`,
+                `[DefaultSoundEngine] unload: failed to unload MIDI ${midi}:`,
                 err
             );
         }
-        delete soundCache[midi];
+        delete playerCache[midi];
     }
 
     // ensure we don't keep a stale loading promise
@@ -94,13 +89,13 @@ export async function unloadNote(midi: number) {
 }
 
 export async function stopNote(midi: number) {
-    const sound = soundCache[midi];
-    if (sound) {
+    const player = playerCache[midi];
+    if (player) {
         try {
-            await sound.stopAsync();
+            await player.pause();
         } catch (err) {
             console.warn(
-                `[DefaultSoundEngine] stopNote: failed to stop MIDI ${midi}:`,
+                `[DefaultSoundEngine] stop: failed to stop MIDI ${midi}:`,
                 err
             );
         }
@@ -108,7 +103,7 @@ export async function stopNote(midi: number) {
 }
 
 export async function unloadAll() {
-    const keys = Object.keys(soundCache).map((k) => Number(k));
+    const keys = Object.keys(playerCache).map((k) => Number(k));
     for (const k of keys) {
         // eslint-disable-next-line no-await-in-loop
         await unloadNote(k);
@@ -134,7 +129,7 @@ export function preloadNotes(midiNumbers: number[]) {
             for (const midi of midiNumbers) {
                 if (cancelled) break;
                 try {
-                    if (soundCache[midi]) continue;
+                    if (playerCache[midi]) continue;
                     if (!loadingPromises[midi]) {
                         const asset = midiToAsset(midi);
                         if (!asset) {
@@ -148,13 +143,10 @@ export function preloadNotes(midiNumbers: number[]) {
                             continue;
                         }
                         loadingPromises[midi] = (async () => {
-                            const { sound } = await Audio.Sound.createAsync(
-                                asset,
-                                { shouldPlay: false }
-                            );
-                            if (!cancelled) soundCache[midi] = sound;
+                            const player = createAudioPlayer(asset);
+                            if (!cancelled) playerCache[midi] = player;
                             delete loadingPromises[midi];
-                            return sound;
+                            return player;
                         })();
                     }
                     // await the load so we don't kick off too many parallel ops

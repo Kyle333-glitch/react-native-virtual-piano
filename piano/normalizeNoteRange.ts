@@ -1,4 +1,4 @@
-import MidiNumbers from "./MidiNumbers";
+import MidiNumbers from "./midiNumbers";
 
 export type NoteRange =
     | { first: number; last: number }
