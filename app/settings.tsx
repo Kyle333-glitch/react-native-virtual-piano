@@ -2,7 +2,7 @@
 // UNAUTHORIZED COPYING, DISTRIBUTION, MODIFICATION, OR USE OF THIS CODE, IN PART OR IN WHOLE, WITHOUT EXPRESS WRITTEN PERMISSION IS STRICTLY PROHIBITED.
 
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
-import { ScrollView, Switch, Text } from "react-native";
+import { ScrollView, Switch, Text, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
@@ -11,7 +11,7 @@ import {
 } from "@/piano/styles";
 import usePersistentState from "../hooks/usePersistentState";
 import { HapticsStrength } from "../piano/Piano";
-import Pressable from "../components/Pressable";
+/*import Pressable from "../components/Pressable"; TODO: implement own pressable*/
 import confirmDialog from "../helpers/confirmDialog";
 
 export default function Settings() {
