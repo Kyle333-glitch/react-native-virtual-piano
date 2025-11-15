@@ -1,4 +1,4 @@
-import { StyleSheet, Text, ViewStyle, Pressable } from "react-native";
+import { StyleSheet, Text, ViewStyle, TouchableOpacity as Pressable } from "react-native";
 import ReanimatedColorPicker, {
     HueSlider,
     Panel1,
