@@ -194,7 +194,7 @@ function isValidIconName(input: string): input is IconName {
 }
 
 function resolveIconName(input: string) {
-  const normalized = input.replace(/-/g, "_"); // replace _ with -
+  const normalized = input.replace(/_/g, "-"); // replace _ with -
 
   if (isValidIconName(normalized)) return normalized as IconName;
 
