@@ -1,3 +1,3 @@
-import { flacMap } from "./midiMap.flac";
+import { flacMap } from "./midiMap_flac";
 
 export const midiMap = flacMap;

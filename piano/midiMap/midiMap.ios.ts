@@ -1,3 +1,3 @@
-import { alacMap } from "./midiMap.alac";
+import { alacMap } from "./midiMap_alac";
 
 export const midiMap = alacMap;
