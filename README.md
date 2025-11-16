@@ -1,4 +1,4 @@
-_**FIXME: NAME HERE**_ is a **free, offline piano app** designed to be **clean and focused**, yet **packed with professional-level capabilities**. Instead of overwhelming users with menus or complex features, it’s designed to be **lightweight, intuitive, and instantly playable**. Open the app and you’re at the keyboard, ready to **explore music, relax, or experiment with sound anytime, anywhere**. 
+_**Virtuoso Piano**_ is a **free, offline piano app** designed to be **clean and focused**, yet **packed with professional-level capabilities**. Instead of overwhelming users with menus or complex features, it’s designed to be **lightweight, intuitive, and instantly playable**. Open the app and you’re at the keyboard, ready to **explore music, relax, or experiment with sound anytime, anywhere**. 
 
 This app is perfect for beginners learning piano, casual players experimenting with sound, and musicians seeking a lightweight, portable, and capable instrument on the go.
 
@@ -60,7 +60,7 @@ I discovered this program while browsing the Hack Club homepage, where it was fe
 - Submissions gallery isn't working: "Error loading submissions. Please try again later. You are not authorized to perform this operation"
 
 ## README for Hack Cider
-Name: name from above
+Name: Virtuoso Piano
 
 Description: Description from above
 
