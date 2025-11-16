@@ -1,9 +1,9 @@
-import { midiMap as flacMap } from './midiMap';
-import { midiMap as alacMap } from './midiMap.ios';
+import { flacMap } from "./midiMap.flac";
+import { alacMap } from "./midiMap.alac";
 
 function isSafari(): boolean {
     const ua = navigator.userAgent.toLowerCase();
-    return ua.includes('safari') && !ua.includes('chrome');
+    return ua.includes("safari") && !ua.includes("chrome");
 }
 
 export const midiMap = isSafari() ? alacMap : flacMap;
