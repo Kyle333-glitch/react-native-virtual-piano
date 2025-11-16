@@ -1,6 +1,6 @@
 import { createAudioPlayer } from "expo-audio";
 
-import { midiMap } from "./midiMap";
+import { midiMap } from "./midiMap/midiMap";
 
 const playerCache: Record<
     number,
