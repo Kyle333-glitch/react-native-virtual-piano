@@ -79,10 +79,10 @@ export default function Settings() {
             }}
         >
             <ScrollView>
-                {/*
-                <Text style={headerStyles.smallSectionHeader}>Glissando</Text>
+                <Text style={headerStyles.smallSectionHeader}>
+                    Glissando
+                </Text>
                 <Switch value={glissandoOn} onValueChange={setGlissandoOn} />
-                */}
 
                 <Text style={headerStyles.smallSectionHeader}>
                     Key Lift Effect
