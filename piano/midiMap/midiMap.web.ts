@@ -1,5 +1,5 @@
-import { flacMap } from "./midiMap.flac";
 import { alacMap } from "./midiMap.alac";
+import { flacMap } from "./midiMap.flac";
 
 function isSafari(): boolean {
     const ua = navigator.userAgent.toLowerCase();
