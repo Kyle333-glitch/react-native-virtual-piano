@@ -318,13 +318,12 @@ function Key({
             >   
                 <View style={innerStyles}>
                     <View style={labelContainer}>
-                        {!disabled && renderNoteLabel
-                            ? renderNoteLabel({
+                        {renderNoteLabel &&
+                            renderNoteLabel({
                                 midiNumber,
-                                isActive: active,
+                                isActive: false, // note always renders, pressed or not FIXME
                                 isAccidental: accidental,
-                            })
-                            : null}
+                            })}
                     </View>
                 </View>
             </View>
