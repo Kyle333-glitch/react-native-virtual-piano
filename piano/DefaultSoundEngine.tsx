@@ -2,8 +2,14 @@ import { createAudioPlayer } from "expo-audio";
 
 import { midiMap } from "./midiMap";
 
-const playerCache: Record<number, ReturnType<typeof createAudioPlayer> | undefined> = {};
-const loadingPromises: Record<number, Promise<ReturnType<typeof createAudioPlayer>> | undefined> = {};
+const playerCache: Record<
+    number,
+    ReturnType<typeof createAudioPlayer> | undefined
+> = {};
+const loadingPromises: Record<
+    number,
+    Promise<ReturnType<typeof createAudioPlayer>> | undefined
+> = {};
 const warnedMissingAsset: Record<number, boolean> = {};
 
 function midiToAsset(midi: number): any | null {
@@ -41,7 +47,10 @@ export async function playNote(midiNumber: number, volume: number = 1.0) {
                     playerCache[midiNumber] = player;
                     return player;
                 } catch (e) {
-                    console.warn(`[DefaultSoundEngine] failed to load MIDI ${midiNumber}`, e);
+                    console.warn(
+                        `[DefaultSoundEngine] failed to load MIDI ${midiNumber}`,
+                        e
+                    );
                     throw e;
                 } finally {
                     delete loadingPromises[midiNumber];
