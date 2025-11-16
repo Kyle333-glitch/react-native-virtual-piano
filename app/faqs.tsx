@@ -38,7 +38,7 @@ export default function FAQs() {
                         <Pressable style={styles.qRow} onPress={() => toggle(item.id)}>
                             <Text style={[styles.q, isActive && styles.qActive]}>{item.q}</Text>
                             <NativeIcon
-                                name={isActive ? "chevron-up" : "chevron-down"}
+                                name={isActive ? "collapse" : "expand"}
                                 color={isActive ? "blue" : "#555"}
                             />
                         </Pressable>
