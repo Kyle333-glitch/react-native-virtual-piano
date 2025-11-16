@@ -1,5 +1,11 @@
 import * as Haptics from "expo-haptics";
-import React, { useState, useCallback, useMemo, useRef, useEffect } from "react";
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import { View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
@@ -110,7 +116,12 @@ function Key({
 
     const isPressed = activeTouches.size > 0;
 
-    const [keyBounds, setKeyBounds] = useState({ x: 0, y: 0, width: 0, height: 0});
+    const [keyBounds, setKeyBounds] = useState({
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+    });
 
     const keyRef = useRef<View>(null);
 
@@ -119,7 +130,7 @@ function Key({
             setActiveTouches(new Set());
             handleNoteOff();
         }
-    }, [disabled])
+    }, [disabled]);
 
     useEffect(() => {
         return () => {
@@ -130,7 +141,12 @@ function Key({
 
     const isFingerInsideKey = (touchX: number, touchY: number) => {
         const { x, y, width, height } = keyBounds;
-        return touchX >= x && touchX <= x + width && touchY >= y && touchY <= y + height;
+        return (
+            touchX >= x &&
+            touchX <= x + width &&
+            touchY >= y &&
+            touchY <= y + height
+        );
     };
 
     const updateKeyBounds = () => {
@@ -226,7 +242,7 @@ function Key({
         .onTouchesMove((event: GestureTouchEvent) => {
             if (!gliss) return;
 
-            const touches = activeTouchesRef.current
+            const touches = activeTouchesRef.current;
 
             event.changedTouches.forEach((t) => {
                 const { x, y } = t;
@@ -244,10 +260,11 @@ function Key({
 
             activeTouchesRef.current = touches;
 
-            if (touches.size !== activeTouches.size) setActiveTouches(new Set(touches));
+            if (touches.size !== activeTouches.size)
+                setActiveTouches(new Set(touches));
         })
         .onTouchesUp((event: GestureTouchEvent) => {
-            const touches = activeTouchesRef.current
+            const touches = activeTouchesRef.current;
             event.changedTouches.forEach((t) => touches.delete(t.id));
             setActiveTouches(touches);
             if (touches.size === 0) handleNoteOff();
@@ -260,7 +277,7 @@ function Key({
 
     const innerBg = disabled
         ? disabledKeyColor
-        : (isPressed || active)
+        : isPressed || active
         ? pressedColor
         : accidental
         ? blackKeyColor
@@ -272,30 +289,31 @@ function Key({
 
     const innerStyles: StyleProp<ViewStyle> = [
         accidental
-          ? {
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: desiredInnerHeight,
-                backgroundColor: innerBg,
-                borderRadius: 1,
-                margin: 0,
-            }
-          : {
-            ...styles.keyInner,
-            margin: 0,
-          }
+            ? {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: desiredInnerHeight,
+                  backgroundColor: innerBg,
+                  borderRadius: 1,
+                  margin: 0,
+              }
+            : {
+                  ...styles.keyInner,
+                  margin: 0,
+                  backgroundColor: innerBg,
+              },
     ];
 
     const outerStyles: StyleProp<ViewStyle> = [
         accidental
             ? ({
-                position: "absolute",
-                left,
-                width,
-                top: 0,
-            } as ViewStyle)
+                  position: "absolute",
+                  left,
+                  width,
+                  top: 0,
+              } as ViewStyle)
             : keyLayout(left, width),
         styles.key,
         accidental ? styles.keyAccidental : styles.keyNatural,
@@ -303,19 +321,22 @@ function Key({
             ? { height: blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT }
             : {},
         style,
-    ]
+    ];
 
     return (
         <GestureDetector gesture={panGesture}>
-            <View          
+            <View
                 style={outerStyles}
                 onLayout={updateKeyBounds}
                 ref={keyRef}
                 accessibilityRole="button"
                 accessibilityLabel={attrs.note}
-                accessibilityState={{ selected: !!active, disabled: !!disabled }}
+                accessibilityState={{
+                    selected: !!active,
+                    disabled: !!disabled,
+                }}
                 accessibilityHint="Piano key"
-            >   
+            >
                 <View style={innerStyles}>
                     <View style={labelContainer}>
                         {renderNoteLabel &&
