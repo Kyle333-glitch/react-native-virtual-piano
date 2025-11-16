@@ -1,19 +1,17 @@
-import { createAudioPlayer, requestRecordingPermissionsAsync } from "expo-audio";
-import { InteractionManager } from "react-native";
+import { createAudioPlayer } from "expo-audio";
+
+import { midiMap } from "./midiMap";
 
 const playerCache: Record<number, ReturnType<typeof createAudioPlayer> | undefined> = {};
 const loadingPromises: Record<number, Promise<ReturnType<typeof createAudioPlayer>> | undefined> = {};
 const warnedMissingAsset: Record<number, boolean> = {};
 
 function midiToAsset(midi: number): any | null {
-    switch (midi) {
-        /*
-        case 60:
-            return require('../assets/piano-60.mp3');
-        */
-        default:
-            return null;
-    }
+    const asset = midiMap[midi];
+    if (asset) return asset;
+
+    console.error(`midiToAsset: unsupported MIDI number ${midi}`);
+    return null;
 }
 
 export async function playNote(midiNumber: number, volume: number = 1.0) {
@@ -38,9 +36,16 @@ export async function playNote(midiNumber: number, volume: number = 1.0) {
                 return;
             }
             loadingPromises[midiNumber] = (async () => {
-                const player = createAudioPlayer(asset);
-                playerCache[midiNumber] = player;
-                return player;
+                try {
+                    const player = createAudioPlayer(asset);
+                    playerCache[midiNumber] = player;
+                    return player;
+                } catch (e) {
+                    console.warn(`[DefaultSoundEngine] failed to load MIDI ${midiNumber}`, e);
+                    throw e;
+                } finally {
+                    delete loadingPromises[midiNumber];
+                }
             })();
         }
 
@@ -124,7 +129,7 @@ export function preloadNotes(midiNumbers: number[]) {
     let cancelled = false;
 
     // Schedule preload work after interactions to avoid blocking the JS/UI thread
-    InteractionManager.runAfterInteractions(() => {
+    requestIdleCallback(() => {
         (async () => {
             for (const midi of midiNumbers) {
                 if (cancelled) break;
