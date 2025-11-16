@@ -1,4 +1,4 @@
-_**FIXME: NAME HERE**_ is a **free, offline piano app** designed to be **clean and focused**, yet **packed with professional-level capabilities**. Instead of overwhelming users with menus or complex features, it’s designed to be **lightweight, intuitive, and instantly playable**. Open the app and you’re at the keyboard - ready to **explore music, relax, or experiment with sound anytime, anywhere**. 
+_**FIXME: NAME HERE**_ is a **free, offline piano app** designed to be **clean and focused**, yet **packed with professional-level capabilities**. Instead of overwhelming users with menus or complex features, it’s designed to be **lightweight, intuitive, and instantly playable**. Open the app and you’re at the keyboard, ready to **explore music, relax, or experiment with sound anytime, anywhere**. 
 
 This app is perfect for beginners learning piano, casual players experimenting with sound, and musicians seeking a lightweight, portable, and capable instrument on the go.
 
@@ -38,7 +38,7 @@ This app is perfect for beginners learning piano, casual players experimenting w
 - 📳 **Responsive tactile feedback** - customizable haptics for note presses and releases.
 - 🌀 **No gamification clutter** - no popups and distractions.
 - ✨ **Advanced** - supports professional-level capabilities like fluid glissando and advanced multitouch
-- 📱 **Native look & feel** - React Native uses the same familar, platform-native components that apps written in the OS's native language use.
+- 📱 **Native look & feel** - React Native uses the same familiar, platform-native components that apps written in the OS's native language use.
 
 ## Answers to Hack Cider form questions
 
@@ -52,8 +52,7 @@ I discovered this program while browsing the Hack Club homepage, where it was fe
 - Visibility in submissions gallery
 
 ### How can we improve?
-- Not every student can create an app in only 30 days, leading to rushed apps.
-- It's hard to code 40 hours in 30 days.
+- Not everyone can finish an app in just 30 days, which leads to rushed results.
 - The vast majority of people don't have a Mac to code in SwiftUI and Swift.
 - Even if you use React Native, you can't plug in an iPhone to test the app.
 - You need a mac for an iOS Simulator, so every time you want to test your app, you have to keep a physical device with you with Expo Go, which only has a limited set of native modules.
