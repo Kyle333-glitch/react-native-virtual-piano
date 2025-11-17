@@ -1,7 +1,7 @@
-import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
+import { Platform, StyleSheet, Text, TextInput, View, TouchableOpacity as Pressable } from "react-native";
 
 import showToast from "../helpers/Toast";
-import Pressable from "./Pressable";
+//import Pressable from "./Pressable"; TODO: use own custom pressable
 
 type Props = {
     value: number;
