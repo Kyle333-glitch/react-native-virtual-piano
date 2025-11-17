@@ -216,6 +216,7 @@ export default function Appearance() {
                     step={5}
                 />
 
+                {/*
                 <Text style={headerStyles.mediumSectionHeader}>
                     White Key Height: {whiteKeyHeight}
                 </Text>
@@ -227,7 +228,6 @@ export default function Appearance() {
                     step={5}
                 />
 
-                {/*
                 <Text style={headerStyles.mediumSectionHeader}>
                     Press Key in Animation Depth
                 </Text>
