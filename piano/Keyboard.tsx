@@ -122,10 +122,24 @@ function Keyboard({
         );
     }, [isFixedPixel, keyWidthPx, keyWidthToHeight, whiteKeyHeight]);
 
-    const scaledBlackKeyHeight = Math.round(
-        (blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT_RATIO) *
-            (whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT)
-    );
+    // Compute black key pixel height from the actual container height so
+    // black keys remain proportional to the rendered white key height.
+    // Treat `DEFAULTS.BLACK_KEY_HEIGHT` as the library default sentinel
+    // (not a user override). If a user explicitly sets a different
+    // `blackKeyHeight` value we respect it; otherwise compute from the
+    // container height using the ratio so black keys are ~67% of white.
+    const scaledBlackKeyHeight = React.useMemo(() => {
+        const isExplicit =
+            typeof blackKeyHeight === "number" &&
+            blackKeyHeight !== DEFAULTS.BLACK_KEY_HEIGHT;
+
+        if (isExplicit) return Math.round(blackKeyHeight as number);
+
+        const baseWhiteHeight = containerHeight;
+        return Math.round(
+            (DEFAULTS.BLACK_KEY_HEIGHT_RATIO as number) * baseWhiteHeight
+        );
+    }, [blackKeyHeight, containerHeight]);
 
     return (
         <View
@@ -182,6 +196,9 @@ function Keyboard({
                         disabledBorderWidth={disabledBorderWidth}
                         disabledBorderColor={disabledBorderColor}
                         disabledKeyColor={disabledKeyColor}
+                        // Pass pixel black key height computed from the
+                        // rendered container height so black keys maintain
+                        // a consistent ratio to white keys during resizes.
                         blackKeyHeight={scaledBlackKeyHeight}
                         whiteKeyHeight={
                             whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT

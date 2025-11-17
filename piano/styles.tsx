@@ -222,8 +222,8 @@ export const DEFAULTS = {
     NOTE_LABEL_BLACK_COLOR: "#fff",
     PRESS_DEPTH: 4, //FIXME: Does press depth do it in pixels / dp or %
     // Fractional height of black keys relative to white key height.
-    // Use ~0.67 so black keys are about two-thirds the white key height.
-    BLACK_KEY_HEIGHT_RATIO: 0.67,
+    // Use 0.6 so black keys are 55% of the white key height.
+    BLACK_KEY_HEIGHT_RATIO: 0.55,
 };
 
 export function keyLayout(

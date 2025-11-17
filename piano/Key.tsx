@@ -283,13 +283,22 @@ function Key({
         ? blackKeyColor
         : whiteKeyColor;
 
-    const desiredInnerHeight = accidental
-        ? blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT
+    // Compute black key height (in pixels) — use explicit prop when
+    // provided, otherwise fall back to ratio * white key height.
+    const computedBlackKeyHeight = accidental
+        ? typeof blackKeyHeight === "number"
+            ? blackKeyHeight
+            : Math.round(
+                  (DEFAULTS.BLACK_KEY_HEIGHT_RATIO as number) *
+                      (whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT)
+              )
         : undefined;
+
+    const desiredInnerHeight = computedBlackKeyHeight;
 
     const innerStyles: StyleProp<ViewStyle> = [
         accidental
-            ? {
+            ? ({
                   position: "absolute",
                   top: 0,
                   left: 0,
@@ -298,7 +307,7 @@ function Key({
                   backgroundColor: innerBg,
                   borderRadius: 1,
                   margin: 0,
-              }
+              } as ViewStyle)
             : {
                   ...styles.keyInner,
                   margin: 0,
@@ -318,7 +327,9 @@ function Key({
         styles.key,
         accidental ? styles.keyAccidental : styles.keyNatural,
         accidental
-            ? { height: blackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT }
+            ? ({
+                  height: computedBlackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT,
+              } as ViewStyle)
             : {},
         style,
     ];
