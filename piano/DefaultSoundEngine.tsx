@@ -24,7 +24,14 @@ export async function playNote(midiNumber: number, volume: number = 1.0) {
     try {
         const cached = playerCache[midiNumber];
         if (cached) {
-            await cached.play();
+            try {
+                await cached.play();
+            } catch (err) {
+                console.warn(
+                    `[DefaultSoundEngine] Cached player failed for MIDI ${midiNumber}`,
+                    err
+                );
+            }
             return;
         }
 
@@ -63,9 +70,11 @@ export async function playNote(midiNumber: number, volume: number = 1.0) {
         try {
             await player.play();
         } catch (err) {
-            console.warn("[DefaultSoundEngine] play failed", err);
+            console.warn(
+                `[DefaultSoundEngine] play failed for MIDI ${midiNumber}:`,
+                err
+            );
         }
-        delete loadingPromises[midiNumber];
     } catch (error) {
         console.error(
             `[DefaultSoundEngine] Error playing note ${midiNumber}:`,
