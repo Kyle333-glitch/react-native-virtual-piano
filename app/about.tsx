@@ -8,7 +8,7 @@ export default function About() {
     return(
         <SafeAreaView style={{ padding: 16 }}>
             <Text style={styles.header1}>About This App</Text>
-            <Text style={styles.body}>This piano app is designed to be simple, responsive, and easy to use. Whether you're practicing scales, learning note positions, or just exploring sounds, the interface gives you a clean, distraction-free way to play.</Text>
+            <Text style={styles.body}>This piano app is designed to be simple and responsive, yet filled with advanced features. Whether you're practicing scales, learning note positions, or just exploring sounds, the interface gives you a clean, distraction-free way to play.</Text>
             
             <Text style={styles.header2}>- Lightweight design:</Text>
             <Text style={styles.body}>No clutter, just the essentials you need to start playing right away.</Text>
@@ -24,6 +24,9 @@ export default function About() {
             
             <Text style={styles.header2}>- Reset anytime:</Text>
             <Text style={styles.body}>Quickly return to default settings and preferences for a fresh start.</Text>
+
+            <Text style={styles.header2}>- Advanced features:</Text>
+            <Text style={styles.body}>Enjoy professional-level features like glissando and multitouch support for 10 fingers.</Text>
         </SafeAreaView>
     );
 }
