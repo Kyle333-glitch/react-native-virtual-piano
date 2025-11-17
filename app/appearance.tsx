@@ -92,7 +92,8 @@ export default function Appearance() {
         >
             <ScrollView
                 contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
-            >
+            >   
+                {/*
                 <Text style={headerStyles.mediumSectionHeader}>
                     Key Border Radius
                 </Text>
@@ -104,6 +105,7 @@ export default function Appearance() {
                     step={1}
                     textColor="black"
                 />
+                */}
 
                 <Text style={headerStyles.mediumSectionHeader}>
                     Key Border Width
@@ -250,7 +252,7 @@ export default function Appearance() {
                 */}
 
                 <Pressable
-                    style={[styles.button, {width: 270}]} //TODO: no longer needed when custom pressable
+                    style={[styles.button, {width: 270, marginTop: 16}]} //TODO: no longer needed when custom pressable
                     onPress={() => {
                         confirmDialog({
                             title: "Restore Defaults",
