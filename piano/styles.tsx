@@ -212,8 +212,8 @@ export const DEFAULTS = {
     DISABLED_KEY_COLOR: "#808080",
     KEY_LABEL_MODE: "All",
     KEY_SHRINK_PERCENT: 95,
-    BLACK_KEY_HEIGHT: 60,
-    WHITE_KEY_HEIGHT: 100,
+    BLACK_KEY_HEIGHT: 60, //FIXME: get rid of this line
+    WHITE_KEY_HEIGHT: 100, //FIXME: get rid of this line
     KEY_COLOR_SUBSET: "All",
     ONLY_C: false,
     WITH_OCTAVE_NUMBERS: false,
@@ -223,7 +223,7 @@ export const DEFAULTS = {
     PRESS_DEPTH: 4, //FIXME: Does press depth do it in pixels / dp or %
     // Fractional height of black keys relative to white key height.
     // Use 0.6 so black keys are 55% of the white key height.
-    BLACK_KEY_HEIGHT_RATIO: 0.55,
+    BLACK_TO_WHITE_KEY_HEIGHT_RATIO: 0.55,
 };
 
 export function keyLayout(

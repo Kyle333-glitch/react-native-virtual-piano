@@ -137,7 +137,7 @@ function Keyboard({
 
         const baseWhiteHeight = containerHeight;
         return Math.round(
-            (DEFAULTS.BLACK_KEY_HEIGHT_RATIO as number) * baseWhiteHeight
+            (DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO as number) * baseWhiteHeight
         );
     }, [blackKeyHeight, containerHeight]);
 

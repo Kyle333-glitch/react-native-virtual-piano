@@ -289,7 +289,7 @@ function Key({
         ? typeof blackKeyHeight === "number"
             ? blackKeyHeight
             : Math.round(
-                  (DEFAULTS.BLACK_KEY_HEIGHT_RATIO as number) *
+                  (DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO as number) *
                       (whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT)
               )
         : undefined;
