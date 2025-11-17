@@ -30,7 +30,7 @@ export default function RootLayout() {
             drawerLabel: "Piano",
             title: "Piano",
             drawerIcon: ({ color, size }) => (
-              <NativeIcon name="piano" color={color} size={size}/>
+              <NativeIcon name="music-note" color={color} size={size}/> //FIXME: change to piano
             ),
           }}
         />
