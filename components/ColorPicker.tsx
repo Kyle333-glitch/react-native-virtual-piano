@@ -38,6 +38,7 @@ export default function ColorPicker({
         >
             <Panel1 thumbStyle={styles.thumb} />
             <HueSlider />
+            {/*
             <Pressable
                 onPress={() => {
                     onComplete({ hex: defaultColor });
@@ -47,6 +48,7 @@ export default function ColorPicker({
             >
                 <Text>Reset to default</Text>
             </Pressable>
+            */}
         </ReanimatedColorPicker>
     );
 }
