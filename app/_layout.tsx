@@ -4,10 +4,11 @@
 import { Drawer } from "expo-router/drawer";
 import NativeIcon from "../components/NativeIcons";
 import { Toasts } from "@backpackapp-io/react-native-toast";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   return(
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
         screenOptions={{
           drawerStyle: {
@@ -80,6 +81,6 @@ export default function RootLayout() {
       </Drawer>
 
       <Toasts/>
-    </>
+    </GestureHandlerRootView>
   );
 }
