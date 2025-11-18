@@ -41,8 +41,7 @@ type ControlledPianoProps = {
     disabledBorderWidth?: number;
     disabledBorderColor?: string;
     disabledKeyColor?: string;
-    whiteKeyHeight?: number;
-    blackKeyHeight?: number;
+    blackToWhiteKeyHeightProportion?: number;
     keyShrinkPercent?: number;
     pressDepth?: number;
     noteLabelWhiteColor?: string;
@@ -75,8 +74,7 @@ function ControlledPiano({
     disabledBorderWidth,
     disabledBorderColor,
     disabledKeyColor,
-    whiteKeyHeight,
-    blackKeyHeight,
+    blackToWhiteKeyHeightProportion,
     keyShrinkPercent,
     pressDepth,
     noteLabelWhiteColor,
@@ -194,8 +192,7 @@ function ControlledPiano({
             disabledBorderWidth,
             disabledBorderColor,
             disabledKeyColor,
-            blackKeyHeight,
-            whiteKeyHeight,
+            blackToWhiteKeyHeightProportion,
             keyShrinkPercent,
             pressDepth,
             noteLabelWhiteColor,
@@ -223,8 +220,7 @@ function ControlledPiano({
             disabledBorderWidth,
             disabledBorderColor,
             disabledKeyColor,
-            blackKeyHeight,
-            whiteKeyHeight,
+            blackToWhiteKeyHeightProportion,
             keyShrinkPercent,
             pressDepth,
             noteLabelWhiteColor,
