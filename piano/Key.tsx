@@ -48,8 +48,7 @@ type KeyProps = {
     disabledBorderWidth?: number;
     disabledBorderColor?: string;
     disabledKeyColor?: string;
-    blackKeyHeight?: number;
-    whiteKeyHeight?: number;
+    blackKeyHeight: number;
     keyShrinkPercent?: number;
     pressDepth?: number;
     noteLabelWhiteColor?: string;
@@ -100,7 +99,6 @@ function Key({
     disabledBorderColor,
     disabledKeyColor,
     blackKeyHeight,
-    whiteKeyHeight,
     keyShrinkPercent,
     pressDepth,
     noteLabelWhiteColor,
@@ -285,16 +283,7 @@ function Key({
 
     // Compute black key height (in pixels) — use explicit prop when
     // provided, otherwise fall back to ratio * white key height.
-    const computedBlackKeyHeight = accidental
-        ? typeof blackKeyHeight === "number"
-            ? blackKeyHeight
-            : Math.round(
-                  (DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO as number) *
-                      (whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT)
-              )
-        : undefined;
-
-    const desiredInnerHeight = computedBlackKeyHeight;
+    const computedBlackKeyHeight = accidental ? blackKeyHeight : undefined;
 
     const innerStyles: StyleProp<ViewStyle> = [
         accidental
@@ -303,7 +292,7 @@ function Key({
                   top: 0,
                   left: 0,
                   right: 0,
-                  height: desiredInnerHeight,
+                  height: computedBlackKeyHeight,
                   backgroundColor: innerBg,
                   borderRadius: 1,
                   margin: 0,
@@ -328,7 +317,7 @@ function Key({
         accidental ? styles.keyAccidental : styles.keyNatural,
         accidental
             ? ({
-                  height: computedBlackKeyHeight ?? DEFAULTS.BLACK_KEY_HEIGHT,
+                  height: computedBlackKeyHeight,
               } as ViewStyle)
             : {},
         style,
