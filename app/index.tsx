@@ -49,13 +49,9 @@ export default function Index() {
         DEFAULTS.BORDER_COLOR
     );
 
-    const [blackKeyHeight] = usePersistentState(
-        "blackKeyHeight",
-        DEFAULTS.BLACK_KEY_HEIGHT
-    );
-    const [whiteKeyHeight] = usePersistentState(
-        "whiteKeyHeight",
-        DEFAULTS.WHITE_KEY_HEIGHT
+    const [blackToWhiteKeyHeightProportion] = usePersistentState(
+        "blackToWhiteKeyHeightProportion",
+        DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO
     );
 
     const [glissandoOn] = usePersistentState(
@@ -178,8 +174,7 @@ export default function Index() {
                 disabledBorderWidth={disabledBorderWidth}
                 disabledBorderColor={disabledBorderColor}
                 disabledKeyColor={disabledKeyColor}
-                blackKeyHeight={blackKeyHeight}
-                whiteKeyHeight={whiteKeyHeight}
+                blackToWhiteKeyHeightProportion={blackToWhiteKeyHeightProportion}
                 keyShrinkPercent={keyShrinkPercent}
                 pressDepth={pressDepth}
                 noteLabelWhiteColor={whiteNoteLabelColor}
