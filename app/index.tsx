@@ -158,7 +158,7 @@ export default function Index() {
                     <Text>Octave Up</Text>
                 </Pressable>
 
-                <Text>
+                <Text style={{ userSelect: "none" }}>
                     Current Range: {getNoteRange()[0].toUpperCase()} -{" "}
                     {getNoteRange()[1].toUpperCase()}
                 </Text>
