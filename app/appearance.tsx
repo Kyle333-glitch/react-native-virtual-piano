@@ -68,13 +68,9 @@ export default function Appearance() {
         "blackNoteLabelColor",
         DEFAULTS.NOTE_LABEL_BLACK_COLOR
     );
-    const [blackKeyHeight, setBlackKeyHeight] = usePersistentState(
-        "blackKeyHeight",
-        DEFAULTS.BLACK_KEY_HEIGHT
-    );
-    const [whiteKeyHeight, setWhiteKeyHeight] = usePersistentState(
-        "whiteKeyHeight",
-        DEFAULTS.WHITE_KEY_HEIGHT
+    const [blackToWhiteKeyHeightProportion, setBlackToWhiteKeyHeightProportion] = usePersistentState(
+        "blackToWhiteKeyHeightProportion",
+        DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO
     );
     const [pressDepth, setPressDepth] = usePersistentState(
         "pressDepth",
@@ -206,12 +202,12 @@ export default function Appearance() {
                 */}
 
                 <Text style={headerStyles.mediumSectionHeader}>
-                    Black Key Height: {blackKeyHeight}
+                    Black to White Key Height Proportion: {blackToWhiteKeyHeightProportion}
                 </Text>
                 <Stepper
-                    value={blackKeyHeight}
-                    onChange={setBlackKeyHeight}
-                    minValue={40}
+                    value={blackToWhiteKeyHeightProportion}
+                    onChange={setBlackToWhiteKeyHeightProportion}
+                    minValue={50}
                     maxValue={100}
                     step={5}
                 />
@@ -276,8 +272,7 @@ export default function Appearance() {
                                 setBorderColor(DEFAULTS.BORDER_COLOR);
                                 setWhiteNoteLabelColor(DEFAULTS.NOTE_LABEL_WHITE_COLOR);
                                 setBlackNoteLabelColor(DEFAULTS.NOTE_LABEL_BLACK_COLOR);
-                                setBlackKeyHeight(DEFAULTS.BLACK_KEY_HEIGHT);
-                                setWhiteKeyHeight(DEFAULTS.WHITE_KEY_HEIGHT);
+                                setBlackToWhiteKeyHeightProportion(DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO);
                                 setPressDepth(DEFAULTS.PRESS_DEPTH);
                             },
                         });
@@ -321,13 +316,10 @@ export default function Appearance() {
                     pressedColor={pressedColor}
                     //disabledKeyColor={disabledKeyColor}
                     borderColor={borderColor}
-                    //blackKeyHeight={blackKeyHeight}
-                    //whiteKeyHeight={whiteKeyHeight}
                     disabledBorderWidth={disabledBorderWidth}
                     disabledBorderColor={disabledBorderColor}
                     disabledKeyColor={disabledKeyColor}
-                    blackKeyHeight={blackKeyHeight}
-                    whiteKeyHeight={whiteKeyHeight}
+                    blackToWhiteKeyHeightProportion={blackToWhiteKeyHeightProportion}
                     keyShrinkPercent={keyShrinkPercent}
                     pressDepth={pressDepth}
                     noteLabelWhiteColor={whiteNoteLabelColor}
