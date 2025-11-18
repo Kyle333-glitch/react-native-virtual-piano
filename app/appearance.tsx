@@ -205,11 +205,11 @@ export default function Appearance() {
                     Black to White Key Height Proportion: {blackToWhiteKeyHeightProportion}
                 </Text>
                 <Stepper
-                    value={blackToWhiteKeyHeightProportion}
-                    onChange={setBlackToWhiteKeyHeightProportion}
-                    minValue={50}
-                    maxValue={100}
-                    step={5}
+                    value={Math.round(blackToWhiteKeyHeightProportion * 100) / 100}
+                    onChange={(val) => setBlackToWhiteKeyHeightProportion(Math.round(val * 100) / 100)}
+                    minValue={0}
+                    maxValue={1}
+                    step={0.05}
                 />
 
                 {/*
