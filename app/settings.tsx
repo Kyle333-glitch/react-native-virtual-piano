@@ -85,11 +85,6 @@ export default function Settings() {
                 <Switch value={glissandoOn} onValueChange={setGlissandoOn} />
 
                 <Text style={headerStyles.smallSectionHeader}>
-                    Key Lift Effect
-                </Text>
-                <Switch value={keyLiftOn} onValueChange={setKeyLiftOn} />
-
-                <Text style={headerStyles.smallSectionHeader}>
                     Press Haptics
                 </Text>
                 <Switch
@@ -118,6 +113,11 @@ export default function Settings() {
                         setHapticsStrength(hapticsStrengthOptions[index]);
                     }}
                 />
+
+                <Text style={headerStyles.smallSectionHeader}>
+                    Key Lift Effect
+                </Text>
+                <Switch value={keyLiftOn} onValueChange={setKeyLiftOn} />
 
                 {/*
                 <Text style={headerStyles.mediumSectionHeader}>
