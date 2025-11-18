@@ -47,8 +47,7 @@ type PianoProps = Omit<
     disabledBorderWidth?: number;
     disabledBorderColor?: string;
     disabledKeyColor?: string;
-    blackKeyHeight?: number;
-    whiteKeyHeight?: number;
+    blackToWhiteKeyHeightProportion?: number;
     keyShrinKPercent?: number;
     pressDepth?: number;
     noteLabelWhiteColor?: string;
@@ -79,8 +78,7 @@ const Piano = ({
     disabledBorderWidth = DEFAULTS.DISABLED_BORDER_WIDTH,
     disabledBorderColor = DEFAULTS.DISABLED_BORDER_COLOR,
     disabledKeyColor = DEFAULTS.DISABLED_KEY_COLOR,
-    blackKeyHeight = DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO,
-    whiteKeyHeight = DEFAULTS.WHITE_KEY_HEIGHT,
+    blackToWhiteKeyHeightProportion = DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO,
     keyShrinkPercent = DEFAULTS.KEY_SHRINK_PERCENT,
     pressDepth = DEFAULTS.PRESS_DEPTH,
     noteLabelWhiteColor = DEFAULTS.NOTE_LABEL_WHITE_COLOR,
@@ -191,8 +189,7 @@ const Piano = ({
             disabledBorderWidth,
             disabledBorderColor,
             disabledKeyColor,
-            blackKeyHeight,
-            whiteKeyHeight,
+            blackToWhiteKeyHeightProportion,
             keyShrinkPercent,
             pressDepth,
             noteLabelWhiteColor,
@@ -218,8 +215,7 @@ const Piano = ({
             borderColor,
             pressedColor,
             disabledKeyColor,
-            blackKeyHeight,
-            whiteKeyHeight,
+            blackToWhiteKeyHeightProportion,
             keyShrinkPercent,
             pressDepth,
             noteLabelWhiteColor,
