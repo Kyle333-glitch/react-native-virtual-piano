@@ -189,7 +189,6 @@ function Keyboard({
                         // rendered container height so black keys maintain
                         // a consistent ratio to white keys during resizes.
                         blackKeyHeight={scaledBlackKeyHeight}
-                        whiteKeyHeight={containerHeight}
                         keyShrinkPercent={keyShrinkPercent}
                         pressDepth={pressDepth ?? DEFAULTS.PRESS_DEPTH}
                         noteLabelWhiteColor={noteLabelWhiteColor}
