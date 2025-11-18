@@ -242,10 +242,14 @@ function resolveIconName(input: string) {
 
   if (isValidIconName(normalized)) return normalized as IconName;
 
-  const canonicalName = aliasMap[normalized as keyof typeof aliasMap]; //TODO: improve type safety here
-  if (canonicalName) {
-    console.warn(`Alias "${input}" used. Prefer canonical name "${canonicalName}".`)
-    return canonicalName;
+  const found = Object.entries(aliasMap).find(([canonical, aliases]) =>
+    aliases.includes(normalized)
+  );
+
+  if (found) {
+    const [canonical] = found;
+    console.warn(`Alias "${input}" used. Prefer canonical name "${canonical}".`)
+    return canonical;
   };
   
   console.error(`Invalid icon name: ${input}`)
