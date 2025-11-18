@@ -31,8 +31,7 @@ type KeyboardProps = {
     disabledBorderWidth?: number;
     disabledBorderColor?: string;
     disabledKeyColor?: string;
-    blackKeyHeight?: number;
-    whiteKeyHeight?: number;
+    blackToWhiteKeyHeightProportion?: number;
     keyShrinkPercent?: number;
     pressDepth?: number;
     noteLabelWhiteColor?: string;
@@ -66,8 +65,7 @@ function Keyboard({
     disabledBorderWidth,
     disabledBorderColor,
     disabledKeyColor,
-    blackKeyHeight,
-    whiteKeyHeight,
+    blackToWhiteKeyHeightProportion,
     keyShrinkPercent,
     pressDepth,
     noteLabelWhiteColor,
@@ -113,14 +111,10 @@ function Keyboard({
         : undefined;
 
     const containerHeight = React.useMemo(() => {
-        if (!isFixedPixel) return whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT;
-        const calculatedHeight =
-            (keyWidthPx as number) * (1 / keyWidthToHeight);
-        return Math.max(
-            calculatedHeight,
-            whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT
-        );
-    }, [isFixedPixel, keyWidthPx, keyWidthToHeight, whiteKeyHeight]);
+        if (!isFixedPixel) return DEFAULTS.WHITE_KEY_HEIGHT;
+        const calculatedHeight = (keyWidthPx as number) * (1 / keyWidthToHeight);
+        return Math.max(calculatedHeight, DEFAULTS.WHITE_KEY_HEIGHT);
+    }, [isFixedPixel, keyWidthPx, keyWidthToHeight]);
 
     // Compute black key pixel height from the actual container height so
     // black keys remain proportional to the rendered white key height.
@@ -129,17 +123,12 @@ function Keyboard({
     // `blackKeyHeight` value we respect it; otherwise compute from the
     // container height using the ratio so black keys are ~67% of white.
     const scaledBlackKeyHeight = React.useMemo(() => {
-        const isExplicit =
-            typeof blackKeyHeight === "number" &&
-            blackKeyHeight !== DEFAULTS.BLACK_KEY_HEIGHT;
+        const ratio = typeof blackToWhiteKeyHeightProportion === "number"
+            ? blackToWhiteKeyHeightProportion
+            : DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO;
 
-        if (isExplicit) return Math.round(blackKeyHeight as number);
-
-        const baseWhiteHeight = containerHeight;
-        return Math.round(
-            (DEFAULTS.BLACK_TO_WHITE_KEY_HEIGHT_RATIO as number) * baseWhiteHeight
-        );
-    }, [blackKeyHeight, containerHeight]);
+        return Math.round(containerHeight * ratio)
+    }, [blackToWhiteKeyHeightProportion, containerHeight]);
 
     return (
         <View
@@ -200,9 +189,7 @@ function Keyboard({
                         // rendered container height so black keys maintain
                         // a consistent ratio to white keys during resizes.
                         blackKeyHeight={scaledBlackKeyHeight}
-                        whiteKeyHeight={
-                            whiteKeyHeight ?? DEFAULTS.WHITE_KEY_HEIGHT
-                        }
+                        whiteKeyHeight={containerHeight}
                         keyShrinkPercent={keyShrinkPercent}
                         pressDepth={pressDepth ?? DEFAULTS.PRESS_DEPTH}
                         noteLabelWhiteColor={noteLabelWhiteColor}
