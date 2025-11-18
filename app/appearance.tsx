@@ -106,40 +106,6 @@ export default function Appearance() {
                     textColor="black"
                 />
                 */}
-
-                <Text style={headerStyles.mediumSectionHeader}>
-                    Key Border Width
-                </Text>
-                <Stepper
-                    value={borderWidth}
-                    onChange={setBorderWidth}
-                    minValue={0}
-                    maxValue={10}
-                    step={1}
-                    textColor="black"
-                />
-
-                <Text style={headerStyles.mediumSectionHeader}>
-                    Disabled Key Border Width
-                </Text>
-                <Stepper
-                    value={disabledBorderWidth}
-                    onChange={setDisabledBorderWidth}
-                    minValue={0}
-                    maxValue={10}
-                    step={1}
-                    textColor="black"
-                />
-
-                <Text style={headerStyles.mediumSectionHeader}>
-                    Disabled Border Color
-                </Text>
-                <ColorPicker
-                    defaultColor={disabledBorderColor}
-                    onComplete={({ hex }) => setDisabledBorderColor(hex)}
-                    style={{ width: width / 6 }}
-                />
-
                 <Text style={headerStyles.mediumSectionHeader}>
                     White Key Color
                 </Text>
@@ -176,13 +142,47 @@ export default function Appearance() {
                     style={{ width: width / 6 }}
                 />
 
+
                 <Text style={headerStyles.mediumSectionHeader}>
-                    Border Color
+                    Key Border Color
                 </Text>
                 <ColorPicker
                     defaultColor={borderColor}
                     onComplete={({ hex }) => setBorderColor(hex)}
                     style={{ width: width / 6 }}
+                />
+
+                <Text style={headerStyles.mediumSectionHeader}>
+                    Key Border Width
+                </Text>
+                <Stepper
+                    value={borderWidth}
+                    onChange={setBorderWidth}
+                    minValue={0}
+                    maxValue={10}
+                    step={1}
+                    textColor="black"
+                />
+
+                <Text style={headerStyles.mediumSectionHeader}>
+                    Disabled Border Color
+                </Text>
+                <ColorPicker
+                    defaultColor={disabledBorderColor}
+                    onComplete={({ hex }) => setDisabledBorderColor(hex)}
+                    style={{ width: width / 6 }}
+                />
+                
+                <Text style={headerStyles.mediumSectionHeader}>
+                    Disabled Key Border Width
+                </Text>
+                <Stepper
+                    value={disabledBorderWidth}
+                    onChange={setDisabledBorderWidth}
+                    minValue={0}
+                    maxValue={10}
+                    step={1}
+                    textColor="black"
                 />
 
                 {/*
