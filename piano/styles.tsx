@@ -192,6 +192,14 @@ export const headerStyles = StyleSheet.create({
         paddingBottom: 4,
         marginBottom: 8,
     },
+
+    caption: {
+        color: "gray",
+        fontSize: 12,
+        marginTop: 8,
+        marginBottom: 4,
+    },
+
 });
 
 export const DEFAULTS = {
