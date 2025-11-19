@@ -202,7 +202,10 @@ export default function Appearance() {
                 */}
 
                 <Text style={headerStyles.mediumSectionHeader}>
-                    Black to White Key Height Proportion: {blackToWhiteKeyHeightProportion}
+                    Black to White Key Height Proportion
+                </Text>
+                <Text style={[headerStyles.caption, { marginTop: 0 }]}>
+                    Black keys are {Math.round(blackToWhiteKeyHeightProportion * 100)}% of the height of a white key.
                 </Text>
                 <Stepper
                     value={Math.round(blackToWhiteKeyHeightProportion * 100) / 100}
