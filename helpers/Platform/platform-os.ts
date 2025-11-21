@@ -99,7 +99,3 @@ export const resolvePreferredPlatformOS = (preferred: PlatformId[]): PlatformId 
 
   return undefined;
 };
-
-export const platform = {
-
-};
