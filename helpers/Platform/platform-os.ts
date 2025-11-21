@@ -9,8 +9,6 @@ type PlatformOptions<T> = {
   default?: T;
 };
 
-export const getPlainPlatformOS = () => Platform.OS;
-
 export const getPlatformOSWithCatalyst = () => {
   if (Platform.OS === "ios" && Platform.isMacCatalyst) return "macos";
   return Platform.OS;
@@ -65,5 +63,5 @@ export const isTesting = Platform.isTesting;
 
 
 export const platform = {
-  os: getPlainPlatformOS(),
+
 };
