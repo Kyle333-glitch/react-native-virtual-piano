@@ -1,6 +1,19 @@
 import { Platform } from "react-native";
 import { manufacturer, deviceType, DeviceType } from "expo-device";
 
+export type PlatformId =
+  | "ios"
+  | "ipados"
+  | "visionos"
+  | "tvos"
+  | "android"
+  | "fireos"
+  | "androidtv"
+  | "chromeos"
+  | "windows"
+  | "macos"
+  | "web";
+
 type PlatformOptions<T> = {
   ios?: T;
   android?: T;
@@ -67,6 +80,25 @@ export const selectPlatformValue = <T,>(options: PlatformOptions<T>): T | undefi
 
 export const isTesting = Platform.isTesting;
 
+export const resolvePreferredPlatformOS = (preferred: PlatformId[]): PlatformId | undefined => {
+  if (Platform.OS === "ios") {
+    if (Platform.isPad && preferred.includes("ipados")) return "ipados";
+    if (Platform.isMacCatalyst && preferred.includes("macos")) return "macos";
+    if (Platform.isVision && preferred.includes("visionos")) return "visionos";
+    if (Platform.isTV && preferred.includes("tvos")) return "tvos";
+    if (preferred.includes("ios"))return "ios";
+  } else if (Platform.OS === "android") {
+    if (Platform.isTV && preferred.includes("androidtv")) return "androidtv"
+    if (manufacturer === "Amazon" && preferred.includes("fireos")) return "fireos";
+    if (deviceType === DeviceType.DESKTOP && preferred.includes("chromeos")) return "chromeos";
+    if (preferred.includes("android")) return "android";
+  }
+  if (Platform.OS === "web" && preferred.includes("web")) return "web";
+  if (Platform.OS === "windows" && preferred.includes("windows")) return "windows";
+  if (Platform.OS === "macos" && preferred.includes("macos")) return "macos";
+
+  return undefined;
+};
 
 export const platform = {
 
